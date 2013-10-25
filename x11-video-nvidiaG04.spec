@@ -234,7 +234,6 @@ install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
 install nvidia-persistenced %{buildroot}%{_bindir}
-install nvidia-modprobe %{buildroot}%{_bindir}
 install tls/libnvidia-tls.so.* %{buildroot}%{_libdir}/tls
 install libnvidia* %{buildroot}%{_libdir}
 install libcuda* %{buildroot}%{_libdir}
@@ -242,6 +241,8 @@ install libOpenCL* %{buildroot}%{_libdir}
 install libnvcuvid* %{buildroot}%{_libdir}
 install libnvidia-ml* %{buildroot}%{_libdir}
 install libvdpau_nvidia.so* %{buildroot}%{_libdir}/vdpau
+# nvidia-modprobe must be setuid root to function correctly
+install -m 4755 nvidia-modprobe %{buildroot}%{_bindir}
 # Bug #596481
 ln -s vdpau/libvdpau_nvidia.so.1 %{buildroot}%{_libdir}/libvdpau_nvidia.so
 # the GL lib from Mesa is in /usr/%{_lib} so we install in /usr/X11R6/%{_lib}
