@@ -435,11 +435,18 @@ fi
 # (Bug #270040, comments #91/92)
 if [ -f etc/X11/xorg.conf.nvidia-postun ]; then
   mv etc/X11/xorg.conf.nvidia-postun etc/X11/xorg.conf
+  # Remove nvidia-xconfig header from past xorg.conf.postun files
+  # so switch2nvidia can find "# SaX" token. Can eventually remove.
+  sed -i -e '/^# nvidia-xconfig:/d' etc/X11/xorg.conf
+  sed -i -e '1{/^$/d}' etc/X11/xorg.conf
 fi
 test -x usr/bin/switch2nvidia && usr/bin/switch2nvidia
 # Bug #449486
 if grep -q fbdev etc/X11/xorg.conf; then
   test -x usr/bin/nvidia-xconfig && usr/bin/nvidia-xconfig -s
+  # Remove nvidia-xconfig header so switch2nvidia can find "# SaX" token
+  sed -i -e '/^# nvidia-xconfig:/d' etc/X11/xorg.conf
+  sed -i -e '1{/^$/d}' etc/X11/xorg.conf
 fi
 # Bug #345125
 test -f %{xlibdir}/modules/drivers/nvidia_drv.so && \
