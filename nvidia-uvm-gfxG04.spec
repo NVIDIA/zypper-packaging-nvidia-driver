@@ -1,5 +1,5 @@
 #
-# spec file for package nvidia-gfxG03
+# spec file for package nvidia-uvm-gfxG04
 #
 # Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -24,60 +24,39 @@
 #
 %global __requires_exclude kernel-uname-r*
 
-Name:           nvidia-gfxG03
-Version:        340.76
+Name:           nvidia-uvm-gfxG04
+Version:        346.35
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
-Summary:        NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+Summary:        NVIDIA Unified Memory kernel module
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
 Source3:        preamble
 Source4:        pci_ids-%{version}
 Source5:        pci_ids-%{version}.new
-Source6:        generate-service-file.sh
 Source7:        README
-Source8:        kmp-filelist
-Source9:        kmp-filelist-old
-Source10:       kmp-post.sh
-Source11:       kmp-post-old.sh
+Source8:        kmp-filelist-uvm
+Source10:       kmp-post-uvm.sh
 Source12:       my-find-supplements
-Source13:       kmp-preun.sh
-Source14:       kmp-preun-old.sh
-Source15:       kmp-pre.sh
-Source16:       alternate-install-present
+Source13:       kmp-preun-uvm.sh
 NoSource:       0
 NoSource:       1
-NoSource:       6
 NoSource:       7
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
-BuildRequires:  update-alternatives
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-ExclusiveArch:  %ix86 x86_64
+ExclusiveArch:  x86_64
 # patch the kmp template
-%if 0%{?suse_version} > 1100
 %define kmp_template -t
-%define kmp_filelist kmp-filelist
-%define kmp_post kmp-post.sh
-%define kmp_preun kmp-preun.sh
-%define kmp_pre kmp-pre.sh
-%else
-%define kmp_template -s
-%define kmp_filelist kmp-filelist-old
-%define kmp_post kmp-post-old.sh
-%define kmp_preun kmp-preun-old.sh
-%define kmp_pre kmp-pre.sh
-%endif
+%define kmp_filelist kmp-filelist-uvm
+%define kmp_post kmp-post-uvm.sh
+%define kmp_preun kmp-preun-uvm.sh
 %if 0%{!?kmp_template_name:1}
-%if 0%{?suse_version} > 1010
 %define kmp_template_name /usr/lib/rpm/kernel-module-subpackage
-%else
-%define kmp_template_name /usr/lib/rpm/rpm-suse-kernel-module-subpackage
 %endif
-%endif
-%(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %define x_flavors kdump um debug xen xenpae
 %if 0%{!?nvbuild:1}
 %define kver %(rpm -q --qf '%%{VERSION}' kernel-source|perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%02d\\n",$1,$2,$3')
@@ -87,10 +66,10 @@ ExclusiveArch:  %ix86 x86_64
 %endif
 %endif
 %endif
-%kernel_module_package %kmp_template %_builddir/nvidia-kmp-template -p %_sourcedir/preamble -f %_sourcedir/%kmp_filelist -x %x_flavors
+%kernel_module_package %kmp_template %_builddir/nvidia-kmp-template -p %_sourcedir/preamble-uvm -f %_sourcedir/%kmp_filelist -x %x_flavors
 
 # supplements no longer depend on the driver
-%if 0%{?suse_version} > 1220
+%if 0%{?suse_version} > 1320
 %define pci_id_file %_sourcedir/pci_ids-%version
 %else
 %define pci_id_file %_sourcedir/pci_ids-%version.new
@@ -101,15 +80,14 @@ ExclusiveArch:  %ix86 x86_64
 %define __find_supplements %_sourcedir/my-find-supplements %pci_id_file %name
 
 %description
-NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
-
+NVIDIA Unified Memory kernel module
 %package KMP
 License:        PERMISSIVE-OSI-COMPLIANT
-Summary:        NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+Summary:        NVIDIA Unified Memory kernel module
 Group:          System/Kernel
 
 %description KMP
-NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+NVIDIA Unified Memory kernel module
 
 %prep
 echo "kver = %kver"
@@ -120,27 +98,11 @@ echo "kver = %kver"
 %ifarch x86_64
  sh %{SOURCE1} -x
 %endif
-#rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
-rm -rf NVIDIA-Linux-x86*-%{version}*/kernel/uvm
-cp NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
+cp -R NVIDIA-Linux-x86*-%{version}*/kernel/uvm/* source/%{version} || :
+mkdir -p %{_builddir}/rm_build_dir
+cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* %{_builddir}/rm_build_dir
 pushd source/%{version}
- # mark support as external
- echo "nvidia.ko external" > Module.supported
- ### Bug 123456
- #sed -i /0x1234/d %_sourcedir/pci_ids-%{version}
- #sed -i /0x1234/d %_sourcedir/pci_ids-%{version}.new
- ### Bugs 768020, 751730, HP Afterburn (NUE 1062)
- cat >> %_sourcedir/pci_ids-%{version} << EOF
-0x0FFB 0x0FFB
-0x0FFC 0x0FFC
-0x11B6 0x11B6
-EOF
- cat >> %_sourcedir/pci_ids-%{version}.new << EOF
-0x0FFB 0x0FFB
-0x0FFC 0x0FFC
-0x11B6 0x11B6
-EOF
  chmod 755 %_sourcedir/my-find-supplements*
 popd
 mkdir obj
@@ -148,16 +110,14 @@ sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' so
 
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
-%if 0%{?suse_version} <= 1020
-export SYSSRC=/usr/src/linux
-%endif
 for flavor in %flavors_to_build; do
     rm -rf obj/$flavor
     cp -r source obj/$flavor
-    make -C /usr/src/linux-obj/%_target_cpu/$flavor modules M=$PWD/obj/$flavor/%{version} SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
     pushd $PWD/obj/$flavor/%{version}
-    make -f Makefile nv-linux.o SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
+    make CURDIR=$PWD RM_OUT_DIR=%{_builddir}/rm_build_dir $PWD/conftest/headers.h $PWD/conftest/functions.h \
+        $PWD/conftest/generic.h $PWD/conftest/macros.h $PWD/conftest/symbols.h $PWD/conftest/types.h $PWD/conftest/patches.h SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
     popd
+    make -C /usr/src/linux-obj/%_target_cpu/$flavor modules M=$PWD/obj/$flavor/%{version} SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor RM_OUT_DIR=%{_builddir}/rm_build_dir
 done
 
 %install
@@ -166,19 +126,12 @@ export BRP_PESIGN_FILES=""
 export INSTALL_MOD_PATH=%{buildroot}
 export INSTALL_MOD_DIR=updates
 export SYSSRC=/usr/src/linux
+export RM_OUT_DIR=%{_builddir}/rm_build_dir
 for flavor in %flavors_to_build; do
     make -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}
-    #install -m 644 $PWD/obj/$flavor/%{version}/{nv-linux.o,nv-kernel.o} \
-    #  %{buildroot}/lib/modules/*-$flavor/updates
-    mkdir -p %{buildroot}/usr/src/kernel-modules/nvidia-%{version}-${flavor}
-    cp -r source/%{version}/* %{buildroot}/usr/src/kernel-modules/nvidia-%{version}-${flavor}
-done
-mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d
-mkdir -p %{buildroot}/usr/lib/nvidia/
-for flavor in %flavors_to_build; do
-  echo "blacklist nouveau" > %{buildroot}%{_sysconfdir}/modprobe.d/nvidia-$flavor.conf
-  # make it with flavor name or rpmlint complains about not making it conflict
-  cp %{SOURCE16} %{buildroot}/usr/lib/nvidia/alternate-install-present-${flavor}
-  touch %{buildroot}/usr/lib/nvidia/alternate-install-present
+    mkdir -p %{buildroot}/usr/src/kernel-modules/nvidia-uvm-%{version}-${flavor}
+    cp -R source/%{version}/* %{buildroot}/usr/src/kernel-modules/nvidia-uvm-%{version}-${flavor}
+    cp -R $RM_OUT_DIR %{buildroot}/usr/src/kernel-modules/nvidia-uvm-%{version}-${flavor}/rm
+    rm -rf %{buildroot}/usr/src/kernel-modules/nvidia-uvm-%{version}-${flavor}/rm/uvm
 done
 %changelog

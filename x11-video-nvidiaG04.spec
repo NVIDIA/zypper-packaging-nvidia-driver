@@ -1,5 +1,5 @@
 #
-# spec file for package x11-video-nvidiaG03
+# spec file for package x11-video-nvidiaG04
 #
 # Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
@@ -33,8 +33,8 @@
 %define xmodulesdir %{xlibdir}/modules/updates
 %endif
 
-Name:           x11-video-nvidiaG03
-Version:        340.76
+Name:           x11-video-nvidiaG04
+Version:        346.35
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
 Summary:        NVIDIA graphics driver for GeForce 8xxx and newer GPUs
@@ -51,6 +51,7 @@ Source8:        rpmlintrc
 Source9:        libvdpau-0.4.tar.gz
 Source10:       vdpauinfo-0.0.6.tar.gz
 Source11:       modprobe.nvidia
+Source12:       modprobe.nvidia.non-uvm
 NoSource:       0
 NoSource:       1
 NoSource:       4
@@ -69,8 +70,8 @@ BuildRequires:  xorg-x11-devel
 BuildRequires:  xorg-x11-compat70-devel
 %endif
 Requires:       3ddiag
-Requires:       nvidia-computeG03
-Requires:       nvidia-gfxG03-kmp = %{version}
+Requires:       nvidia-computeG04
+Requires:       nvidia-gfxG04-kmp = %{version}
 Provides:       nvidia_driver
 Provides:       nvidia-xconfig
 Provides:       nvidia-settings
@@ -85,37 +86,37 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %description
 NVIDIA graphics driver for GeForce 8xxx and newer GPUs
 
-%package -n nvidia-computeG03
+%package -n nvidia-computeG04
 Summary:        NVIDIA driver for computing with GPGPU
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
-Requires:       nvidia-gfxG03-kmp = %{version}
+Requires:       nvidia-gfxG04-kmp = %{version}
 %else
-Requires:       nvidia-gfxG03-kmp
+Requires:       nvidia-gfxG04-kmp
 %endif
 # to provide a hint about split to zypper dup:
-Provides:       x11-video-nvidiaG03:/usr/lib/libcuda.so
+Provides:       x11-video-nvidiaG04:/usr/lib/libcuda.so
 
-%description -n nvidia-computeG03
+%description -n nvidia-computeG04
 NVIDIA driver for computing with GPGPUs using CUDA or OpenCL
 
-%package -n nvidia-glG03
+%package -n nvidia-glG04
 Summary:        NVIDIA GL libraries for OpenGL acceleration
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
-Requires:       nvidia-gfxG03-kmp = %{version}
+Requires:       nvidia-gfxG04-kmp = %{version}
 %else
-Requires:       nvidia-gfxG03-kmp
+Requires:       nvidia-gfxG04-kmp
 %endif
 %if 0%{?suse_version} >= 1315
 Requires(post):   update-alternatives
 Requires(postun): update-alternatives
 %endif
 # to provide a hint about split to zypper dup:
-Provides:       x11-video-nvidiaG03:/{_prefix}/X11R6/%{_lib}/libGL.so.1
+Provides:       x11-video-nvidiaG04:/{_prefix}/X11R6/%{_lib}/libGL.so.1
 AutoReq: no
 
-%description -n nvidia-glG03
+%description -n nvidia-glG04
 NVIDIA OpenGL libraries for OpenGL acceleration
 
 %package -n libvdpau1
@@ -307,7 +308,7 @@ mkdir -p %{buildroot}%{_datadir}/sax/sysp/maps/update/ \
 > %{buildroot}%{_datadir}/sax/sysp/maps/update/Identity.map.10.%{name}
 > %{buildroot}%{_datadir}/sax/api/data/cdb/Cards.10.%{name}
 > %{buildroot}%{_localstatedir}/lib/hardware/ids/10.%{name}
-%if 0%{?suse_version} > 1220
+%if 0%{?suse_version} > 1320
 (cat %_sourcedir/pci_ids-%{version}; \
 %else
 (cat %_sourcedir/pci_ids-%{version}.new; \
@@ -349,9 +350,9 @@ install -m 755 $RPM_SOURCE_DIR/Xwrapper %{buildroot}%{_prefix}/X11R6/bin/X.%{nam
 install -m 644 nvidia.icd \
   %{buildroot}%{_sysconfdir}/OpenCL/vendors/
 %if 0%{?suse_version} > 1140
-# Create /etc/ld.so.conf.d/nvidia-gfxG03
+# Create /etc/ld.so.conf.d/nvidia-gfxG04
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-cat > %{buildroot}%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG03.conf <<EOF
+cat > %{buildroot}%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf <<EOF
 %{_prefix}/X11R6/%{_lib}
 %ifarch s390x sparc64 x86_64 ppc64
 %{_prefix}/X11R6/lib
@@ -377,7 +378,11 @@ mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d
 grep -v "options nvidia" $RPM_SOURCE_DIR/modprobe.nvidia > %{buildroot}%{_sysconfdir}/modprobe.d/51-nvidia.conf
 chmod 644 %{buildroot}%{_sysconfdir}/modprobe.d/51-nvidia.conf
 %else
+%ifarch x86_64
 install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia %{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia.conf
+%else
+install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia.non-uvm %{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia.conf
+%endif
 %endif
 %endif
 
@@ -480,11 +485,11 @@ which mkinitrd && mkinitrd
 %endif
 exit 0
 
-%post -n nvidia-computeG03 -p /sbin/ldconfig
+%post -n nvidia-computeG04 -p /sbin/ldconfig
 
-%postun -n nvidia-computeG03 -p /sbin/ldconfig
+%postun -n nvidia-computeG04 -p /sbin/ldconfig
 
-%post -n nvidia-glG03
+%post -n nvidia-glG04
 %if 0%{?suse_version} >= 1315
 %_sbindir/update-alternatives \
     --force --install %{_libdir}/xorg/modules/extensions/libglx.so libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so 100
@@ -492,12 +497,12 @@ exit 0
 if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | grep -q 8086; then
   %_sbindir/update-alternatives \
       --set libglx.so %{_libdir}/xorg/modules/extensions/xorg/xorg-libglx.so
-  sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG03.conf
+  sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 fi
 %endif
 /sbin/ldconfig
 
-%postun -n nvidia-glG03
+%postun -n nvidia-glG04
 /sbin/ldconfig
 %if 0%{?suse_version} >= 1315
 if [ "$1" = 0 ] ; then
@@ -515,7 +520,7 @@ fi
 %doc %{_mandir}/man1/*
 %exclude %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
 %if 0%{?suse_version} > 1140
-%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG03.conf
+%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 %endif
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
@@ -600,7 +605,7 @@ fi
 %exclude %{_libdir}/vdpau/libvdpau_trace.so.1*
 %endif
 
-%files -n nvidia-computeG03
+%files -n nvidia-computeG04
 %defattr(-,root,root)
 %dir %{_sysconfdir}/OpenCL
 %dir %{_sysconfdir}/OpenCL/vendors
@@ -627,7 +632,7 @@ fi
 %{_prefix}/lib/libOpenCL.so*
 %endif
 
-%files -n nvidia-glG03
+%files -n nvidia-glG04
 %defattr(-,root,root)
 %{_prefix}/X11R6/%{_lib}/libGL.so*
 %{_libdir}/libnvidia-glcore.so*

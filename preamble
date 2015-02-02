@@ -3,11 +3,13 @@ PreReq: kernel-%1-devel make gcc
 %else
 PreReq: kernel-source make gcc
 %endif
-Recommends: x11-video-nvidiaG03 = %(echo %{-v*} | sed -e 's:_.*::')
-Recommends: nvidia-glG03 = %(echo %{-v*} | sed -e 's:_.*::')
-Recommends: nvidia-uvm-gfxG03-kmp-%1 = %{-v*}
-Obsoletes: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp
-%if 0%{?suse_version} < 1315
-Provides: nvidia-gfxG03-kmp = %{-v*}
+Recommends: x11-video-nvidiaG04 = %(echo %{-v*} | sed -e 's:_.*::')
+Recommends: nvidia-glG04 = %(echo %{-v*} | sed -e 's:_.*::')
+%ifarch x86_64
+Recommends: nvidia-uvm-gfxG04-kmp-%1 = %{-v*}
 %endif
-Provides: nvidia-gfxG03-kmp-%1 = %{-v*}
+Obsoletes: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp
+%if 0%{?suse_version} < 1315
+Provides: nvidia-gfxG04-kmp = %{-v*}
+%endif
+Provides: nvidia-gfxG04-kmp-%1 = %{-v*}

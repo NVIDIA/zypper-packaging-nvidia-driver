@@ -5,6 +5,11 @@ arch=i386
 arch=x86_64
 %endif
 flavor=%1
+make -C /usr/src/kernel-modules/nvidia-%{-v*}-$flavor \
+     conftest/headers.h conftest/functions.h conftest/generic.h \
+     conftest/macros.h conftest/symbols.h conftest/types.h conftest/patches.h \
+     SYSSRC=/usr/src/linux \
+     SYSOUT=/usr/src/linux-obj/$arch/$flavor
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \
      M=/usr/src/kernel-modules/nvidia-%{-v*}-$flavor \

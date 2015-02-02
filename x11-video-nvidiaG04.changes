@@ -1,4 +1,40 @@
 -------------------------------------------------------------------
+Mon Feb  2 11:15:00 UTC 2015 - sndirsch@suse.com
+
+- update to latest long lived branch version 346.35 (G04 series)
+  * Added support for the following GPUs:
+        * GeForce 800A
+        * GeForce 800M
+  * Updated the NVIDIA X driver to reject frame packed interlaced HDMI 3D
+    modes during mode validation. These modes were being validated by the
+    driver, despite never having been supported.
+  * Fixed a bug that prevented the console from being restored after
+    forcefully terminating X, on some GPUs with multiple DisplayPort
+    monitors attached. This bug also subsequently prevented X from being
+    started following the failed console restoration.
+  * Updated the version of libvdpau shipped with the driver to 0.9.  This
+    version honors the VDPAU_DRIVER_PATH environment variable and fixes a race
+    condition if multiple threads call VdpDeviceCreateX11 simultaneously.  See
+      http://lists.freedesktop.org/archives/vdpau/2014-December/000274.html
+    for more information.
+    Please note that users are encouraged to use their distribution's libvdpau
+    packages rather than relying on the one shipped with the NVIDIA graphics
+    driver.
+  * Fixed a bug that caused the ACPI hotkey mask to be set incorrectly on some
+    laptops even when the EnableACPIHotkeys option is disabled.
+  * Disabled the EnableACPIHotkeys option by default.  This option is now
+    considered deprecated and will be removed in a future driver release.  On
+    modern Linux systems, display change hotkey events are delivered to the
+    desktop environment as key press events, and the desktop environment
+    handles the display change by issuing requests through the X Resize and
+    Rotate extension (RandR).
+  * Fixed a bug that caused the screen image to be shifted when screen
+    transformations (such as rotations or reflections) were enabled on a
+    G-SYNC display attached to a Kepler-based GPU.
+- fixed build for new conftest/*.h deps
+- UVM kernel module no longer available for 32bit since 346.xx
+
+-------------------------------------------------------------------
 Mon Feb  2 09:36:09 UTC 2015 - sndirsch@suse.com
 
 - update to (meanwhile) legacy branch version 340.76
@@ -8,6 +44,45 @@ Mon Feb  2 09:36:09 UTC 2015 - sndirsch@suse.com
     X server on systems with an NVIDIA Quadro SDI Capture card installed.
   * Fixed a bug that caused audio over HDMI to not work on some GPUs while
     using a display that supports HDMI 3D.
+
+-------------------------------------------------------------------
+Wed Jan 28 15:36:12 UTC 2015 - sndirsch@suse.com
+
+- UVM kernel module no longer available for 32bit since 346.xx 
+
+-------------------------------------------------------------------
+Mon Jan 26 18:16:30 UTC 2015 - sndirsch@suse.com
+
+- update to latest long lived branch version 346.35
+  * Added support for the following GPUs:
+        * GeForce 800A
+        * GeForce 800M
+  * Updated the NVIDIA X driver to reject frame packed interlaced HDMI 3D
+    modes during mode validation. These modes were being validated by the
+    driver, despite never having been supported.
+  * Fixed a bug that prevented the console from being restored after
+    forcefully terminating X, on some GPUs with multiple DisplayPort
+    monitors attached. This bug also subsequently prevented X from being
+    started following the failed console restoration.
+  * Updated the version of libvdpau shipped with the driver to 0.9.  This
+    version honors the VDPAU_DRIVER_PATH environment variable and fixes a race
+    condition if multiple threads call VdpDeviceCreateX11 simultaneously.  See
+      http://lists.freedesktop.org/archives/vdpau/2014-December/000274.html
+    for more information.
+    Please note that users are encouraged to use their distribution's libvdpau
+    packages rather than relying on the one shipped with the NVIDIA graphics
+    driver.
+  * Fixed a bug that caused the ACPI hotkey mask to be set incorrectly on some
+    laptops even when the EnableACPIHotkeys option is disabled.
+  * Disabled the EnableACPIHotkeys option by default.  This option is now
+    considered deprecated and will be removed in a future driver release.  On
+    modern Linux systems, display change hotkey events are delivered to the
+    desktop environment as key press events, and the desktop environment
+    handles the display change by issuing requests through the X Resize and
+    Rotate extension (RandR).
+  * Fixed a bug that caused the screen image to be shifted when screen
+    transformations (such as rotations or reflections) were enabled on a
+    G-SYNC display attached to a Kepler-based GPU.
 
 -------------------------------------------------------------------
 Mon Jan 12 14:31:07 UTC 2015 - sndirsch@suse.com

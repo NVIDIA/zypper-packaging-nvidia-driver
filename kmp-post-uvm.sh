@@ -11,6 +11,13 @@ make module \
      KBUILD_EXTMOD=/usr/src/kernel-modules/nvidia-uvm-%{-v*}-$flavor/rm
 popd
 cp -f /usr/src/kernel-modules/nvidia-uvm-%{-v*}-$flavor/rm/Module.symvers /usr/src/kernel-modules/nvidia-uvm-%{-v*}-$flavor/Module.symvers
+pushd /usr/src/kernel-modules/nvidia-uvm-%{-v*}-$flavor
+make $PWD/conftest/headers.h $PWD/conftest/functions.h $PWD/conftest/generic.h \
+     $PWD/conftest/macros.h $PWD/conftest/symbols.h $PWD/conftest/types.h $PWD/conftest/patches.h \
+     CURDIR=$PWD RM_OUT_DIR=/usr/src/kernel-modules/nvidia-uvm-%{-v*}-$flavor/rm \
+     SYSSRC=/usr/src/linux \
+     SYSOUT=/usr/src/linux-obj/$arch/$flavor
+popd
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \
      M=/usr/src/kernel-modules/nvidia-uvm-%{-v*}-$flavor \
