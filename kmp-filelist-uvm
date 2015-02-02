@@ -1,0 +1,6 @@
+%defattr (-,root,root)
+%dir /lib/modules/%2-%1
+%dir /lib/modules/%2-%1/updates
+%dir /usr/src/kernel-modules
+%ghost /lib/modules/%2-%1/updates/nvidia-uvm.ko
+/usr/src/kernel-modules/nvidia-uvm-%{-v*}-%1

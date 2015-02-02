@@ -1,0 +1,17 @@
+# This line is mandatory to access the configuration functions
+from Config import *
+
+addFilter("nvidia-gfxG03-kmp-.*devel-file-in-non-devel-package")
+addFilter("nvidia-uvm-gfxG03-kmp-.*devel-file-in-non-devel-package")
+addFilter("nvidia-gfxG03.*invalid-license")
+addFilter("nvidia-uvm-gfxG03.*invalid-license")
+addFilter("x11-video-nvidia.*devel-file-in-non-devel-package")
+addFilter("x11-video-nvidia.*suse-filelist-forbidden-xorg")
+addFilter("x11-video-nvidia.*standard-dir-owned-by-package")
+addFilter("x11-video-nvidia.*invalid-license")
+addFilter("nvidia-computeG03.*devel-file-in-non-devel-package")
+addFilter("nvidia-computeG03.*suse-filelist-forbidden-xorg")
+addFilter("nvidia-computeG03.*invalid-license")
+addFilter("nvidia-glG03.*devel-file-in-non-devel-package")
+addFilter("nvidia-glG03.*suse-filelist-forbidden-xorg")
+addFilter("nvidia-glG03.*invalid-license")
