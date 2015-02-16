@@ -37,7 +37,7 @@ Name:           x11-video-nvidiaG04
 Version:        346.35
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
-Summary:        NVIDIA graphics driver for GeForce 8xxx and newer GPUs
+Summary:        NVIDIA graphics driver for GeForce 400 series and newer
 Group:          System/Libraries
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -84,7 +84,7 @@ ExclusiveArch:  %ix86 x86_64
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
-NVIDIA graphics driver for GeForce 8xxx and newer GPUs
+NVIDIA graphics driver for GeForce 400 series and newer
 
 %package -n nvidia-computeG04
 Summary:        NVIDIA driver for computing with GPGPU

@@ -28,7 +28,7 @@ Name:           nvidia-gfxG04
 Version:        346.35
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
-Summary:        NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -101,15 +101,15 @@ ExclusiveArch:  %ix86 x86_64
 %define __find_supplements %_sourcedir/my-find-supplements %pci_id_file %name
 
 %description
-NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+NVIDIA graphics driver kernel module for GeForce 400 and newer
 
 %package KMP
 License:        PERMISSIVE-OSI-COMPLIANT
-Summary:        NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
 Group:          System/Kernel
 
 %description KMP
-NVIDIA graphics driver kernel module for GeForce 8xxx and newer GPUs
+NVIDIA graphics driver kernel module for GeForce 400 series and newer
 
 %prep
 echo "kver = %kver"
