@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Thu Mar  5 14:39:51 UTC 2015 - sndirsch@suse.com
+
+- update to latest long lived branch version 346.47
+   * Fixed a bug that could cause rendering corruption in GLX clients using
+     PBOs and/or VBOs when using GLX indirect rendering.
+   * Fixed a bug that caused Xinerama layouts which included X screens with
+     'Option "UseDisplayDevice" "none"' to be represented incorrectly in
+     the nvidia-settings control panel.
+   * Fixed a bug that could cause glXSwapBuffer() to block for longer than
+     necessary in multi-threaded GLX applications using the
+     GLX_NV_delay_before_swap extension.
+   * Fixed a bug that caused OpenGL applications using the NV_path_rendering
+     extension to crash after a modeswitch event.
+   * Added support for the following GPUs:
+     * Quadro K620M
+     * Quadro K2200M
+     * GeForce GTX 960
+     * GeForce GTX 965M
+   * Fixed a bug that caused DisplayPort audio to stop working after monitors
+     are hotplugged.
+ 
+-------------------------------------------------------------------
 Thu Mar  5 13:32:42 UTC 2015 - sndirsch@suse.com
 
 - added missing PCI IDs (bnc#920799)        
