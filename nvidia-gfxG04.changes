@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Mar  5 13:31:52 UTC 2015 - sndirsch@suse.com
+
+- added missing PCI IDs (bnc#920799) 
+
+-------------------------------------------------------------------
 Mon Feb 16 12:48:47 UTC 2015 - sndirsch@suse.com
 
 - updated summary/description to supported devices 
