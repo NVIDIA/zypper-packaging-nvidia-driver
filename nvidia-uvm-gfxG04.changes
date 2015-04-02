@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Thu Apr  2 13:52:13 UTC 2015 - sndirsch@suse.com
 
-- remove "multiversion(kernel)" from provides 
+- remove "multiversion(kernel)" from provides (bnc#925437)
 
 -------------------------------------------------------------------
 Thu Mar  5 14:39:51 UTC 2015 - sndirsch@suse.com
