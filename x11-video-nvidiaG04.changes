@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Thu Apr  9 15:02:53 UTC 2015 - sndirsch@suse.com
+
+- update to latest long lived branch version 346.59
+  * Fixed a bug that caused corruption when switching display modes in some
+    applications that use transform feedback.
+  * Added support for the following GPUs:
+    * Quadro K1200
+    * Quadro M6000
+    * GeForce 920M
+    * GeForce 930A
+    * GeForce 930M
+    * GeForce 940M
+    * GeForce GTX 950M
+    * GeForce GTX 960M
+    * GeForce GTX TITAN X
+ * Fixed a bug that caused texture corruption on framebuffer depth
+   attachments cleared using glClearTexImage().
+ * Fixed a bug that artificially limited the maximum pixel clock on
+   displays in some SLI Mosaic configurations.
+ * Fixed a kernel memory leak that occurred when looping hardware-
+   accelerated video decoding with VDPAU on Maxell-based GPUs.
+
+-------------------------------------------------------------------
 Thu Mar  5 14:40:02 UTC 2015 - sndirsch@suse.com
 
 - update to latest long lived branch version 346.47

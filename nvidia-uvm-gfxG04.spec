@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-uvm-gfxG04
-Version:        346.47
+Version:        346.59
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
 Summary:        NVIDIA Unified Memory kernel module
