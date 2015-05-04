@@ -385,6 +385,10 @@ install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia.non-uvm %{buildroot}%{_sysconfdir
 %endif
 %endif
 %endif
+# get rid of gtk3 deps on sle11 (bnc#929127)
+%if 0%{?suse_version} < 1120
+rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.346.59
+%endif
 
 %post
 /sbin/ldconfig

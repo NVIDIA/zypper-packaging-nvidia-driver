@@ -103,6 +103,19 @@ cp -R NVIDIA-Linux-x86*-%{version}*/kernel/uvm/* source/%{version} || :
 mkdir -p %{_builddir}/rm_build_dir
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* %{_builddir}/rm_build_dir
 pushd source/%{version}
+# IDs have already been added to G03 when we no longer built/published G04
+# for sle11 (bnc#920799). Since we now build/publish it again for sle11
+# (bnc#929127), we need to make sure that IDs are not registered for both
+# driver series G03 and G04. So remove them from G04.
+%if 0%{?suse_version} < 1120
+ for id in 0x1340 0x1341 \
+           0x1380 0x1381 0x1382 \
+           0x1390 0x1391 0x1392 0x1393 \
+           0x13BA 0x13BB; do
+   sed -i /${id}/d %_sourcedir/pci_ids-%{version}
+   sed -i /${id}/d %_sourcedir/pci_ids-%{version}.new
+ done
+%endif
  chmod 755 %_sourcedir/my-find-supplements*
 popd
 mkdir obj

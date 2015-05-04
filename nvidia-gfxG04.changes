@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Mon May  4 10:22:04 UTC 2015 - sndirsch@suse.com
+
+- PCI IDs removed from supported list, which have already been 
+  added to G03
+  * IDs have already been added to G03 when we no longer built/published G04
+    for sle11 (bnc#920799). Since we now build/publish it again for sle11
+    (bnc#929127), we need to make sure that IDs are not registered for both
+    driver series G03 and G04. So remove them from G04.
+
+-------------------------------------------------------------------
 Thu Apr  9 15:01:10 UTC 2015 - sndirsch@suse.com
 
 - update to latest long lived branch version 346.59
