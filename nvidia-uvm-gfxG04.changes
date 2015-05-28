@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Thu May 28 09:48:22 UTC 2015 - sndirsch@suse.com
+
+- update to latest long lived branch version 346.72
+  * Added support for the following GPU:
+    * GeForce GTX 860M
+  * Fixed a bug causing loss of stereo synchronization in certain Quadro
+    Sync framelock configurations.
+  * Fixed Pixel Buffer Object operations when row length is less than
+    width. GL_[UN]PACK_ROW_LENGTH can be set to a value lower than the
+    width of the operation being carried out. The OpenGL specification
+    allows for this (the source or destination lines will be overlapping).
+    Previously, our implementation of Pixel Buffer Objects did not support
+    this case and would throw an error.
+- updated README: make use of --keep-pkgs of osc build (suggestion
+  by develop7@develop7.info)
+
+-------------------------------------------------------------------
 Mon May  4 10:25:40 UTC 2015 - sndirsch@suse.com
 
 - PCI IDs removed from supported list, which have already been 

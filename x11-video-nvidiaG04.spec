@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        346.59
+Version:        346.72
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
@@ -387,7 +387,7 @@ install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia.non-uvm %{buildroot}%{_sysconfdir
 %endif
 # get rid of gtk3 deps on sle11 (bnc#929127)
 %if 0%{?suse_version} < 1120
-rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.346.59
+rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.%{version}
 %endif
 
 %post
