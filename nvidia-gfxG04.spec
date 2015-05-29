@@ -150,7 +150,7 @@ export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
 %if 0%{?suse_version} <= 1020
 export SYSSRC=/usr/src/linux
 %endif
-for flavor in %flavors_to_build; doff
+for flavor in %flavors_to_build; do
     rm -rf obj/$flavor
     cp -r source obj/$flavor
     make -C $PWD/obj/$flavor/%{version} conftest/headers.h conftest/functions.h conftest/generic.h conftest/macros.h conftest/symbols.h conftest/types.h conftest/patches.h SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
