@@ -46,6 +46,8 @@ Source13:       kmp-preun.sh
 Source14:       kmp-preun-old.sh
 Source15:       kmp-pre.sh
 Source16:       alternate-install-present
+Source17:       kmp-postun-old.sh
+Source18:       kmp-postun.sh
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -63,12 +65,14 @@ ExclusiveArch:  %ix86 x86_64
 %define kmp_post kmp-post.sh
 %define kmp_preun kmp-preun.sh
 %define kmp_pre kmp-pre.sh
+%define kmp_postun kmp-postun.sh
 %else
 %define kmp_template -s
 %define kmp_filelist kmp-filelist-old
 %define kmp_post kmp-post-old.sh
 %define kmp_preun kmp-preun-old.sh
 %define kmp_pre kmp-pre.sh
+%define kmp_postun kmp-postun-old.sh
 %endif
 %if 0%{!?kmp_template_name:1}
 %if 0%{?suse_version} > 1010
@@ -77,7 +81,7 @@ ExclusiveArch:  %ix86 x86_64
 %define kmp_template_name /usr/lib/rpm/rpm-suse-kernel-module-subpackage
 %endif
 %endif
-%(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %define x_flavors kdump um debug xen xenpae
 %if 0%{!?nvbuild:1}
 %define kver %(rpm -q --qf '%%{VERSION}' kernel-source|perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%02d\\n",$1,$2,$3')

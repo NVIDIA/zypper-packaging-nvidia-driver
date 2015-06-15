@@ -510,7 +510,10 @@ fi
 /sbin/ldconfig
 %if 0%{?suse_version} >= 1315
 if [ "$1" = 0 ] ; then
-   "%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
+    # Avoid accidental removal of G<n+1> alternative (bnc#802624)
+    if [ ! -f %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so ]; then
+	"%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
+    fi
 fi
 %endif
 

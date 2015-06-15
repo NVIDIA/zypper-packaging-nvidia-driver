@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jun 15 09:23:11 UTC 2015 - sndirsch@suse.com
+
+- Avoid accidental removal of G<n+1> alternative (bnc#802624) 
+
+-------------------------------------------------------------------
 Thu May 28 09:48:22 UTC 2015 - sndirsch@suse.com
 
 - update to latest long lived branch version 346.72
