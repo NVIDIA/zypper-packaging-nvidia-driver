@@ -77,7 +77,8 @@ Provides:       nvidia-xconfig
 Provides:       nvidia-settings
 Obsoletes:      nvidia-modprobe <= 319.37
 Provides:       nvidia-modprobe
-Obsoletes:      x11-video-nvidia
+Obsoletes:      x11-video-nvidia x11-video-nvidiaG01 x11-video-nvidiaG02 x11-video-nvidiaG03
+Conflicts:      x11-video-nvidia x11-video-nvidiaG01 x11-video-nvidiaG02 x11-video-nvidiaG03
 Conflicts:      fglrx_driver
 Requires:       libvdpau1
 ExclusiveArch:  %ix86 x86_64
@@ -96,6 +97,8 @@ Requires:       nvidia-gfxG04-kmp
 %endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG04:/usr/lib/libcuda.so
+Obsoletes:      nvidia-computeG02 nvidia-computeG03
+Conflicts:      nvidia-computeG02 nvidia-computeG03
 
 %description -n nvidia-computeG04
 NVIDIA driver for computing with GPGPUs using CUDA or OpenCL
@@ -114,6 +117,8 @@ Requires(postun): update-alternatives
 %endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG04:/{_prefix}/X11R6/%{_lib}/libGL.so.1
+Obsoletes:      nvidia-glG03
+Conflicts:      nvidia-glG03
 AutoReq: no
 
 %description -n nvidia-glG04

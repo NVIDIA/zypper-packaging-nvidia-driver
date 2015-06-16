@@ -2,3 +2,5 @@ PreReq: kernel-%1-devel make gcc
 Requires: nvidia-gfxG04-kmp-%1 = %{-v*}
 Provides: nvidia-uvm-gfxG04-kmp = %{-v*}
 Provides: nvidia-uvm-gfxG04-kmp-%1 = %{-v*}
+Obsoletes: nvidia-uvm-gfxG03-kmp
+Conflicts: nvidia-uvm-gfxG03-kmp
