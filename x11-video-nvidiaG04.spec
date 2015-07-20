@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        346.72
+Version:        352.21
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
@@ -296,7 +296,7 @@ install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
 install -d %{buildroot}%{_datadir}/pixmaps
 install -m 644 nvidia-settings.png \
   %{buildroot}%{_datadir}/pixmaps
-install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} pci.ids monitoring.conf \
+install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
   %{buildroot}%{_datadir}/nvidia
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
@@ -537,8 +537,6 @@ fi
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
-%{_datadir}/nvidia/pci.ids
-%{_datadir}/nvidia/monitoring.conf
 %if 0%{?suse_version} > 1010
 %{_bindir}/X.%{name}
 %else

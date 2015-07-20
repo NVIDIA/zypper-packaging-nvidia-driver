@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jul 20 09:34:10 UTC 2015 - sndirsch@suse.com
+
+- update to latest long lived branch version 352.21 
+
+-------------------------------------------------------------------
 Tue Jun 16 13:44:17 UTC 2015 - sndirsch@suse.com
 
 - added Obsoletes/Conflicts for G03 and older (bnc#802624)
