@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Aug 18 09:58:21 UTC 2015 - sndirsch@suse.com
+
+- update to loatest long lived branch version 350.30
+  * Fixed a bug that caused poor video post-processing performance
+    in VDPAU when operating on a large number of video streams
+    simultaneously.
+
+-------------------------------------------------------------------
 Mon Jul 20 09:35:32 UTC 2015 - sndirsch@suse.com
 
 - update to latest long lived branch version 352.21
