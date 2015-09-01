@@ -57,6 +57,7 @@ NoSource:       1
 NoSource:       4
 NoSource:       5
 Patch:          vdpauinfo-missing-lX11.diff
+Patch1:         U_Use-secure_getenv-3-to-improve-security.patch
 BuildRequires:  update-desktop-files
 %if 0%{?suse_version} < 1130
 BuildRequires:  doxygen
@@ -171,6 +172,9 @@ tar xvf %{SOURCE9}
 tar xvf %{SOURCE10}
 pushd vdpauinfo-*
 %patch -p0
+popd
+pushd libvdpau-*
+%patch1 -p1
 popd
 %endif
 

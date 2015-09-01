@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Tue Sep  1 18:17:16 UTC 2015 - sndirsch@suse.com
+
+- U_Use-secure_getenv-3-to-improve-security.patch
+  * VUL-0: CVE-2015-5198: libvdpau: incorrect check for security
+    transition (bnc#943967)
+  * VUL-0: CVE-2015-5199: libvdpau: directory traversal in dlopen
+    (bnc#943968)
+  * VUL-0: CVE-2015-5200: libvdpau: vulnerability in trace
+    functionality (bnc#943969)
+
+-------------------------------------------------------------------
 Tue Aug 18 09:58:21 UTC 2015 - sndirsch@suse.com
 
 - update to loatest long lived branch version 350.30
