@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        352.30
+Version:        352.41
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer

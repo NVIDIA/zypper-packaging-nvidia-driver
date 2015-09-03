@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        352.30
+Version:        352.41
 Release:        0
 License:        PERMISSIVE-OSI-COMPLIANT
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
