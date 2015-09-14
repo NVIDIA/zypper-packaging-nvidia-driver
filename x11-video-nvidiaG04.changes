@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Thu Sep  3 08:17:20 UTC 2015 - sndirsch@suse.com
 
-- update to loatest long lived branch version 350.41
+- update to loatest long lived branch version 352.41
   * Added support for the following GPUs:
     + GeForce GTX 950
     + Quadro M4000
@@ -24,7 +24,7 @@ Tue Sep  1 18:17:16 UTC 2015 - sndirsch@suse.com
 -------------------------------------------------------------------
 Tue Aug 18 09:58:21 UTC 2015 - sndirsch@suse.com
 
-- update to loatest long lived branch version 350.30
+- update to loatest long lived branch version 352.30
   * Fixed a bug that caused poor video post-processing performance
     in VDPAU when operating on a large number of video streams
     simultaneously.
