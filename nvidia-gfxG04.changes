@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Thu Oct 22 14:41:46 UTC 2015 - sndirsch@suse.com
+
+- update latest long lived branch version 352.55
+  * Added support for the following GPUs:
+    + GeForce 805A
+    + GeForce GTX 960A
+  * Fixed a bug that caused applications using OpenCL or CUDA with
+    OpenGL interopability to crash when using GLX indirect rendering.
+
+-------------------------------------------------------------------
 Thu Sep  3 08:15:56 UTC 2015 - sndirsch@suse.com
 
 - update to loatest long lived branch version 352.41
