@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Nov  5 13:59:03 UTC 2015 - sndirsch@suse.com
+
+- moved /etc/ld.so.conf.d/nvidia-gfxG03.conf to nvidia-glG03, i.e.
+  the package which touches this file during %post (bnc#952076)
+
+-------------------------------------------------------------------
 Thu Sep  3 08:17:20 UTC 2015 - sndirsch@suse.com
 
 - update to loatest long lived branch version 352.41

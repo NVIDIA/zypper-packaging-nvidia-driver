@@ -535,9 +535,6 @@ fi
 %doc %{_datadir}/doc/packages/%{name}
 %doc %{_mandir}/man1/*
 %exclude %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
-%if 0%{?suse_version} > 1140
-%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
-%endif
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
@@ -648,6 +645,9 @@ fi
 
 %files -n nvidia-glG04
 %defattr(-,root,root)
+%if 0%{?suse_version} > 1140
+%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
+%endif
 %{_prefix}/X11R6/%{_lib}/libGL.so*
 %{_libdir}/libnvidia-glcore.so*
 %{_libdir}/libnvidia-ifr.so*
