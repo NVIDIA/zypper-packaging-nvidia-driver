@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Thu Nov 12 15:39:06 UTC 2015 - sndirsch@suse.com
+
+- update latest long lived branch version 352.63
+  * Added support for the following GPUs:
+    + GeForce 945M
+    + Quadro M5000M
+    + Quadro M4000M
+    + Quadro M3000M
+    + Quadro M2000M
+    + Quadro M1000M
+    + Quadro M600M
+    + NVS 810
+    + Tesla M40
+  * Fixed a regression that prevented DPMS from working correctly on
+    some DisplayPort displays.
+  * Fixed a bug that could prevent X from starting when configured with
+    multiple X screens, some of which scan out to display devices, and
+    some of which do not.
+
+-------------------------------------------------------------------
 Thu Oct 22 14:41:46 UTC 2015 - sndirsch@suse.com
 
 - update latest long lived branch version 352.55
