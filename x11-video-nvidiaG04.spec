@@ -506,6 +506,9 @@ exit 0
 %if 0%{?suse_version} >= 1315
 %_sbindir/update-alternatives \
     --force --install %{_libdir}/xorg/modules/extensions/libglx.so libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so 100
+# make sure nvidia becomes the default (in case the link group is/was still in manual mode)
+%_sbindir/update-alternatives \
+      --set libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
 # On Optimus systems disable NVIDIA driver/libs completely by default (bnc#902667)
 if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | grep -q 8086; then
   %_sbindir/update-alternatives \

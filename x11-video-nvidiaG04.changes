@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Nov 27 11:22:34 UTC 2015 - sndirsch@suse.com
+
+- update-alternatives for libglx.so:
+  * make sure nvidia becomes the default (in case the link group
+    is/was still in manual mode)
+
+-------------------------------------------------------------------
 Thu Nov 12 15:48:43 UTC 2015 - sndirsch@suse.com
 
 - update latest long lived branch version 352.63
