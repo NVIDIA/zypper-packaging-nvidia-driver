@@ -658,6 +658,8 @@ fi
 %exclude %{_prefix}/X11R6/lib/libGL.so*
 %exclude %{_prefix}/X11R6/lib/libGLX_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libGLdispatch.so*
+%exclude %{_prefix}/lib/libnvidia-ml.so*
+%exclude %{_prefix}/lib/libnvidia-opencl.so*
 %exclude %{_prefix}/X11R6/lib/libEGL.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv1_CM.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv2.so*
