@@ -27,7 +27,7 @@
 Name:           nvidia-gfxG04
 Version:        352.63
 Release:        0
-License:        PERMISSIVE-OSI-COMPLIANT
+License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
@@ -108,7 +108,7 @@ ExclusiveArch:  %ix86 x86_64
 NVIDIA graphics driver kernel module for GeForce 400 and newer
 
 %package KMP
-License:        PERMISSIVE-OSI-COMPLIANT
+License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
 Group:          System/Kernel
 

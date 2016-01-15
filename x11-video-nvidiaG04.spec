@@ -36,7 +36,7 @@
 Name:           x11-video-nvidiaG04
 Version:        352.63
 Release:        0
-License:        PERMISSIVE-OSI-COMPLIANT
+License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
 Group:          System/Libraries
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run

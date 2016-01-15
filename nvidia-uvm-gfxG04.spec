@@ -27,7 +27,7 @@
 Name:           nvidia-uvm-gfxG04
 Version:        352.63
 Release:        0
-License:        PERMISSIVE-OSI-COMPLIANT
+License:        SUSE-NonFree
 Summary:        NVIDIA Unified Memory kernel module
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
@@ -82,7 +82,7 @@ ExclusiveArch:  x86_64
 %description
 NVIDIA Unified Memory kernel module
 %package KMP
-License:        PERMISSIVE-OSI-COMPLIANT
+License:        SUSE-NonFree
 Summary:        NVIDIA Unified Memory kernel module
 Group:          System/Kernel
 
