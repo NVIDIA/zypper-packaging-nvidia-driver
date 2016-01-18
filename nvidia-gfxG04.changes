@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jan 18 12:55:01 UTC 2016 - sndirsch@suse.com
+
+- added missing '-e' option in sed call to remove 
+  "multiversion(kernel)" in provides
+
+-------------------------------------------------------------------
 Thu Nov 12 15:39:06 UTC 2015 - sndirsch@suse.com
 
 - update latest long lived branch version 352.63
