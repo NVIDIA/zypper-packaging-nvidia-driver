@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-uvm-gfxG04
-Version:        352.63
+Version:        352.79
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA Unified Memory kernel module

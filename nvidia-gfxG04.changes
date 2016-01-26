@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Jan 26 13:14:19 UTC 2016 - sndirsch@suse.com
+
+- update latest long lived branch version 352.79
+  * Added support for the following GPUs:
+    + Quadro M500M
+    + Tesla M4
+    + GeForce 940MX
+  * Fixed a bug in the EGL driver where a mutex was unlocked more than
+    once.  This triggers undefined behavior, and in particular, if
+    lock elision is enabled in glibc, may result in a segmentation
+    fault. (bnc#957061)
+
+-------------------------------------------------------------------
 Mon Jan 18 12:55:01 UTC 2016 - sndirsch@suse.com
 
 - added missing '-e' option in sed call to remove 
