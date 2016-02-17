@@ -14,3 +14,5 @@ Conflicts: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp
 Provides: nvidia-gfxG04-kmp = %{-v*}
 %endif
 Provides: nvidia-gfxG04-kmp-%1 = %{-v*}
+Provides: nvidia-uvm-gfxG04-kmp = %{-v*}
+Provides: nvidia-uvm-gfxG04-kmp-%1 = %{-v*}

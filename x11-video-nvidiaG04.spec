@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        352.79
+Version:        361.28
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
@@ -209,6 +209,9 @@ cd NVIDIA-Linux-x86*-%{version}
 #	--x-prefix=%{buildroot}%{_prefix}/X11R6 \
 #	--opengl-prefix=%{buildroot}%{_prefix} \
 #	--utility-prefix=%{buildroot}%{_prefix}
+# only to be used by GLVND
+rm -f libGL.so.1.0.0 32/libGL.so.1.0.0
+rm -f libGLX.so.0 32/libGLX.so.0
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_prefix}/X11R6/lib
 install -d %{buildroot}%{_prefix}/lib/tls
@@ -254,6 +257,7 @@ ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 install libEGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv2* %{buildroot}%{_prefix}/X11R6/%{_lib}
+install libOpenGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
 %if 0%{?suse_version} < 1100
 install libnvidia-wfb.so.%{version} \
   %{buildroot}%{xmodulesdir}
@@ -280,11 +284,12 @@ install 32/libGL* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libEGL* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv2* %{buildroot}%{_prefix}/X11R6/lib
+install 32/libOpenGL* %{buildroot}%{_prefix}/X11R6/lib
 # Bug #596481
 ln -s vdpau/libvdpau_nvidia.so.1 %{buildroot}%{_prefix}/lib/libvdpau_nvidia.so
 # still a lot of applications make a dlopen to the .so file
 ln -snf libGL.so.1 %{buildroot}%{_prefix}/X11R6/lib/libGL.so
-# same for libOpenGL/libcuda/libnvcuvid
+# same for libOpenCL/libcuda/libnvcuvid
 ln -snf libOpenCL.so.1 %{buildroot}%{_prefix}/lib/libOpenCL.so
 ln -snf libcuda.so.1   %{buildroot}%{_prefix}/lib/libcuda.so
 ln -snf libnvcuvid.so.1 %{buildroot}%{_prefix}/lib/libnvcuvid.so
@@ -557,6 +562,15 @@ fi
 %endif
 %{_prefix}/X11R6/%{_lib}/lib*
 %exclude %{_prefix}/X11R6/%{_lib}/libGL.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLdispatch.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libEGL.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLESv1_CM.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLESv2.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libEGL_nvidia.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLESv1_CM_nvidia.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLESv2_nvidia.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libOpenGL.so*
 %exclude %{_libdir}/libnvidia-glcore.so*
 %exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
@@ -575,11 +589,17 @@ fi
 %endif
 %{_prefix}/X11R6/lib/lib*
 %exclude %{_prefix}/X11R6/lib/libGL.so*
-%exclude %{_prefix}/lib/libnvidia-glcore.so*
-%exclude %{_prefix}/lib/libnvidia-ifr.so*
+%exclude %{_prefix}/X11R6/lib/libGLX_nvidia.so*
+%exclude %{_prefix}/X11R6/lib/libGLdispatch.so*
 %exclude %{_prefix}/X11R6/lib/libEGL.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv1_CM.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv2.so*
+%exclude %{_prefix}/X11R6/lib/libEGL_nvidia.so*
+%exclude %{_prefix}/X11R6/lib/libGLESv1_CM_nvidia.so*
+%exclude %{_prefix}/X11R6/lib/libGLESv2_nvidia.so*
+%exclude %{_prefix}/X11R6/lib/libOpenGL.so*
+%exclude %{_prefix}/lib/libnvidia-glcore.so*
+%exclude %{_prefix}/lib/libnvidia-ifr.so*
 %exclude %{_prefix}/lib/libnvidia-eglcore.so*
 %exclude %{_prefix}/lib/libnvidia-glsi.so*
 %dir %{_prefix}/lib/tls
@@ -652,17 +672,32 @@ fi
 %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 %endif
 %{_prefix}/X11R6/%{_lib}/libGL.so*
+%{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*
+%{_prefix}/X11R6/%{_lib}/libGLdispatch.so*
+%{_prefix}/X11R6/%{_lib}/libEGL.so*
+%{_prefix}/X11R6/%{_lib}/libGLESv1_CM.so*
+%{_prefix}/X11R6/%{_lib}/libGLESv2.so*
+%{_prefix}/X11R6/%{_lib}/libEGL_nvidia.so*
+%{_prefix}/X11R6/%{_lib}/libGLESv1_CM_nvidia.so*
+%{_prefix}/X11R6/%{_lib}/libGLESv2_nvidia.so*
+%{_prefix}/X11R6/%{_lib}/libOpenGL.so*
 %{_libdir}/libnvidia-glcore.so*
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
 %{xmodulesdir}/extensions
 %ifarch x86_64
 %{_prefix}/X11R6/lib/libGL.so*
-%{_prefix}/lib/libnvidia-glcore.so*
-%{_prefix}/lib/libnvidia-ifr.so*
+%{_prefix}/X11R6/lib/libGLX_nvidia.so*
+%{_prefix}/X11R6/lib/libGLdispatch.so*
 %{_prefix}/X11R6/lib/libEGL.so*
 %{_prefix}/X11R6/lib/libGLESv1_CM.so*
 %{_prefix}/X11R6/lib/libGLESv2.so*
+%{_prefix}/X11R6/lib/libEGL_nvidia.so*
+%{_prefix}/X11R6/lib/libGLESv1_CM_nvidia.so*
+%{_prefix}/X11R6/lib/libGLESv2_nvidia.so*
+%{_prefix}/X11R6/lib/libOpenGL.so*
+%{_prefix}/lib/libnvidia-glcore.so*
+%{_prefix}/lib/libnvidia-ifr.so*
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
 %endif

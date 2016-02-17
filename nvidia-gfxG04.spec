@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        352.79
+Version:        361.28
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -126,8 +126,7 @@ echo "kver = %kver"
 %endif
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
-rm -rf NVIDIA-Linux-x86*-%{version}*/kernel/uvm
-cp NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
+cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
 pushd source/%{version}
  # mark support as external
  echo "nvidia.ko external" > Module.supported
@@ -157,7 +156,6 @@ export SYSSRC=/usr/src/linux
 for flavor in %flavors_to_build; do
     rm -rf obj/$flavor
     cp -r source obj/$flavor
-    make -C $PWD/obj/$flavor/%{version} conftest/headers.h conftest/functions.h conftest/generic.h conftest/macros.h conftest/symbols.h conftest/types.h conftest/patches.h SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
     make -C /usr/src/linux-obj/%_target_cpu/$flavor modules M=$PWD/obj/$flavor/%{version} SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
     pushd $PWD/obj/$flavor/%{version}
     make -f Makefile nv-linux.o SYSSRC=/usr/src/linux SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor

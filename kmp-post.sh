@@ -5,11 +5,6 @@ arch=i386
 arch=x86_64
 %endif
 flavor=%1
-make -C /usr/src/kernel-modules/nvidia-%{-v*}-$flavor \
-     conftest/headers.h conftest/functions.h conftest/generic.h \
-     conftest/macros.h conftest/symbols.h conftest/types.h conftest/patches.h \
-     SYSSRC=/usr/src/linux \
-     SYSOUT=/usr/src/linux-obj/$arch/$flavor
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \
      M=/usr/src/kernel-modules/nvidia-%{-v*}-$flavor \
@@ -22,7 +17,7 @@ make -f Makefile \
      SYSOUT=/usr/src/linux-obj/$arch/$flavor
 popd
 install -m 755 -d /lib/modules/%2-$flavor/updates
-install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia.ko \
+install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
 	/lib/modules/%2-$flavor/updates
 depmod %2-$flavor
 

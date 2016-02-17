@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Wed Feb 17 14:27:53 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 361.28
+- new kernel module source layout (now 3 modules); facilitated by
+  merging UVM kernel module into nvidia-gfxG04 KMP
+- added new GLVND libs required for EGL support, but keep non-GLVND
+  installation for now
+
+-------------------------------------------------------------------
 Tue Jan 26 13:14:19 UTC 2016 - sndirsch@suse.com
 
 - update latest long lived branch version 352.79

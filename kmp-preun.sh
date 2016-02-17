@@ -1,4 +1,6 @@
 flavor=%1
-cp -a /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/Makefile{,.tmp} || true
-make -C /usr/src/kernel-modules/nvidia-%{-v*}-$flavor clean || true
-mv /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/Makefile{.tmp,} || true
+pushd /usr/src/kernel-modules/nvidia-%{-v*}-$flavor || true
+cp -a Makefile{,.tmp} || true
+make clean || true
+mv Makefile{.tmp,} || true
+popd || true
