@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Feb 18 12:04:29 UTC 2016 - sndirsch@suse.com
+
+- pci_ids: leap is considered newer than openSUSE 13.2 
+
+-------------------------------------------------------------------
 Wed Feb 17 14:27:53 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 361.28
