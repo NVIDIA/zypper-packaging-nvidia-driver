@@ -2,9 +2,7 @@
 from Config import *
 
 addFilter("nvidia-gfxG04-kmp-.*devel-file-in-non-devel-package")
-addFilter("nvidia-uvm-gfxG04-kmp-.*devel-file-in-non-devel-package")
 addFilter("nvidia-gfxG04.*invalid-license")
-addFilter("nvidia-uvm-gfxG04.*invalid-license")
 addFilter("x11-video-nvidia.*devel-file-in-non-devel-package")
 addFilter("x11-video-nvidia.*suse-filelist-forbidden-xorg")
 addFilter("x11-video-nvidia.*standard-dir-owned-by-package")

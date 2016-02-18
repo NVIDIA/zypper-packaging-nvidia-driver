@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Feb 18 14:00:49 UTC 2016 - sndirsch@suse.com
+
+- README: no longer mention uvm KMP, which no longer exists
+- Xwrapper: unload nvidia_modeset in addition after driver update
+- preamble: added Obsoletes/Conflicts for nvidia-uvm-gfxG03-kmp
+- rpmlintrc: remove uvm KMP lines
+
+-------------------------------------------------------------------
 Thu Feb 18 12:04:29 UTC 2016 - sndirsch@suse.com
 
 - pci_ids: leap is considered newer than openSUSE 13.2 

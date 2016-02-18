@@ -10,7 +10,6 @@ mkdir packages
 # Build kernel module RPM
 # 64bit
 osc build -k ./packages openSUSE_Factory x86_64 nvidia-gfxG04.spec
-osc build -k ./packages openSUSE_Factory x86_64 nvidia-uvm-gfxG04.spec
 # 32bit
 osc build -k ./packages openSUSE_Factory i586 nvidia-gfxG04.spec
 

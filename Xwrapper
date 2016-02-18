@@ -5,7 +5,7 @@
 
 if [ "$UID" == "0" ]; then
   # rmmod nvidia_uvm first
-  mods=$(lsmod | grep -v -E "nvidia_agp|nvidiafb" | grep -o -E "^(nvidia_uvm|nvidia|fglrx)" | sort -u | tac)
+  mods=$(lsmod | grep -v -E "nvidia_agp|nvidiafb" | grep -o -E "^(nvidia_uvm|nvidia|nvidia_modeset|fglrx)" | sort -u | tac)
   if [ $? -eq 0 ]; then
     for m in ${mods}; do
       # bail out, if an existing module cannot be unloaded
