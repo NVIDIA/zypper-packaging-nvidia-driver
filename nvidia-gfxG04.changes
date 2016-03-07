@@ -4,6 +4,8 @@ Mon Mar  7 11:04:57 UTC 2016 - sndirsch@suse.com
 - kmp-pre.sh:
   * get rid of old kernel modules and weak-updates(2) symlinks
     (bnc#969763)
+- preinstall scriptlet apparently missing in KMPs, so add this in
+  a hackish way ...
 
 -------------------------------------------------------------------
 Thu Feb 18 14:00:49 UTC 2016 - sndirsch@suse.com

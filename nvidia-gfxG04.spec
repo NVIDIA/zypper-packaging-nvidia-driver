@@ -82,6 +82,10 @@ ExclusiveArch:  %ix86 x86_64
 %endif
 %endif
 %(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+# preinstall scriptlet apparently missing in KMPs
+%if 0%{?suse_version} > 1100
+%(if ! grep -q '^%%pre ' %_builddir/nvidia-kmp-template; then echo "%%pre -n %%{-n*}-kmp-%%1" >> %_builddir/nvidia-kmp-template; cat %_sourcedir/%kmp_pre >> %_builddir/nvidia-kmp-template; fi)
+%endif
 %define x_flavors kdump um debug xen xenpae
 %if 0%{!?nvbuild:1}
 %define kver %(rpm -q --qf '%%{VERSION}' kernel-source|perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%02d\\n",$1,$2,$3')
