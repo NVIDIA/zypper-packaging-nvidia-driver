@@ -6,6 +6,10 @@ Mon Mar  7 11:04:57 UTC 2016 - sndirsch@suse.com
     (bnc#969763)
 - preinstall scriptlet apparently missing in KMPs, so add this in
   a hackish way ...
+- preamble:
+  * no longer recommend -uvm package (which no longer exists)
+  * limit obsoletes/conflicts to -uvm package <= 352.79
+  * limit provides of -uvm package <= 352.79
 
 -------------------------------------------------------------------
 Thu Feb 18 14:00:49 UTC 2016 - sndirsch@suse.com
