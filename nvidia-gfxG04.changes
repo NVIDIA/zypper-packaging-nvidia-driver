@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Mar  7 11:04:57 UTC 2016 - sndirsch@suse.com
+
+- kmp-pre.sh:
+  * get rid of old kernel modules and weak-updates(2) symlinks
+    (bnc#969763)
+
+-------------------------------------------------------------------
 Thu Feb 18 14:00:49 UTC 2016 - sndirsch@suse.com
 
 - README: no longer mention uvm KMP, which no longer exists
