@@ -10,6 +10,7 @@ Mon Mar  7 11:04:57 UTC 2016 - sndirsch@suse.com
   * no longer recommend -uvm package (which no longer exists)
   * added obsoletes to -uvm package <= 352.79
   * limit provides of -uvm package to version = 352.79
+  * add: Provides: nvidia-gfxG04-kmp <= 352.79 nvidia-fxG04-kmp-%1 <= 352.79
 
 -------------------------------------------------------------------
 Thu Feb 18 14:00:49 UTC 2016 - sndirsch@suse.com
