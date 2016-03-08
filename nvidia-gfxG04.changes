@@ -1,14 +1,11 @@
 -------------------------------------------------------------------
 Mon Mar  7 11:04:57 UTC 2016 - sndirsch@suse.com
 
-- kmp-pre.sh:
-  * get rid of old kernel modules and weak-updates(2) symlinks
-    (bnc#969763)
-- preinstall scriptlet apparently missing in KMPs, so add this in
-  a hackish way ...
 - preamble:
-  * no longer recommend -uvm package (which no longer exists)
-  * added obsoletes to -uvm package
+  * fixed provides and added obsoletes to replaced -uvm KMP
+    (bnc#969763)
+  * no longer recommend dropped -uvm KMP
+- get rid of kmp-pre.sh (no longer needed)
 
 -------------------------------------------------------------------
 Thu Feb 18 14:00:49 UTC 2016 - sndirsch@suse.com
