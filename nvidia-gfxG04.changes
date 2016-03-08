@@ -8,7 +8,7 @@ Mon Mar  7 11:04:57 UTC 2016 - sndirsch@suse.com
   a hackish way ...
 - preamble:
   * no longer recommend -uvm package (which no longer exists)
-  * added obsoletes/conflicts to -uvm package <= 352.79
+  * added obsoletes to -uvm package <= 352.79
   * limit provides of -uvm package to version = 352.79
 
 -------------------------------------------------------------------

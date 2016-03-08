@@ -8,7 +8,6 @@ Recommends: nvidia-glG04 = %(echo %{-v*} | sed -e 's:_.*::')
 Obsoletes: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp nvidia-uvm-gfxG03-kmp
 Conflicts: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp nvidia-uvm-gfxG03-kmp
 Obsoletes: nvidia-uvm-gfxG04-kmp <= 352.79 nvidia-uvm-gfxG04-kmp-%1 <= 352.79
-Conflicts: nvidia-uvm-gfxG04-kmp <= 352.79 nvidia-uvm-gfxG04-kmp-%1 <= 352.79
 %if 0%{?suse_version} < 1315
 Provides: nvidia-gfxG04-kmp = %{-v*}
 %endif
