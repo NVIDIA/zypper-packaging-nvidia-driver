@@ -128,6 +128,20 @@ AutoReq: no
 This package provides the NVIDIA OpenGL libraries to allow OpenGL
 acceleration under the closed-source NVIDIA drivers.
 
+%package -n nvidia-diagnosticG04
+Summary:        Diagnostic utilities for the NVIDIA driver
+Group:          System/Libraries
+%if 0%{?suse_version} > 1220
+Requires:       nvidia-gfxG04-kmp = %{version}
+%else
+Requires:       nvidia-gfxG04-kmp
+%endif
+Obsoletes:      nvidia-diagnosticG03
+Conflicts:      nvidia-diagnosticG03
+
+%description -n nvidia-diagnosticG04
+Diagnostic utilities for the NVIDIA driver.
+
 %package -n libvdpau1
 License:        X11/MIT
 Summary:        VDPAU wrapper and trace libraries
@@ -391,6 +405,10 @@ VDPAU_LIBS="-L%{_prefix}/X11R6/%{_lib} -L$RPM_BUILD_ROOT/%{_libdir} -lvdpau -lX1
 make %{?jobs:-j%jobs}
 %makeinstall
 popd
+%endif
+%if 0%{?diagnostic}
+install    -m 0755 -d                               $RPM_BUILD_ROOT/usr/share/nvidia/diagnostic
+install -p -m 0655 diagnostic/libnvvs-diagnostic*   $RPM_BUILD_ROOT/usr/share/nvidia/diagnostic
 %endif
 # get rid of gtk3 deps on sle11 (bnc#929127)
 %if 0%{?suse_version} < 1120
@@ -785,6 +803,12 @@ fi
 %{_prefix}/lib/libnvidia-tls.so*
 %dir %{_prefix}/lib/tls
 %{_prefix}/lib/tls/libnvidia-tls.so*
+%endif
+
+%if 0%{?diagnostic}
+%files -n nvidia-diagnosticG04
+%defattr(-,root,root,-)
+/usr/share/nvidia/diagnostic
 %endif
 
 %if 0%{?suse_version} < 1130
