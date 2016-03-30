@@ -451,7 +451,7 @@ rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG04.conf \
    install -m 644 10_nvidia.json %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
 %endif
 
-%post
+%posttrans
 /sbin/ldconfig
 if [ -f etc/X11/xorg.conf ]; then
   test -f etc/X11/xorg.conf.nvidia-post || \
@@ -555,7 +555,7 @@ exit 0
 
 %postun -n nvidia-computeG04 -p /sbin/ldconfig
 
-%post -n nvidia-glG04
+%posttrans -n nvidia-glG04
 %if 0%{?suse_version} >= 1315
 %_sbindir/update-alternatives \
     --force --install %{_libdir}/xorg/modules/extensions/libglx.so libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so 100
