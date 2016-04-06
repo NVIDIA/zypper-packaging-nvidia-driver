@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Wed Apr  6 12:31:44 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 361.42
+  * Limited the default concurrency level in nvidia-settings to 32, to
+    avoid hitting the maximum tasks limit on systems with many CPUs.
+  * Added support for the following GPUs:
+    + GeForce 920MX
+    + GeForce 930MX
+    + Quadro M6000 24GB
+  * Fixed a regression that caused GPU exceptions and incorrect rendering
+    when using pbuffers with EGLDevice.
+  * Fixed a bug that caused nvidia-settings to crash when pairing glasses
+    with the 3D Vision Pro transmitter on some systems.
+  * Fixed a bug that caused installer manifest entries for some 32-bit
+    compatibility libraries to be duplicated in the installer package.
+  * Fixed a regression that caused the HSync and VSync mode timing polarity
+    flags to be inverted.
+
+-------------------------------------------------------------------
 Thu Feb 18 14:03:01 UTC 2016 - sndirsch@suse.com
 
 - README: no longer mention uvm KMP, which no longer exists
