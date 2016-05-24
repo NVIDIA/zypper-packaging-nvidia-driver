@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 23 20:14:46 UTC 2016 - mmarek@suse.cz
+
+- Fix build if the source tree is not /usr/src/linux (needed to
+  build against kernel-source-vanilla or kernel-source-rt).
+
+-------------------------------------------------------------------
 Wed Apr  6 12:30:21 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 361.42

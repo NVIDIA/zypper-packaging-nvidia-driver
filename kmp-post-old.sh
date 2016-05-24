@@ -8,12 +8,12 @@ flavor=%1
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \
      M=/usr/src/kernel-modules/nvidia-%{-v*}-$flavor \
-     SYSSRC=/usr/src/linux \
+     SYSSRC=/lib/modules/%2/source \
      SYSOUT=/usr/src/linux-obj/$arch/$flavor
 pushd /usr/src/kernel-modules/nvidia-%{-v*}-$flavor 
 make -f Makefile \
      nv-linux.o \
-     SYSSRC=/usr/src/linux \
+     SYSSRC=/lib/modules/%2/source \
      SYSOUT=/usr/src/linux-obj/$arch/$flavor
 popd
 install -m 755 -d /lib/modules/%2/updates
