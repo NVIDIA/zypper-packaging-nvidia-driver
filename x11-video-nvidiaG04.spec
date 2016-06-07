@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        361.45.11
+Version:        367.18
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
@@ -403,6 +403,9 @@ install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia.non-uvm %{buildroot}%{_sysconfdir
 %if 0%{?suse_version} < 1120
 rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.%{version}
 %endif
+# Vulkan driver config
+mkdir -p %{buildroot}/etc/vulkan/icd.d/
+install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
 
 %post
 /sbin/ldconfig
@@ -574,6 +577,7 @@ fi
 %exclude %{_libdir}/libnvidia-glcore.so*
 %exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
+%exclude %{_libdir}/libnvidia-egl-wayland.so*
 %dir %{_libdir}/tls
 %dir %{_libdir}/vdpau
 %{_libdir}/tls/lib*
@@ -668,6 +672,9 @@ fi
 
 %files -n nvidia-glG04
 %defattr(-,root,root)
+%dir /etc/vulkan
+%dir /etc/vulkan/icd.d
+%config /etc/vulkan/icd.d/nvidia_icd.json
 %if 0%{?suse_version} > 1140
 %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 %endif
@@ -684,6 +691,7 @@ fi
 %{_libdir}/libnvidia-glcore.so*
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
+%{_libdir}/libnvidia-egl-wayland.so*
 %{xmodulesdir}/extensions
 %ifarch x86_64
 %{_prefix}/X11R6/lib/libGL.so*

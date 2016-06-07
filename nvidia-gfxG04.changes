@@ -1,4 +1,86 @@
 -------------------------------------------------------------------
+Tue Jun  7 10:46:58 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 367.18
+  * Fixed a bug that would cause OpenGL applications to crash when creating
+    a context on one X display connection, then making it current with no
+    associated drawable on another X display connection.  This fixes a crash
+    when starting some versions of Matlab.
+  * Fixed OpenGL presentation to SDI through the GLX_NV_video_out and
+    GLX_NV_present_video extensions, which was broken by the introduction
+    of the nvidia-modeset kernel module in 358.09.
+  * Fixed a bug that caused an incorrect offset to be applied when using
+    the full composition pipeline on a display whose image has both a
+    rotation and a ViewportOut offset applied.
+  * Fixed a bug that could cause nvidia-settings to crash on some systems
+    when responding to events such as hotplugging DisplayPort devices.
+  * Fixed a bug that could cause crashes in OpenGL applications which use
+    glTextureView() with a non-zero minlevel.
+  * Enhanced the Display Device information page in nvidia-settings with
+    additional information for DisplayPort devices to reflect attributes
+    which are specific to DisplayPort connections.
+  * Fixed a bug which could cause deleted application profiles to appear
+    when editing rules in the nvidia-settings control panel.
+  * Fixed a bug that caused hangs when a G-SYNC monitor is unplugged and a
+    non-G-SYNC monitor is connected while G-SYNC is active.
+  * Fixed a bug that caused "nvidia-modeset: ERROR: GPU:0: Activating G-SYNC
+    failed" to be printed to the system log if a G-SYNC monitor is connected
+    and stereo is enabled in xorg.conf on a configuration that doesn't support
+    it.
+  * Added the NV_robustness_video_memory_purge OpenGL extension, which
+    allows applications to know when a mode switching or power event
+    purged the contents of FBOs and BOs residing in video memory.
+  * Fixed a bug that prevented HDMI 2.0 4K monitors from waking up
+    from sleep or hot-replug.
+  * Fixed some locking issues in libnvidia-egl-wayland.so.
+  * Fixed several libnvidia-egl-wayland.so interaction problems with
+    buffer management Wayland protocols.
+  * Fixed several EGL driver interaction problems with resizing windows
+    in Wayland.
+  * Fixed a bug that caused some DRM PRIME configurations to fail when
+    DRM KMS was enabled (i.e., nvidia-drm.ko's modeset kernel module
+    parameter was set to "1").
+  * Fixed a bug that could cause a kernel crash when VDPAU was used
+    while DRM KMS was enabled.
+  * Changed the default OpenGL installation type to use the GLVND GLX
+    client libraries rather than the legacy non-GLVND libraries.
+  * Added initial support for Direct Rendering Manager Kernel
+    Modesetting (DRM KMS).  See the DRM KMS section of the README for
+    details.
+  * Added a new kernel module, nvidia-drm.ko, which registers as a DRM
+    driver with both PRIME and DRM KMS support.
+  * Added support for the following EGL extensions:
+      EGL_EXT_platform_wayland
+    to enable Wayland applications to run on NVIDIA's EGL implementation,
+      EGL_WL_bind_wayland_display
+    to enable Wayland compositors to run on NVIDIA's EGL implementation, and
+      EGL_EXT_device_drm
+      EGL_EXT_output_drm
+      EGL_EXT_stream_consumer_egloutput
+    to enable Mir and Wayland compositors to display their content
+    through EGLDevice, EGLOutput, and EGLstreams.
+  * Added a Wayland platform library, libnvidia-egl-wayland.so, to allow
+    Wayland compositors that support EGLDevice, EGLOutput, and EGLstreams
+    to share EGL buffers with Wayland applications.
+  * Fixed a bug that could cause incorrect frame rate reporting on Quadro
+    Sync configurations with multiple GPUs.
+  * Added support for the Vulkan API version 1.0.
+  * Improved X colormap precision from 8 significant bits to 11 on GeForce
+    GPUs.  Quadro GPUs already used 11 bits of precision.
+  * Added a new RandR property, CscMatrix, which specifies a 3x4 color-space
+    conversion matrix.  The matrix is applied after the X colormap and before
+    the gamma ramp.  This property is available on GF119 and newer GPUs.
+  * Improved handling of the X gamma ramp on GF119 and newer GPUs.  On these
+    GPUs, the RandR gamma ramp is always 1024 entries and now applies to the
+    cursor and VDPAU or workstation overlays in addition to the X root window.
+  * Reworked how the NVIDIA driver registers with the Linux
+    kernel's DRM subsystem for PRIME support.  As a result, PRIME
+    support requires Linux kernel version 3.13 or newer (previously,
+    PRIME support required Linux kernel version 3.10 or newer).
+  * Improved the interactivity of applications that use a hardware cursor
+    while G-SYNC is active.
+
+-------------------------------------------------------------------
 Mon Jun  6 12:34:29 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 361.45.11
