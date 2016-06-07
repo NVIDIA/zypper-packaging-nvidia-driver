@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jun  7 15:55:07 UTC 2016 - sndirsch@suse.com
+
+- fixed build and installation of kernel modules on target system 
+
+-------------------------------------------------------------------
 Tue Jun  7 10:46:58 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.18
