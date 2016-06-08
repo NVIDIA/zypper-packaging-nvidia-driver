@@ -17,10 +17,10 @@ make -f Makefile \
      SYSSRC=/lib/modules/$kver/source \
      SYSOUT=/usr/src/linux-obj/$arch/$flavor
 popd
-install -m 755 -d /lib/modules/$kver/updates
+install -m 755 -d /lib/modules/%2/updates
 install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia.ko \
-	/lib/modules/$kver/updates
-depmod $kver
+	/lib/modules/%2/updates
+depmod %2
 
 %{_sbindir}/update-alternatives --install /usr/lib/nvidia/alternate-install-present alternate-install-present /usr/lib/nvidia/alternate-install-present-$flavor 11
 
