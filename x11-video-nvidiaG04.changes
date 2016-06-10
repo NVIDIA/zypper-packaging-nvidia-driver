@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jun 10 08:59:47 UTC 2016 - sndirsch@suse.com
+
+- Xwrapper: unload new nvidia_drm module first, i.e. definitely
+  before nvidia_modeset (bnc#983934)
+
+-------------------------------------------------------------------
 Tue Jun  7 10:51:27 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.18
