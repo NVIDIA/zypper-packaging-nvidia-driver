@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        367.18
+Version:        367.27
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -140,6 +140,11 @@ pushd source/%{version}
    sed -i /${id}/d %_sourcedir/pci_ids-%{version}.new
  done
 %endif
+ #already in G03 (meanwhile appears in G04 output after fixing script for ID generation)
+ for id in 0x06D8 0x06D9 0x06DC 0x06DD 0x0FEC 0x109B; do
+   sed -i /${id}/d %_sourcedir/pci_ids-%{version}
+   sed -i /${id}/d %_sourcedir/pci_ids-%{version}.new
+ done
  chmod 755 %_sourcedir/my-find-supplements*
 popd
 mkdir obj

@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Sun Jun 12 09:11:30 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 367.27
+  * Added support for VDPAU Feature Set H to the NVIDIA VDPAU driver.
+    GPUs with VDPAU Feature Set H are capable of hardware-accelerated
+    decoding of 8192x8192 (8k) H.265/HEVC video streams.
+  * Added support for the following GPUs:
+    + GeForce GTX 1080
+    + GeForce GTX 1070
+  * Fixed a bug that caused the X server to sometimes skip displaying Vulkan
+    frames when the Composite extension is enabled.
+
+-------------------------------------------------------------------
 Fri Jun 10 08:59:47 UTC 2016 - sndirsch@suse.com
 
 - Xwrapper: unload new nvidia_drm module first, i.e. definitely
