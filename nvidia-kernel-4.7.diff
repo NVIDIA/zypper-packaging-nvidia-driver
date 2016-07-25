@@ -1,0 +1,22 @@
+--- kernel/nvidia-drm/nvidia-drm-fb.c	2016/07/22 22:31:44	1.1
++++ kernel/nvidia-drm/nvidia-drm-fb.c	2016/07/22 22:31:55
+@@ -114,7 +114,7 @@
+      * We don't support any planar format, pick up first buffer only.
+      */
+ 
+-    gem = drm_gem_object_lookup(dev, file, cmd->handles[0]);
++    gem = drm_gem_object_lookup(file, cmd->handles[0]);
+ 
+     if (gem == NULL)
+     {
+--- kernel/nvidia-drm/nvidia-drm-gem.c	2016/07/22 22:32:02	1.1
++++ kernel/nvidia-drm/nvidia-drm-gem.c	2016/07/22 22:32:07
+@@ -408,7 +408,7 @@
+ 
+     mutex_lock(&dev->struct_mutex);
+ 
+-    gem = drm_gem_object_lookup(dev, file, handle);
++    gem = drm_gem_object_lookup(file, handle);
+ 
+     if (gem == NULL)
+     {

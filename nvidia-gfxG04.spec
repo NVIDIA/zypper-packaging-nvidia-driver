@@ -47,6 +47,8 @@ Source14:       kmp-preun-old.sh
 Source16:       alternate-install-present
 Source17:       kmp-postun-old.sh
 Source18:       kmp-postun.sh
+Patch1:         nvidia-kernel-4.6.diff
+Patch2:         nvidia-kernel-4.7.diff
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -81,9 +83,9 @@ ExclusiveArch:  %ix86 x86_64
 %(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %define x_flavors kdump um debug xen xenpae
 %if 0%{!?nvbuild:1}
-%define kver %(for dir in /usr/src/linux-obj/*/*/; do make -s -C "$dir" kernelversion; break; done |perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%02d\\n",$1,$2,$3')
-%if %kver >= 20627
-%if %kver < 20631
+%define kver %(for dir in /usr/src/linux-obj/*/*/; do make -s -C "$dir" kernelversion; break; done |perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%03d\\n",$1,$2,$3')
+%if %kver >= 206027
+%if %kver < 206031
 %define x_flavors kdump um debug
 %endif
 %endif
@@ -121,6 +123,17 @@ echo "kver = %kver"
 %ifarch x86_64
  sh %{SOURCE1} -x
 %endif
+pushd NVIDIA-Linux-x86*-%{version}*/kernel
+# apply patches here ...
+%ifarch x86_64
+%if %kver >= 406000
+%patch1 -p1
+%endif
+%endif
+%if %kver >= 407000
+%patch2 -p1
+%endif
+popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :

@@ -1,4 +1,19 @@
 -------------------------------------------------------------------
+Sat Jul 23 00:33:30 CEST 2016 - ro@suse.de
+
+- add patch nvidia-kernel-4.7.diff to allow build with kernel 4.7
+
+-------------------------------------------------------------------
+Sat Jul 23 00:09:53 CEST 2016 - ro@suse.de
+
+- change kver macro to have 3 digits for kernel micro version
+
+-------------------------------------------------------------------
+Sat Jul 23 00:01:07 CEST 2016 - ro@suse.de
+
+- add patch nvidia-kernel-4.6.diff to allow build with kernel 4.6
+
+-------------------------------------------------------------------
 Sun Jun 12 09:10:28 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.27 
