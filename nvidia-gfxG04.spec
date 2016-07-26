@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        367.27
+Version:        367.35
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -128,6 +128,8 @@ pushd NVIDIA-Linux-x86*-%{version}*/kernel
 %ifarch x86_64
 %if %kver >= 406000
 %patch1 -p1
+rm nvidia-uvm/*.orig
+chmod 0644 nvidia-uvm/uvm8_get_rm_ptes_test.c
 %endif
 %endif
 %if %kver >= 407000

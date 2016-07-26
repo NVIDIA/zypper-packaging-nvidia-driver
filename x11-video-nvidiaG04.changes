@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Jul 26 10:28:25 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 367.35
+  * Fixed a regression that could cause console corruption when resuming
+    from suspend.
+  * Improved buffer write performance of the nvidia-drm DRM KMS driver by
+    using write-combined DRM Dumb Buffers where available.
+  * Fixed a bug that caused X to crash when applying changes to the RandR
+    CscMatrix property while VT-switched away from X.
+  * Fixed a bug that caused a crash when exiting nvidia-settings on displays
+    with 8 or 15 bit color depths.
+
+-------------------------------------------------------------------
 Sun Jun 12 09:11:30 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.27
