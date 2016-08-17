@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Aug 17 14:01:46 UTC 2016 - sndirsch@suse.com
+
+- modprobe.d/50-nvidia.conf: modprobe nvidia_drm in addition; 
+  apparently this doesn't happen on (some?) Optimus systems 
+  automatically and results in a non-working Xserver (bnc#991383)
+
+-------------------------------------------------------------------
 Tue Jul 26 10:28:25 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.35
