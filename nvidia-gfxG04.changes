@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Wed Sep  7 13:21:28 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 367.44
+  * Fixed a regression that caused applications using indirect GLX
+    to crash.
+  * Added support for the following GPUs:
+      * TITAN X (Pascal)
+      * GeForce GTX 1060 6GB
+      * GeForce GTX 1060 3GB
+  * Fixed a regression introduced in 367.35 that caused the first
+    modeset of the X server to display blank if the features requested
+    in the X configuration file enabled the X driver's composition
+    pipeline.  This would be triggered, e.g., by MetaMode tokens
+    such as ForceCompositionPipeline, ForceFullCompositionPipeline,
+    Rotation, Reflection, and Transform.
+
+-------------------------------------------------------------------
 Tue Jul 26 10:27:39 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.35
