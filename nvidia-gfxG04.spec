@@ -47,8 +47,6 @@ Source14:       kmp-preun-old.sh
 Source16:       alternate-install-present
 Source17:       kmp-postun-old.sh
 Source18:       kmp-postun.sh
-Patch1:         nvidia-kernel-4.6.diff
-Patch2:         nvidia-kernel-4.7.diff
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -125,16 +123,6 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/kernel
 # apply patches here ...
-%ifarch x86_64
-%if %kver >= 406000
-%patch1 -p1
-rm nvidia-uvm/*.orig
-chmod 0644 nvidia-uvm/uvm8_get_rm_ptes_test.c
-%endif
-%endif
-%if %kver >= 407000
-%patch2 -p1
-%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
