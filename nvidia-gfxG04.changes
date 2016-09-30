@@ -3,6 +3,7 @@ Fri Sep 30 12:56:51 UTC 2016 - sndirsch@suse.com
 
 - %post: create symlinks and /etc/tmpfiles.d snippet for udev so 
   nvidia devices will get user ACLs by logind later (bnc#1000625)
+- %postun cleanup: remove tmpfiles.d snippet
 
 -------------------------------------------------------------------
 Fri Sep  9 19:32:05 UTC 2016 - toddrme2178@gmail.com
