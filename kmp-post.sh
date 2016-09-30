@@ -25,6 +25,7 @@ depmod %2-$flavor
 %{_sbindir}/update-alternatives --install /usr/lib/nvidia/alternate-install-present alternate-install-present /usr/lib/nvidia/alternate-install-present-$flavor 11
 
 # Create symlinks for udev so these devices will get user ACLs by logind later (bnc#1000625)
+mkdir -p /run/udev/static_node-tags/uaccess
 ln -snf /dev/nvidiactl /run/udev/static_node-tags/uaccess/nvidiactl 
 ln -snf /dev/nvidia-uvm /run/udev/static_node-tags/uaccess/nvidia-uvm
 cat >  /etc/tmpfiles.d/nvidia-hack.conf << EOF
