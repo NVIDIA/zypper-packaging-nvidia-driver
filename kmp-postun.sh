@@ -5,5 +5,5 @@ if [ "$1" = 0 ] ; then
 	%{_sbindir}/update-alternatives --remove alternate-install-present /usr/lib/nvidia/alternate-install-present-$flavor
     fi
     # cleanup of bnc# 1000625
-    rm -f /etc/tmpfiles.d/nvidia-hack.conf
+    rm -f /usr/lib/tmpfiles.d/nvidia-hack.conf
 fi

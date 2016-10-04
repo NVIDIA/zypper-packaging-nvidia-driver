@@ -28,7 +28,7 @@ depmod %2-$flavor
 mkdir -p /run/udev/static_node-tags/uaccess
 ln -snf /dev/nvidiactl /run/udev/static_node-tags/uaccess/nvidiactl 
 ln -snf /dev/nvidia-uvm /run/udev/static_node-tags/uaccess/nvidia-uvm
-cat >  /etc/tmpfiles.d/nvidia-hack.conf << EOF
+cat >  /usr/lib/tmpfiles.d/nvidia-hack.conf << EOF
 L /run/udev/static_node-tags/uaccess/nvidiactl - - - - /dev/nvidiactl
 L /run/udev/static_node-tags/uaccess/nvidia-uvm - - - - /dev/nvidia-uvm
 EOF
@@ -41,7 +41,7 @@ for dev in $(ls -d /sys/bus/pci/devices/*); do
     if [ "$classid" == "0x0300" -o "$classid" == "0x0302" ]; then 
       devid=$((devid+1))
       ln -snf /dev/nvidia${devid} /run/udev/static_node-tags/uaccess/nvidia${devid}
-      echo "L /run/udev/static_node-tags/uaccess/nvidia${devid} - - - - /dev/nvidia${devid}" >> /etc/tmpfiles.d/nvidia-hack.conf
+      echo "L /run/udev/static_node-tags/uaccess/nvidia${devid} - - - - /dev/nvidia${devid}" >> /usr/lib/tmpfiles.d/nvidia-hack.conf
     fi
   fi
 done
