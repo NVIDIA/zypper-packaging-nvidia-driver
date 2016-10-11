@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Tue Oct 11 10:26:51 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 367.57
+  * Added support for the following GPUs:
+        * Quadro P6000
+        * Tesla P40
+        * Quadro P5000
+    * Added support for NVIDIA 3D Vision 2 Stereo on Linux. This IR emitter can
+      be used with stereo mode "10" set in the X configuration file.
+    * Fixed a bug in nvidia-persistenced that caused it to incorrectly delete
+      the PID file if a second instance of the daemon is started.
+
+-------------------------------------------------------------------
 Wed Sep  7 13:22:21 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.44
