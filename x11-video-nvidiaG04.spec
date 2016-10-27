@@ -51,7 +51,8 @@ Source8:        rpmlintrc
 Source9:        libvdpau-0.4.tar.gz
 Source10:       vdpauinfo-0.0.6.tar.gz
 Source11:       modprobe.nvidia
-Source12:       modprobe.nvidia.non-uvm
+Source12:       modprobe.nvidia.install.non_uvm
+Source13:       modprobe.nvidia.install
 NoSource:       0
 NoSource:       1
 NoSource:       4
@@ -388,16 +389,22 @@ popd
 %if 0%{?suse_version} > 1100
 mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d
 %if 0%{?suse_version} < 1120
-# on sle11 "options nvidia" line is already in /etc/modprobe.d/50-nvidia.conf owned by xorg-x11-server package
-grep -v "options nvidia" $RPM_SOURCE_DIR/modprobe.nvidia > %{buildroot}%{_sysconfdir}/modprobe.d/51-nvidia.conf
-chmod 644 %{buildroot}%{_sysconfdir}/modprobe.d/51-nvidia.conf
+modfile=%{buildroot}%{_sysconfdir}/modprobe.d/51-nvidia.conf
 %else
+modfile=%{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia.conf
+%endif
 %ifarch x86_64
-install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia %{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia.conf
+modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install
 %else
-install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia.non-uvm %{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia.conf
+modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install.non_uvm
 %endif
+install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia $modfile
+# on sle11 "options nvidia" line is already in /etc/modprobe.d/50-nvidia.conf owned by xorg-x11-server package
+%if 0%{?suse_version} < 1120
+sed -i 's/^options nvidia.*//g' $modfile
 %endif
+echo -n "install nvidia " >> $modfile 
+tail -n +3 $modscript | awk '{ printf "%s ", $0 }' >> $modfile
 %endif
 # get rid of gtk3 deps on sle11 (bnc#929127)
 %if 0%{?suse_version} < 1120

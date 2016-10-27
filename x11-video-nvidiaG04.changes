@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Thu Oct 27 13:45:29 UTC 2016 - sndirsch@suse.com
+
+- modprobe.d/50-nvidia.conf: avoid loop in driver load, when gfx
+  card is not supported (bnc#1004201); "install" one liner is now
+  generatedd from a properly readable shell script called
+  modprobe.nvidia.install/modprobe.nvidia.install.non_uvm in the
+  package sources
+
+-------------------------------------------------------------------
 Tue Oct 11 10:26:51 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 367.57
