@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        367.57
+Version:        375.20
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
@@ -255,7 +255,8 @@ ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 # EGL/GLES 64bit new since 340.xx
-install libEGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
+install libEGL.so.1 %{buildroot}%{_prefix}/X11R6/%{_lib}
+install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv2* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libOpenGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -282,7 +283,8 @@ install 32/libOpenCL* %{buildroot}%{_prefix}/lib
 install 32/libnvcuvid* %{buildroot}%{_prefix}/lib
 install 32/libvdpau_nvidia.so* %{buildroot}%{_prefix}/lib/vdpau
 install 32/libGL* %{buildroot}%{_prefix}/X11R6/lib
-install 32/libEGL* %{buildroot}%{_prefix}/X11R6/lib
+install 32/libEGL.so.1 %{buildroot}%{_prefix}/X11R6/lib
+install 32/libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv2* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libOpenGL* %{buildroot}%{_prefix}/X11R6/lib

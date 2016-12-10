@@ -1,4 +1,37 @@
 -------------------------------------------------------------------
+Sat Dec 10 03:25:26 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 375.20
+  * Fixed a bug that could cause displays in SLI Mosaic to blank when
+    applying a transformation matrix.
+  * Added EGL support to the GL Vendor Neutral Dispatch Library (libGLVND).
+    The installer package now includes both GLVND and non-GLVND versions of
+    the EGL libraries: the --glvnd-egl-client and --no-glvnd-egl-client
+    options in nvidia-installer can be used to select which to install.
+  * Added support for the following GPUs:
+    * GeForce GTX 1050
+    * GeForce GTX 1050 Ti
+    * Quadro M620
+    * Quadro M5000 SE
+    * Tesla P100-PCIE-12GB
+    * Tesla P100-PCIE-16GB
+    * Tesla P100-SXM2-16GB
+    * Tesla P4
+  * Fixed a bug that prevented G-SYNC from working on notebook displays.
+  * Fixed a bug that caused DisplayPort multistream devices to go blank after
+    the console is restored.
+  * Fixed a bug that caused a kernel crash when starting X for the second time
+    when more than one DisplayPort multistream device is connected to a single
+    DisplayPort connector via a branch device.
+  * Updated nvidia-settings to not have a build-time dependence on
+    an external nvml development package (a regression introduced in
+    375.10).
+  * Fixed a crash in nvidia-settings when adding Application Profile Rule and
+    Profile entries.
+  * Removed the "Enable Tooltip" option in nvidia-settings for the GTK 2
+    interface.
+
+-------------------------------------------------------------------
 Thu Oct 27 13:45:29 UTC 2016 - sndirsch@suse.com
 
 - modprobe.d/50-nvidia.conf: avoid loop in driver load, when gfx
