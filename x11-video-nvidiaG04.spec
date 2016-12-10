@@ -255,7 +255,7 @@ ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 # EGL/GLES 64bit new since 340.xx
-install libEGL.so.1 %{buildroot}%{_prefix}/X11R6/%{_lib}
+install libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv2* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -283,7 +283,7 @@ install 32/libOpenCL* %{buildroot}%{_prefix}/lib
 install 32/libnvcuvid* %{buildroot}%{_prefix}/lib
 install 32/libvdpau_nvidia.so* %{buildroot}%{_prefix}/lib/vdpau
 install 32/libGL* %{buildroot}%{_prefix}/X11R6/lib
-install 32/libEGL.so.1 %{buildroot}%{_prefix}/X11R6/lib
+install 32/libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/lib
 install 32/libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv2* %{buildroot}%{_prefix}/X11R6/lib
