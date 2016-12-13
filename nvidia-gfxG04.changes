@@ -1,4 +1,32 @@
 -------------------------------------------------------------------
+Tue Dec 13 03:48:56 UTC 2016 - sndirsch@suse.com
+
+- update to latest long lived branch version 375.26
+  * Fixed a regression that prevented the backlight on some notebook
+    computer displays from turning back on after being shut off.
+  * Fixed a regression that prevented the console from being restored
+    properly when using SLI.
+ * Fixed a bug that caused installer manifest entries for some 32-bit
+   compatibility libraries to be duplicated in the installer package.
+   These entries led nvidia-installer to issue warning messages when
+   installing the 32-bit compatibility libraries, for example:
+    'Cannot create symlink /usr/lib/libEGL.so (File exists)'.
+  * Fixed a regression that could cause the nvidia-settings control panel
+    to crash on startup with certain GPU configurations.
+  * Fixed a regression that prevented the GLX_NV_swap_group extension from
+    working when using SLI or Quadro Sync.
+  * Fixed a long-standing bug that caused the NVIDIA X driver to not
+    correctly detect AC/battery hotplug events on notebooks.
+  * Added support for the following GPU(s):
+    * Quadro M3000 SE
+  * Fixed an interaction problem between the Linux kernel's
+    CONFIG_HARDENED_USERCOPY feature (new in Linux kernel 4.8)
+    and nvidia-drm.ko with modeset=1 enabled.  This problem caused
+    CONFIG_HARDENED_USERCOPY to erroneously halt the system, issuing
+    reports of the form:
+    usercopy: kernel memory overwrite attempt detected to ffff8803e8ec7ce0 (<process stack>) (8 bytes)
+
+-------------------------------------------------------------------
 Sat Dec 10 03:23:06 UTC 2016 - sndirsch@suse.com
 
 - update to latest long lived branch version 375.20
