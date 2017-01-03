@@ -240,6 +240,7 @@ install -d %{buildroot}%{xmodulesdir}/drivers
 install -d %{buildroot}%{xmodulesdir}/extensions
 install -d %{buildroot}%{_sysconfdir}/OpenCL/vendors/
 install -d %{buildroot}%{_datadir}/nvidia
+install -d %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 install nvidia-settings %{buildroot}%{_bindir}
 install nvidia-bug-report.sh %{buildroot}%{_bindir}
 install nvidia-xconfig %{buildroot}%{_bindir}
@@ -620,7 +621,6 @@ fi
 %exclude %{_prefix}/X11R6/%{_lib}/libEGL.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLESv1_CM.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLESv2.so*
-%exclude %{_prefix}/X11R6/%{_lib}/libEGL_nvidia.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLESv1_CM_nvidia.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLESv2_nvidia.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libOpenGL.so*
@@ -663,7 +663,6 @@ fi
 %exclude %{_prefix}/X11R6/lib/libEGL.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv1_CM.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv2.so*
-%exclude %{_prefix}/X11R6/lib/libEGL_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv1_CM_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv2_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libOpenGL.so*
@@ -767,7 +766,6 @@ fi
 %{_prefix}/X11R6/%{_lib}/libEGL.so*
 %{_prefix}/X11R6/%{_lib}/libGLESv1_CM.so*
 %{_prefix}/X11R6/%{_lib}/libGLESv2.so*
-%{_prefix}/X11R6/%{_lib}/libEGL_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libGLESv1_CM_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libGLESv2_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libOpenGL.so*
@@ -788,6 +786,7 @@ fi
 %dir %{_libdir}/tls
 %{_libdir}/tls/libnvidia-tls.so*
 %{xmodulesdir}/extensions
+%{_datadir}/glvnd/egl_vendor.d/10_nvidia.json
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/lib/libGL.so*
@@ -796,7 +795,6 @@ fi
 %{_prefix}/X11R6/lib/libEGL.so*
 %{_prefix}/X11R6/lib/libGLESv1_CM.so*
 %{_prefix}/X11R6/lib/libGLESv2.so*
-%{_prefix}/X11R6/lib/libEGL_nvidia.so*
 %{_prefix}/X11R6/lib/libGLESv1_CM_nvidia.so*
 %{_prefix}/X11R6/lib/libGLESv2_nvidia.so*
 %{_prefix}/X11R6/lib/libOpenGL.so*
