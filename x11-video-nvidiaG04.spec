@@ -278,6 +278,7 @@ ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 # EGL/GLES 64bit new since 340.xx
 install libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
+install 10_nvidia.json %{buildroot}%{_datadir}/glvnd/egl_vendor.d
 install libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv2* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libOpenGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
