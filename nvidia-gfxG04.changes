@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Feb 28 10:38:53 UTC 2017 - dmitry_r@opensuse.org
+
+- Fix build with kernel 4.10
+  * kernel-4.10.patch
+
+-------------------------------------------------------------------
 Thu Feb 16 13:35:50 UTC 2017 - sndirsch@suse.com
 
 - update to latest long lived branch version 375.39

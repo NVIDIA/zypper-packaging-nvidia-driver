@@ -47,6 +47,7 @@ Source14:       kmp-preun-old.sh
 Source16:       alternate-install-present
 Source17:       kmp-postun-old.sh
 Source18:       kmp-postun.sh
+Patch1:         kernel-4.10.patch
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -121,8 +122,9 @@ echo "kver = %kver"
 %ifarch x86_64
  sh %{SOURCE1} -x
 %endif
-pushd NVIDIA-Linux-x86*-%{version}*/kernel
+pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
+%patch1 -p1
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
