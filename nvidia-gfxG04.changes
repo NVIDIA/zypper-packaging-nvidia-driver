@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Apr  2 10:31:23 UTC 2017 - sndirsch@suse.com
+
+- patch kernel-4.10.patch on sle12-sp3
+
+-------------------------------------------------------------------
 Tue Feb 28 10:38:53 UTC 2017 - dmitry_r@opensuse.org
 
 - Fix build with kernel 4.10

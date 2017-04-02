@@ -124,6 +124,12 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
+%if 0%{?sle_version} >= 120300
+echo  "sle_version: %{sle_version}"
+sed -i 's/LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0)/1/g' \
+  $RPM_SOURCE_DIR/kernel-4.10.patch
+grep '^+#if 1' $RPM_SOURCE_DIR/kernel-4.10.patch
+%endif
 %patch1 -p1
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
