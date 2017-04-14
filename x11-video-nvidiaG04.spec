@@ -269,6 +269,7 @@ ln -snf libGL.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}/libGL.so.1
 ln -snf libGLX_nvidia.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so.0
 ln -snf libGLX_nvidia.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}/libGLX_indirect.so.0
 ln -snf libOpenGL.so.0 %{buildroot}%{_prefix}/X11R6/%{_lib}/libOpenGL.so
+ln -snf libnvidia-ptxjitcompiler.so.1 %{buildroot}%{_libdir}/libnvidia-ptxjitcompiler.so
 # same for libOpenGL/libcuda/libnvcuvid
 ln -snf libOpenCL.so.1 %{buildroot}%{_libdir}/libOpenCL.so
 ln -snf libcuda.so.1   %{buildroot}%{_libdir}/libcuda.so
@@ -318,6 +319,7 @@ ln -snf libGL.so.%{version} %{buildroot}%{_prefix}/X11R6/lib/libGL.so.1
 ln -snf libGLX_nvidia.so.%{version} %{buildroot}%{_prefix}/X11R6/lib/libGLX_nvidia.so.0
 ln -snf libGLX_nvidia.so.%{version} %{buildroot}%{_prefix}/X11R6/lib/libGLX_indirect.so.0
 ln -snf libOpenGL.so.0 %{buildroot}%{_prefix}/X11R6/lib/libOpenGL.so
+ln -snf libnvidia-ptxjitcompiler.so.1 %{buildroot}%{_prefix}/lib/libnvidia-ptxjitcompiler.so
 # same for libOpenCL/libcuda/libnvcuvid
 ln -snf libOpenCL.so.1 %{buildroot}%{_prefix}/lib/libOpenCL.so
 ln -snf libcuda.so.1   %{buildroot}%{_prefix}/lib/libcuda.so
