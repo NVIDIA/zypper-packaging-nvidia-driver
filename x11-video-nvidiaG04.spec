@@ -1,7 +1,7 @@
 #
 # spec file for package x11-video-nvidiaG04
 #
-# Copyright (c) 2009 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -38,6 +38,7 @@ Version:        375.39
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
+URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Libraries
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -72,22 +73,25 @@ BuildRequires:  xorg-x11-devel
 BuildRequires:  xorg-x11-compat70-devel
 %endif
 Requires:       3ddiag
-Requires:       nvidia-computeG04
+Requires:       nvidia-computeG04 = %{version}
 Requires:       nvidia-gfxG04-kmp = %{version}
-Provides:       nvidia_driver
-Provides:       nvidia-xconfig
-Provides:       nvidia-settings
+Provides:       nvidia_driver = %{version}
+Provides:       nvidia-xconfig = %{version}
+Provides:       nvidia-settings = %{version}
 Obsoletes:      nvidia-modprobe <= 319.37
-Provides:       nvidia-modprobe
-Obsoletes:      x11-video-nvidia x11-video-nvidiaG01 x11-video-nvidiaG02 x11-video-nvidiaG03
-Conflicts:      x11-video-nvidia x11-video-nvidiaG01 x11-video-nvidiaG02 x11-video-nvidiaG03
+Provides:       nvidia-modprobe = %{version}
+Conflicts:      x11-video-nvidia
+Conflicts:      x11-video-nvidiaG01
+Conflicts:      x11-video-nvidiaG02
+Conflicts:      x11-video-nvidiaG03
 Conflicts:      fglrx_driver
 Requires:       libvdpau1
 ExclusiveArch:  %ix86 x86_64
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
-NVIDIA graphics driver for GeForce 400 series and newer
+This package provides the closed-source NVIDIA graphics driver
+for GeForce 400 series and newer GPUs.
 
 %package -n nvidia-computeG04
 Summary:        NVIDIA driver for computing with GPGPU
@@ -99,14 +103,14 @@ Requires:       nvidia-gfxG04-kmp
 %endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG04:/usr/lib/libcuda.so
-Obsoletes:      nvidia-computeG02 nvidia-computeG03
-Conflicts:      nvidia-computeG02 nvidia-computeG03
+Conflicts:      nvidia-computeG02
+Conflicts:      nvidia-computeG03
 
 %description -n nvidia-computeG04
-NVIDIA driver for computing with GPGPUs using CUDA or OpenCL
+NVIDIA driver for computing with GPGPUs using CUDA or OpenCL.
 
 %package -n nvidia-glG04
-Summary:        NVIDIA GL libraries for OpenGL acceleration
+Summary:        NVIDIA OpenGL libraries for OpenGL acceleration
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
 Requires:       nvidia-gfxG04-kmp = %{version}
@@ -119,12 +123,12 @@ Requires(postun): update-alternatives
 %endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG04:/{_prefix}/X11R6/%{_lib}/libGL.so.1
-Obsoletes:      nvidia-glG03
 Conflicts:      nvidia-glG03
 AutoReq: no
 
 %description -n nvidia-glG04
-NVIDIA OpenGL libraries for OpenGL acceleration
+This package provides the NVIDIA OpenGL libraries to allow OpenGL
+acceleration under the closed-source NVIDIA drivers.
 
 %package -n libvdpau1
 License:        X11/MIT
@@ -659,12 +663,12 @@ fi
 %if 0%{?suse_version} > 1100
 %dir %{_sysconfdir}/modprobe.d
 %if 0%{?suse_version} < 1120
-%{_sysconfdir}/modprobe.d/51-nvidia.conf
+%config %{_sysconfdir}/modprobe.d/51-nvidia.conf
 %else
-%{_sysconfdir}/modprobe.d/50-nvidia.conf
+%config %{_sysconfdir}/modprobe.d/50-nvidia.conf
 %endif
 %endif
-%{_sysconfdir}/OpenCL/vendors/nvidia.icd
+%config %{_sysconfdir}/OpenCL/vendors/nvidia.icd
 %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
 %{_libdir}/libcuda.so*
 %{_libdir}/libOpenCL.so*
@@ -685,7 +689,7 @@ fi
 %dir /etc/vulkan/icd.d
 %config /etc/vulkan/icd.d/nvidia_icd.json
 %if 0%{?suse_version} > 1140
-%{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
+%config %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 %endif
 %{_prefix}/X11R6/%{_lib}/libGL.so*
 %{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*

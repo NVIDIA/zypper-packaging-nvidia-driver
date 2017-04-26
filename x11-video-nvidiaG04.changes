@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Apr 24 17:24:18 UTC 2017 - toddrme2178@gmail.com
+
+- Various spec file and rpmlint cleanups:
+  * Improve descriptions
+  * Add URL
+  * Remove spurious obsoletes (higher versions don't necessarily
+    replace lower ones due to dropped graphics card support).
+  * Add %config tags
+  * Update year
+  * Use versioning provides to avoid self-obsoletes.
+
+-------------------------------------------------------------------
 Thu Feb 16 13:39:04 UTC 2017 - sndirsch@suse.com
 
 - update to latest long lived branch version 375.39

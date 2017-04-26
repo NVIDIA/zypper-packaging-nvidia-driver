@@ -1,7 +1,7 @@
 #
 # spec file for package nvidia-gfxG04
 #
-# Copyright (c) 2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2017 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -29,6 +29,7 @@ Version:        375.39
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
+URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -103,7 +104,8 @@ ExclusiveArch:  %ix86 x86_64
 %define __find_supplements %_sourcedir/my-find-supplements %pci_id_file %name
 
 %description
-NVIDIA graphics driver kernel module for GeForce 400 and newer
+This package provides the closed-source NVIDIA graphics driver kernel
+module for GeForce 400 series and newer GPUs.
 
 %package KMP
 License:        SUSE-NonFree
@@ -111,7 +113,8 @@ Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and 
 Group:          System/Kernel
 
 %description KMP
-NVIDIA graphics driver kernel module for GeForce 400 series and newer
+This package provides the closed-source NVIDIA graphics driver kernel
+module for GeForce 400 series and newer GPUs.
 
 %prep
 echo "kver = %kver"
