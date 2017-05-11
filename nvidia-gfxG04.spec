@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        375.39
+Version:        375.66
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -133,7 +133,7 @@ sed -i 's/LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0)/1/g' \
   $RPM_SOURCE_DIR/kernel-4.10.patch
 grep '^+#if 1' $RPM_SOURCE_DIR/kernel-4.10.patch
 %endif
-%patch1 -p1
+#%patch1 -p1
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
