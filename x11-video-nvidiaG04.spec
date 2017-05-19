@@ -600,6 +600,7 @@ fi
 %exclude %{_libdir}/libOpenCL.so*
 %exclude %{_libdir}/libnvidia-ml.so*
 %exclude %{_libdir}/libnvidia-opencl.so*
+%exclude %{_libdir}/libnvidia-fatbinaryloader.so*
 %ifarch x86_64
 %if 0%{?suse_version} > 1310
 %dir %{_prefix}/X11R6/lib
@@ -626,6 +627,9 @@ fi
 %{_prefix}/lib/vdpau/*
 %exclude %{_prefix}/lib/libcuda.so*
 %exclude %{_prefix}/lib/libOpenCL.so*
+%exclude %{_prefix}/lib/libnvidia-ml.so*
+%exclude %{_prefix}/lib/libnvidia-opencl.so*
+%exclude %{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %endif
 %if 0%{?suse_version} > 1010 || "%_repository" == "SLE_10_XORG7"
 %dir %{xlibdir}
@@ -674,6 +678,7 @@ fi
 %{_libdir}/libOpenCL.so*
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opencl.so*
+%{_libdir}/libnvidia-fatbinaryloader.so*
 %{_bindir}/nvidia-smi
 %{_bindir}/nvidia-cuda-mps-control
 %{_bindir}/nvidia-cuda-mps-server
@@ -681,6 +686,9 @@ fi
 %ifarch x86_64
 %{_prefix}/lib/libcuda.so*
 %{_prefix}/lib/libOpenCL.so*
+%{_prefix}/lib/libnvidia-ml.so*
+%{_prefix}/lib/libnvidia-opencl.so*
+%{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %endif
 
 %files -n nvidia-glG04

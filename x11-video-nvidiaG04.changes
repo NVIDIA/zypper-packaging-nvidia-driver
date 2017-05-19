@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Fri May 19 11:59:53 UTC 2017 - sndirsch@suse.com
+
+- fixed dependancies so nvidia-computeG04 can now be installed
+  without x11-video-nvidiaG04 package
+  * moved libnvidia-fatbinaryloader.so*, which is required by 
+    libnvidia-ml.so.* and libnvidia-opencl.so*, from 
+    x11-video-nvidiaG04 to nvidia-computeG04 package
+  * moved 32bit libnvidia-ml.so.* and libnvidia-opencl.so* from
+    x11-video-nvidiaG04 to nvidia-computeG04 package
+
+-------------------------------------------------------------------
 Wed May 10 13:46:28 UTC 2017 - sndirsch@suse.com
 
 - update to latest long lived branch version 375.66
