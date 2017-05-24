@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed May 24 16:41:15 UTC 2017 - sndirsch@suse.com
+
+- moved libnvidia-tls.so.*, which is required by NVIDIA's libGL 
+  from x11-video-nvidiaG04 to nvidia-glG04 (bsc#1021634)
+
+-------------------------------------------------------------------
 Fri May 19 11:59:53 UTC 2017 - sndirsch@suse.com
 
 - fixed dependancies so nvidia-computeG04 can now be installed

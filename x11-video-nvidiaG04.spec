@@ -591,9 +591,7 @@ fi
 %exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
 %exclude %{_libdir}/libnvidia-egl-wayland.so*
-%dir %{_libdir}/tls
 %dir %{_libdir}/vdpau
-%{_libdir}/tls/lib*
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
 %exclude %{_libdir}/libcuda.so*
@@ -620,9 +618,7 @@ fi
 %exclude %{_prefix}/lib/libnvidia-ifr.so*
 %exclude %{_prefix}/lib/libnvidia-eglcore.so*
 %exclude %{_prefix}/lib/libnvidia-glsi.so*
-%dir %{_prefix}/lib/tls
 %dir %{_prefix}/lib/vdpau
-%{_prefix}/lib/tls/lib*
 %{_prefix}/lib/lib*
 %{_prefix}/lib/vdpau/*
 %exclude %{_prefix}/lib/libcuda.so*
@@ -714,6 +710,8 @@ fi
 %{_libdir}/libnvidia-fbc.so*
 %{_libdir}/libnvidia-egl-wayland.so*
 %{xmodulesdir}/extensions
+%dir %{_libdir}/tls
+%{_libdir}/tls/lib*
 %ifarch x86_64
 %{_prefix}/X11R6/lib/libGL.so*
 %{_prefix}/X11R6/lib/libGLX_nvidia.so*
@@ -729,6 +727,8 @@ fi
 %{_prefix}/lib/libnvidia-ifr.so*
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
+%dir %{_prefix}/lib/tls
+%{_prefix}/lib/tls/lib*
 %endif
 
 %if 0%{?suse_version} < 1130
