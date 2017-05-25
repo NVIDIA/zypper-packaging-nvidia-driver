@@ -363,7 +363,9 @@ echo >> %{buildroot}%{_localstatedir}/lib/hardware/ids/10.%{name}
 done
 %endif
 %if 0%{?suse_version} > 1010
+%if 0%{?suse_version} < 1330
 install -m 755 $RPM_SOURCE_DIR/Xwrapper %{buildroot}%{_bindir}/X.%{name}
+%endif
 %else
 mkdir -p %{buildroot}%{_prefix}/X11R6/bin
 install -m 755 $RPM_SOURCE_DIR/Xwrapper %{buildroot}%{_prefix}/X11R6/bin/X.%{name}
@@ -447,6 +449,7 @@ if ls var/lib/hardware/ids/* &> /dev/null; then
     cat $i >> var/lib/hardware/hd.ids
   done
 fi
+%if 0%{?suse_version} < 1330
 test -f etc/sysconfig/displaymanager && \
 . etc/sysconfig/displaymanager
 if [ "${DISPLAYMANAGER_XSERVER}" == "X.%{name}" ]; then
@@ -468,6 +471,7 @@ test -x /etc/X11/xdm/SuSEconfig.xdm && \
 %else
 test -x /sbin/conf.d/SuSEconfig.xdm && \
 SuSEconfig --module xdm
+%endif
 %endif
 # Recreate initrd without KMS
 # Only touch config, if the use of KMS is enabled in initrd;
@@ -506,8 +510,10 @@ if [ "$1" -eq 0 ]; then
   # Make sure that after driver uninstall /var/lib/X11/X link points
   # to a valid Xserver binary again (bnc#903732)
 %if 0%{?suse_version} > 1010
+%if 0%{?suse_version} < 1330
   test -x /etc/X11/xdm/SuSEconfig.xdm && \
   /etc/X11/xdm/SuSEconfig.xdm
+%endif
 %else
   test -x /sbin/conf.d/SuSEconfig.xdm && \
   SuSEconfig --module xdm
@@ -563,7 +569,9 @@ fi
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
 %if 0%{?suse_version} > 1010
+%if 0%{?suse_version} < 1330
 %{_bindir}/X.%{name}
+%endif
 %else
 %{_prefix}/X11R6/bin/X.%{name}
 %endif

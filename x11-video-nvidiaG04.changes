@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May 25 09:42:04 UTC 2017 - sndirsch@suse.com
+
+- removed/disabled Xwrapper for TW/sle15, since you can't rely any
+  longer on a displaymanager running as root (bsc#1040699)
+
+-------------------------------------------------------------------
 Wed May 24 16:41:15 UTC 2017 - sndirsch@suse.com
 
 - moved libnvidia-tls.so.*, which is required by NVIDIA's libGL 
