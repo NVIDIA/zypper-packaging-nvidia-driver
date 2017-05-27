@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Sat May 27 02:46:25 UTC 2017 - sndirsch@suse.com
+
+- moved libnvidia-glsi.so.*, previously mistakenly moved to 
+  nvidia-computeG04, to nvidia-glG04 (bsc#1021634)
+- moved libnvidia-eglcore.so.* to nvidia-glG04 (bsc#1021634)
+- moved libnvidia-ptxjitcompiler.so.* to nvidia-computeG04
+  (bsc#1021634)
+
+-------------------------------------------------------------------
 Fri May 26 21:03:53 UTC 2017 - alarrosa@suse.com
 
 - moved libnvidia-glsi.so.*, which is required by NVIDIA's libEGL
