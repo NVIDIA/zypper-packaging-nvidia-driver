@@ -608,6 +608,7 @@ fi
 %exclude %{_libdir}/libnvidia-ml.so*
 %exclude %{_libdir}/libnvidia-opencl.so*
 %exclude %{_libdir}/libnvidia-fatbinaryloader.so*
+%exclude %{_libdir}/libnvidia-glsi.so*
 %ifarch x86_64
 %if 0%{?suse_version} > 1310
 %dir %{_prefix}/X11R6/lib
@@ -685,6 +686,7 @@ fi
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opencl.so*
 %{_libdir}/libnvidia-fatbinaryloader.so*
+%{_libdir}/libnvidia-glsi.so*
 %{_bindir}/nvidia-smi
 %{_bindir}/nvidia-cuda-mps-control
 %{_bindir}/nvidia-cuda-mps-server

@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri May 26 21:03:53 UTC 2017 - alarrosa@suse.com
+
+- moved libnvidia-glsi.so.*, which is required by NVIDIA's libEGL
+  from x11-vide-nvidiaG04 to nvidia-glG04 (bsc#1021634)
+
+-------------------------------------------------------------------
 Thu May 25 09:42:04 UTC 2017 - sndirsch@suse.com
 
 - removed/disabled Xwrapper for TW/sle15, since you can't rely any
