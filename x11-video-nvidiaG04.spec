@@ -222,7 +222,6 @@ install -d %{buildroot}%{_prefix}/X11R6/lib
 install -d %{buildroot}%{_prefix}/lib/tls
 install -d %{buildroot}%{_prefix}/X11R6/%{_lib}
 install -d %{buildroot}%{_libdir}/tls
-install -d %{buildroot}%{_prefix}/X11R6/%{_lib}/tls
 install -d %{buildroot}%{_prefix}/lib/vdpau
 install -d %{buildroot}%{_libdir}/vdpau
 install -d %{buildroot}%{xmodulesdir}/drivers
@@ -275,9 +274,11 @@ install libglx.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/
 ln -sf libglx.so.%{version} %{buildroot}%{xmodulesdir}/extensions/libglx.so
 %else
+%if 0%{?suse_version} < 1330
 mkdir -p %{buildroot}%{xmodulesdir}/extensions/nvidia
 install libglx.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/nvidia/nvidia-libglx.so
+%endif
 %endif
 %ifarch x86_64
 install 32/tls/libnvidia-tls.so.* %{buildroot}%{_prefix}/lib/tls
@@ -421,6 +422,22 @@ rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.%{version}
 # Vulkan driver config
 mkdir -p %{buildroot}/etc/vulkan/icd.d/
 install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
+# use libglvnd on TW/sle15
+%if 0%{?suse_version} >= 1330
+rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG04.conf \
+   %{buildroot}/usr/X11R6/lib{,64}/libEGL.so.* \
+   %{buildroot}/usr/X11R6/lib{,64}/libGL.so* \
+   %{buildroot}/usr/X11R6/lib{,64}/libGLESv1_CM.so.* \
+   %{buildroot}/usr/X11R6/lib{,64}/libGLESv2.so.* \
+   %{buildroot}/usr/X11R6/lib{,64}/libGLdispatch.so.* \
+   %{buildroot}/usr/X11R6/lib{,64}/libOpenGL.so.*
+   mv %{buildroot}/usr/X11R6/lib64/* %{buildroot}/%{_libdir}/
+   mv %{buildroot}/usr/X11R6/lib/*   %{buildroot}/%{_prefix}/lib/
+   rmdir %{buildroot}/usr/X11R6/lib{,64} \
+         %{buildroot}/usr/X11R6
+   mkdir -p %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
+   install -m 644 10_nvidia.json %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
+%endif
 
 %post
 /sbin/ldconfig
@@ -531,6 +548,7 @@ exit 0
 
 %post -n nvidia-glG04
 %if 0%{?suse_version} >= 1315
+%if 0%{?suse_version} < 1330
 %_sbindir/update-alternatives \
     --force --install %{_libdir}/xorg/modules/extensions/libglx.so libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so 100
 # make sure nvidia becomes the default (in case the link group is/was still in manual mode)
@@ -543,17 +561,20 @@ if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | gr
   sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 fi
 %endif
+%endif
 /sbin/ldconfig
 
 %postun -n nvidia-glG04
 /sbin/ldconfig
 %if 0%{?suse_version} >= 1315
+%if 0%{?suse_version} < 1330
 if [ "$1" = 0 ] ; then
     # Avoid accidental removal of G<n+1> alternative (bnc#802624)
     if [ ! -f %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so ]; then
 	"%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
     fi
 fi
+%endif
 %endif
 
 %post -n libvdpau1 -p /sbin/ldconfig
@@ -581,9 +602,12 @@ fi
 %exclude %{_bindir}/nvidia-cuda-mps-control
 %exclude %{_bindir}/nvidia-cuda-mps-server
 %if 0%{?suse_version} > 1310
+%if 0%{?suse_version} < 1330
 %dir %{_prefix}/X11R6/
 %dir %{_prefix}/X11R6/%{_lib}
 %endif
+%endif
+%if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/%{_lib}/lib*
 %exclude %{_prefix}/X11R6/%{_lib}/libGL.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*
@@ -595,6 +619,12 @@ fi
 %exclude %{_prefix}/X11R6/%{_lib}/libGLESv1_CM_nvidia.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLESv2_nvidia.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libOpenGL.so*
+%else
+%exclude %{_prefix}/%{_lib}/libGLX_nvidia.so*
+%exclude %{_prefix}/%{_lib}/libEGL_nvidia.so*
+%exclude %{_prefix}/%{_lib}/libGLESv1_CM_nvidia.so*
+%exclude %{_prefix}/%{_lib}/libGLESv2_nvidia.so*
+%endif
 %exclude %{_libdir}/libnvidia-glcore.so*
 %exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
@@ -613,8 +643,11 @@ fi
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
 %ifarch x86_64
 %if 0%{?suse_version} > 1310
+%if 0%{?suse_version} < 1330
 %dir %{_prefix}/X11R6/lib
 %endif
+%endif
+%if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/lib/lib*
 %exclude %{_prefix}/X11R6/lib/libGL.so*
 %exclude %{_prefix}/X11R6/lib/libGLX_nvidia.so*
@@ -626,6 +659,12 @@ fi
 %exclude %{_prefix}/X11R6/lib/libGLESv1_CM_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libGLESv2_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libOpenGL.so*
+%else
+%exclude %{_prefix}/lib/libGLX_nvidia.so*
+%exclude %{_prefix}/lib/libEGL_nvidia.so*
+%exclude %{_prefix}/lib/libGLESv1_CM_nvidia.so*
+%exclude %{_prefix}/lib/libGLESv2_nvidia.so*
+%endif
 %exclude %{_prefix}/lib/libnvidia-glcore.so*
 %exclude %{_prefix}/lib/libnvidia-ifr.so*
 %exclude %{_prefix}/lib/libnvidia-eglcore.so*
@@ -708,9 +747,17 @@ fi
 %dir /etc/vulkan
 %dir /etc/vulkan/icd.d
 %config /etc/vulkan/icd.d/nvidia_icd.json
+%if 0%{?suse_version} >= 1330
+%dir %{_datadir}/glvnd
+%dir %{_datadir}/glvnd/egl_vendor.d
+%config %{_datadir}/glvnd/egl_vendor.d/10_nvidia.json
+%endif
 %if 0%{?suse_version} > 1140
+%if 0%{?suse_version} < 1330
 %config %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 %endif
+%endif
+%if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/%{_lib}/libGL.so*
 %{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libGLdispatch.so*
@@ -721,6 +768,12 @@ fi
 %{_prefix}/X11R6/%{_lib}/libGLESv1_CM_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libGLESv2_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libOpenGL.so*
+%else
+%{_prefix}/%{_lib}/libGLX_nvidia.so*
+%{_prefix}/%{_lib}/libEGL_nvidia.so*
+%{_prefix}/%{_lib}/libGLESv1_CM_nvidia.so*
+%{_prefix}/%{_lib}/libGLESv2_nvidia.so*
+%endif
 %{_libdir}/libnvidia-glcore.so*
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
@@ -730,8 +783,11 @@ fi
 %{_libdir}/libnvidia-eglcore.so*
 %dir %{_libdir}/tls
 %{_libdir}/tls/libnvidia-tls.so*
+%if 0%{?suse_version} < 1330
 %{xmodulesdir}/extensions
+%endif
 %ifarch x86_64
+%if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/lib/libGL.so*
 %{_prefix}/X11R6/lib/libGLX_nvidia.so*
 %{_prefix}/X11R6/lib/libGLdispatch.so*
@@ -742,6 +798,12 @@ fi
 %{_prefix}/X11R6/lib/libGLESv1_CM_nvidia.so*
 %{_prefix}/X11R6/lib/libGLESv2_nvidia.so*
 %{_prefix}/X11R6/lib/libOpenGL.so*
+%else
+%{_prefix}/lib/libGLX_nvidia.so*
+%{_prefix}/lib/libEGL_nvidia.so*
+%{_prefix}/lib/libGLESv1_CM_nvidia.so*
+%{_prefix}/lib/libGLESv2_nvidia.so*
+%endif
 %{_prefix}/lib/libnvidia-glcore.so*
 %{_prefix}/lib/libnvidia-ifr.so*
 %{_prefix}/lib/libnvidia-eglcore.so*
