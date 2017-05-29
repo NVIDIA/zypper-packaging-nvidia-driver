@@ -274,11 +274,9 @@ install libglx.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/
 ln -sf libglx.so.%{version} %{buildroot}%{xmodulesdir}/extensions/libglx.so
 %else
-%if 0%{?suse_version} < 1330
 mkdir -p %{buildroot}%{xmodulesdir}/extensions/nvidia
 install libglx.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/nvidia/nvidia-libglx.so
-%endif
 %endif
 %ifarch x86_64
 install 32/tls/libnvidia-tls.so.* %{buildroot}%{_prefix}/lib/tls
@@ -548,7 +546,6 @@ exit 0
 
 %post -n nvidia-glG04
 %if 0%{?suse_version} >= 1315
-%if 0%{?suse_version} < 1330
 %_sbindir/update-alternatives \
     --force --install %{_libdir}/xorg/modules/extensions/libglx.so libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so 100
 # make sure nvidia becomes the default (in case the link group is/was still in manual mode)
@@ -561,20 +558,17 @@ if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | gr
   sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG04.conf
 fi
 %endif
-%endif
 /sbin/ldconfig
 
 %postun -n nvidia-glG04
 /sbin/ldconfig
 %if 0%{?suse_version} >= 1315
-%if 0%{?suse_version} < 1330
 if [ "$1" = 0 ] ; then
     # Avoid accidental removal of G<n+1> alternative (bnc#802624)
     if [ ! -f %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so ]; then
 	"%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
     fi
 fi
-%endif
 %endif
 
 %post -n libvdpau1 -p /sbin/ldconfig
@@ -783,9 +777,7 @@ fi
 %{_libdir}/libnvidia-eglcore.so*
 %dir %{_libdir}/tls
 %{_libdir}/tls/libnvidia-tls.so*
-%if 0%{?suse_version} < 1330
 %{xmodulesdir}/extensions
-%endif
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/lib/libGL.so*

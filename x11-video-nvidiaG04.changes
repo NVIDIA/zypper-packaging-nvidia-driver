@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon May 29 10:23:33 UTC 2017 - sndirsch@suse.com
+
+- reenable installation and usage of NVIDIA's glx Xserver extension
+  for TW/sle15; seems this is not covered yet by libglvnd/Xserver
+
+-------------------------------------------------------------------
 Sun May 28 20:40:51 UTC 2017 - sndirsch@suse.com
 
 - first try to switch to libglvnd for TW/sle15 (completely
