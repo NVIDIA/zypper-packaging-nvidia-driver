@@ -423,15 +423,17 @@ install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
 # use libglvnd on TW/sle15
 %if 0%{?suse_version} >= 1330
 rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG04.conf \
-   %{buildroot}/usr/X11R6/lib{,64}/libEGL.so.* \
-   %{buildroot}/usr/X11R6/lib{,64}/libGL.so* \
-   %{buildroot}/usr/X11R6/lib{,64}/libGLESv1_CM.so.* \
-   %{buildroot}/usr/X11R6/lib{,64}/libGLESv2.so.* \
-   %{buildroot}/usr/X11R6/lib{,64}/libGLdispatch.so.* \
-   %{buildroot}/usr/X11R6/lib{,64}/libOpenGL.so.*
-   mv %{buildroot}/usr/X11R6/lib64/* %{buildroot}/%{_libdir}/
+   %{buildroot}/usr/X11R6/lib*/libEGL.so.* \
+   %{buildroot}/usr/X11R6/lib*/libGL.so* \
+   %{buildroot}/usr/X11R6/lib*/libGLESv1_CM.so.* \
+   %{buildroot}/usr/X11R6/lib*/libGLESv2.so.* \
+   %{buildroot}/usr/X11R6/lib*/libGLdispatch.so.* \
+   %{buildroot}/usr/X11R6/lib*/libOpenGL.so.*
+   mv %{buildroot}/usr/X11R6/%{_lib}/* %{buildroot}/%{_libdir}/
+%ifarch x86_64
    mv %{buildroot}/usr/X11R6/lib/*   %{buildroot}/%{_prefix}/lib/
-   rmdir %{buildroot}/usr/X11R6/lib{,64} \
+%endif
+   rmdir %{buildroot}/usr/X11R6/lib* \
          %{buildroot}/usr/X11R6
    mkdir -p %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
    install -m 644 10_nvidia.json %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
