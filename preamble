@@ -13,3 +13,7 @@ Obsoletes: nvidia-uvm-gfxG04-kmp nvidia-uvm-gfxG04-kmp-%1
 Provides: nvidia-gfxG04-kmp = %{-v*}
 %endif
 Provides: nvidia-gfxG04-kmp-%1 = %{-v*}
+%if 0%{?suse_version} < 1320 && 0%{?sle_version} >= 120300
+Provides: drm-kmp-%1      
+Obsoletes: drm-kmp-%1
+%endif
