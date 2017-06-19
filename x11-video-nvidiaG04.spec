@@ -105,6 +105,7 @@ Requires:       nvidia-gfxG04-kmp
 Provides:       x11-video-nvidiaG04:/usr/lib/libcuda.so
 Conflicts:      nvidia-computeG02
 Conflicts:      nvidia-computeG03
+Conflicts:      libOpenCL1
 
 %description -n nvidia-computeG04
 NVIDIA driver for computing with GPGPUs using CUDA or OpenCL.

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jun 19 17:19:38 UTC 2017 - sndirsch@suse.com
+
+- computeG04: added conflicts to libOpenCL1 (boo#1044948)  
+
+-------------------------------------------------------------------
 Tue May 30 09:12:53 UTC 2017 - sndirsch@suse.com
 
 - fixed libglvnd build on %ix86 (still needed for TW)
