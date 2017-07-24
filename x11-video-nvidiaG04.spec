@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        375.66
+Version:        384.59
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
@@ -420,7 +420,10 @@ rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.%{version}
 %endif
 # Vulkan driver config
 mkdir -p %{buildroot}/etc/vulkan/icd.d/
-install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
+install -m 644 nvidia_icd.json.template %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
+# EGL driver config
+mkdir -p %{buildroot}/%{_datadir}/egl/egl_external_platform.d
+install -m 644 10_nvidia_wayland.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 # use libglvnd on TW/sle15
 %if 0%{?suse_version} >= 1330
 rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG04.conf \
@@ -743,7 +746,10 @@ fi
 %defattr(-,root,root)
 %dir /etc/vulkan
 %dir /etc/vulkan/icd.d
+%dir %{_datadir}/egl
+%dir %{_datadir}/egl/egl_external_platform.d
 %config /etc/vulkan/icd.d/nvidia_icd.json
+%config %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
 %if 0%{?suse_version} >= 1330
 %dir %{_datadir}/glvnd
 %dir %{_datadir}/glvnd/egl_vendor.d

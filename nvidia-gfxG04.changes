@@ -1,3 +1,17 @@
+- ------------------------------------------------------------------
+Mon Jul 24 12:05:48 UTC 2017 - sndirsch@suse.com
+
+- update to latest long lived branch version 384.59
+- support for new GPUs
+  + P104-100 
+  + P106-100 
+  + GeForce GT 1030
+  + GeForce MX150
+  + GeForce MX150
+- 10_nvidia_wayland.json: new json config file for external EGL
+  platforms
+- using now template json config file for Vulkan config
+
 -------------------------------------------------------------------
 Mon Jun 19 18:39:16 UTC 2017 - sndirsch@suse.com
 
