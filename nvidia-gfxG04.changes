@@ -1,3 +1,10 @@
+-------------------------------------------------------------------
+Wed Aug  2 13:04:24 UTC 2017 - sndirsch@suse.com
+
+- make use of %triggerin script(s) for Tumbleweed; triggers packages
+  are kernel-default-devel (and also kernel-pae-devel on %ix86); this
+  replaces also %post script on Tumbleweed
+
 - ------------------------------------------------------------------
 Mon Jul 24 12:05:48 UTC 2017 - sndirsch@suse.com
 

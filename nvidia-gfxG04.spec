@@ -80,7 +80,24 @@ ExclusiveArch:  %ix86 x86_64
 %define kmp_template_name /usr/lib/rpm/rpm-suse-kernel-module-subpackage
 %endif
 %endif
+# Tumbleweed uses %triggerin instead of %post script in order to generate
+# and install kernel module
+%if 0%{?suse_version} >= 1330
+%(sed -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
+%(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-default-devel" >> %_builddir/nvidia-kmp-template)
+%(cat %_sourcedir/%kmp_preun               >> %_builddir/nvidia-kmp-template)
+%(cat %_sourcedir/%kmp_post                >> %_builddir/nvidia-kmp-template)
+%(echo "%%{?regenerate_initrd_posttrans}"  >> %_builddir/nvidia-kmp-template)
+%ifarch %ix86
+%(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-pae-devel" >> %_builddir/nvidia-kmp-template)
+%(cat %_sourcedir/%kmp_preun               >> %_builddir/nvidia-kmp-template)
+%(cat %_sourcedir/%kmp_post                >> %_builddir/nvidia-kmp-template)
+%(echo "%%{?regenerate_initrd_posttrans}"  >> %_builddir/nvidia-kmp-template)
+%endif
+%else
 %(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%endif
 %define x_flavors kdump um debug xen xenpae
 %if 0%{!?nvbuild:1}
 %define kver %(for dir in /usr/src/linux-obj/*/*/; do make -s -C "$dir" kernelversion; break; done |perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%03d\\n",$1,$2,$3')
