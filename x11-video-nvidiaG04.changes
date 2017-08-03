@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug  3 10:45:49 UTC 2017 - sndirsch@suse.com
+
+- fixed and reenabled Vulkan ICD config file installation 
+  (boo #1051988)
+
+-------------------------------------------------------------------
 Thu Aug  3 10:00:10 UTC 2017 - sndirsch@suse.com
 
 - Vulkan ICD config file installation disabled for now

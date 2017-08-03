@@ -418,10 +418,13 @@ tail -n +3 $modscript | awk '{ printf "%s ", $0 }' >> $modfile
 %if 0%{?suse_version} < 1120
 rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.%{version}
 %endif
-# Vulkan driver config
-# disabled for now; see https://bugzilla.opensuse.org/show_bug.cgi?id=1051988
-#mkdir -p %{buildroot}/etc/vulkan/icd.d/
-#install -m 644 nvidia_icd.json.template %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
+# Vulkan driver config (boo#1051988)
+mkdir -p %{buildroot}/etc/vulkan/icd.d/
+%if 0%{?suse_version} >= 1330
+sed 's/__NV_VK_ICD__/libGLX_nvidia.so.0/' nvidia_icd.json.template > %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
+%else
+sed 's/__NV_VK_ICD__/libGL.so.1/' nvidia_icd.json.template > %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
+%endif
 # EGL driver config
 mkdir -p %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 install -m 644 10_nvidia_wayland.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
@@ -745,11 +748,11 @@ fi
 
 %files -n nvidia-glG04
 %defattr(-,root,root)
-#%dir /etc/vulkan
-#%dir /etc/vulkan/icd.d
+%dir /etc/vulkan
+%dir /etc/vulkan/icd.d
 %dir %{_datadir}/egl
 %dir %{_datadir}/egl/egl_external_platform.d
-#%config /etc/vulkan/icd.d/nvidia_icd.json
+%config /etc/vulkan/icd.d/nvidia_icd.json
 %config %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
 %if 0%{?suse_version} >= 1330
 %dir %{_datadir}/glvnd
