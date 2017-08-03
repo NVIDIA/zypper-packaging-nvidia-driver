@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug  3 10:00:10 UTC 2017 - sndirsch@suse.com
+
+- Vulkan ICD config file installation disabled for now
+  (boo #1051988)
+
+-------------------------------------------------------------------
 Mon Jul 24 12:09:30 UTC 2017 - sndirsch@suse.com
 
 - update to latest long lived branch version 384.59
