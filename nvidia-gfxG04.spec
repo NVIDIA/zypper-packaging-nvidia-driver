@@ -82,7 +82,7 @@ ExclusiveArch:  %ix86 x86_64
 %endif
 # Tumbleweed uses %triggerin instead of %post script in order to generate
 # and install kernel module
-%if 0%{?suse_version} >= 1330
+%if 0%{?suse_version} >= 1330 && 0%{?is_opensuse}
 %(sed -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
 %(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-default-devel" >> %_builddir/nvidia-kmp-template)
