@@ -23,7 +23,6 @@ if /sbin/modprobe --ignore-install nvidia; then
   done;
   if [ ! -c /dev/nvidia-modeset ]; then
     mknod -m 666 /dev/nvidia-modeset c 195 254;
-    chown :video /dev/nvidia-modeset;
   fi;
   /sbin/modprobe nvidia_drm;
 fi
