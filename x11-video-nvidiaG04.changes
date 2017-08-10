@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Aug 10 14:07:01 UTC 2017 - sndirsch@suse.com
+
+- modprobe.d/50-nvidia.conf: add also /dev/nvidia-modeset, since 
+  with Tumbleweed gdm and X are no longer running as root and
+  therefore cannot create/access it (boo#1053115)
+
+-------------------------------------------------------------------
 Thu Aug  3 10:45:49 UTC 2017 - sndirsch@suse.com
 
 - fixed and reenabled Vulkan ICD config file installation 

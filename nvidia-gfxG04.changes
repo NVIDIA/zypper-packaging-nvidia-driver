@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Aug 10 09:39:21 UTC 2017 - sndirsch@suse.com
+
+- %triggerin: create /run/regenerate-initrd directory, if needed
+  (boo#1053115)
+
+-------------------------------------------------------------------
 Wed Aug  2 13:04:24 UTC 2017 - sndirsch@suse.com
 
 - make use of %triggerin script(s) for Tumbleweed; triggers packages
