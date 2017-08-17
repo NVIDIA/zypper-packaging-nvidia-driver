@@ -498,12 +498,12 @@ test -x /sbin/conf.d/SuSEconfig.xdm && \
 SuSEconfig --module xdm
 %endif
 %endif
-# Recreate initrd without KMS
+# Recreate initrd without KMS if required (sle11)
 # Only touch config, if the use of KMS is enabled in initrd;
 if grep -q NO_KMS_IN_INITRD=\"no\" /etc/sysconfig/kernel; then
   sed -i 's/NO_KMS_IN_INITRD.*/NO_KMS_IN_INITRD="yes"/g' /etc/sysconfig/kernel
+  which mkinitrd && mkinitrd
 fi
-which mkinitrd && mkinitrd
 exit 0
 
 %postun

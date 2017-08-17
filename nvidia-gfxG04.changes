@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Thu Aug 17 13:06:18 UTC 2017 - sndirsch@suse.com
+
+- kmp-post.sh/kmp-post-old.sh
+  * make sure kernel module gets generated into initrd during
+    kmp installation 
+- x11-video-nvidiaG04.spec
+  * %post: only recreate initrd if needed (possibly on sle11)
+- preamble:
+  * add conflicts to drm-kmp on Leap 42.3/sle12-sp3
+  * add conflicts to plymouth on Tumbleweed/sle15
+- nvidia-gfxG04.spec
+  * add missing creation of weak-updates to trigger scripts
+  * use trigger scripts also for Leap 42.3/sle12-sp3, but trigger
+    on uninstall of drm-kmp (boo#1053934)
+
+-------------------------------------------------------------------
 Thu Aug 17 09:11:21 UTC 2017 - sndirsch@suse.com
 
 - removed wrong provides to drm-kmp (only obsoletes should be used
