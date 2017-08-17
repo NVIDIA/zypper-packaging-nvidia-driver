@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Aug 17 09:11:21 UTC 2017 - sndirsch@suse.com
+
+- removed wrong provides to drm-kmp (only obsoletes should be used
+  here!)
+- added Obsoletes for plymouth for Tumbleweed/sle15, i.e. uninstall
+  plymouth when installing NVIDIA drivers (boo#1047225)
+
+-------------------------------------------------------------------
 Thu Aug 10 09:39:21 UTC 2017 - sndirsch@suse.com
 
 - %triggerin: create /run/regenerate-initrd directory, if needed
