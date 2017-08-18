@@ -8,10 +8,11 @@ Thu Aug 17 13:06:18 UTC 2017 - sndirsch@suse.com
   * %post: only recreate initrd if needed (possibly on sle11)
 - preamble:
   * add conflicts to plymouth on Tumbleweed/sle15
+  * add conflicts to drm-kmp > 3.7_3.1
 - nvidia-gfxG04.spec
   * add missing creation of weak-updates to trigger scripts
   * use trigger scripts also for Leap 42.3/sle12-sp3, but trigger
-    on uninstall of drm-kmp (boo#1053934)
+    in addition to %post on uninstall of drm-kmp (boo#1053934)
 
 -------------------------------------------------------------------
 Thu Aug 17 09:11:21 UTC 2017 - sndirsch@suse.com
