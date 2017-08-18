@@ -18,6 +18,6 @@ Conflicts: drm-kmp-%1 > 3.7_3.1
 Obsoletes: drm-kmp-%1
 %endif
 %if 0%{?suse_version} >= 1330
-Conflicts: plymouth
-Obsoletes: plymouth
+Conflicts: plymouth plymouth-dracut
+Obsoletes: plymouth plymouth-dracut
 %endif
