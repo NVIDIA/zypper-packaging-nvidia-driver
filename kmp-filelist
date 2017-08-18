@@ -2,6 +2,10 @@
 %dir /lib/modules/%2-%1
 %dir /lib/modules/%2-%1/updates
 %dir /usr/src/kernel-modules
+%if 0%{?suse_version} >= 1330
+%dir /etc/dracut.conf.d
+/etc/dracut.conf.d/50-nvidia.conf
+%endif
 /etc/modprobe.d/nvidia-%1.conf
 %dir /usr/lib/nvidia
 /usr/lib/nvidia/alternate-install-present-%1

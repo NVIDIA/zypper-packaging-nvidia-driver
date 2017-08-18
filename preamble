@@ -17,6 +17,3 @@ Provides: nvidia-gfxG04-kmp-%1 = %{-v*}
 Conflicts: drm-kmp-%1 > 3.7_3.1
 Obsoletes: drm-kmp-%1
 %endif
-%if 0%{?suse_version} >= 1330
-#Obsoletes: plymouth plymouth-dracut
-%endif

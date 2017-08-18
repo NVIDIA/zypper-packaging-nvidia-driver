@@ -247,4 +247,10 @@ for flavor in %flavors_to_build; do
   cp %{SOURCE16} %{buildroot}/usr/lib/nvidia/alternate-install-present-${flavor}
   touch %{buildroot}/usr/lib/nvidia/alternate-install-present
 done
+%if 0%{?suse_version} >= 1330
+mkdir -p %{buildroot}/etc/dracut.conf.d
+cat > %{buildroot}/etc/dracut.conf.d/50-nvidia.conf << EOF
+omit_dracutmodules+="plymouth"
+EOF
+%endif
 %changelog

@@ -13,6 +13,8 @@ Thu Aug 17 13:06:18 UTC 2017 - sndirsch@suse.com
   * add missing creation of weak-updates to trigger scripts
   * use trigger scripts also for Leap 42.3/sle12-sp3, but trigger
     in addition to %post on uninstall of drm-kmp (boo#1053934)
+- /etc/dracut.conf.d/50-nvidia.conf
+  * exclude "plymouth" module from building initrd (boo#1047225)
 
 -------------------------------------------------------------------
 Thu Aug 17 09:11:21 UTC 2017 - sndirsch@suse.com
