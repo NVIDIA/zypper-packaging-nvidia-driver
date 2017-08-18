@@ -601,6 +601,7 @@ fi
 %exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
 %exclude %{_libdir}/libnvidia-egl-wayland.so*
+%exclude %{_libdir}/libnvidia-gtk*
 %dir %{_libdir}/vdpau
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
@@ -745,6 +746,7 @@ fi
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
 %{_libdir}/libnvidia-egl-wayland.so*
+%{_libdir}/libnvidia-gtk*
 %{_libdir}/libnvidia-tls.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
