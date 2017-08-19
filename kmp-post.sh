@@ -60,3 +60,9 @@ echo
 mkdir -p /run/regenerate-initrd
 touch /run/regenerate-initrd/all
 
+# Recreate initrd without KMS if required (sle11)
+# Only touch config, if the use of KMS is enabled in initrd;
+if grep -q NO_KMS_IN_INITRD=\"no\" /etc/sysconfig/kernel; then
+  sed -i 's/NO_KMS_IN_INITRD.*/NO_KMS_IN_INITRD="yes"/g' /etc/sysconfig/kernel
+fi
+

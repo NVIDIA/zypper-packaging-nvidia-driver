@@ -48,6 +48,9 @@ Source14:       kmp-preun-old.sh
 Source16:       alternate-install-present
 Source17:       kmp-postun-old.sh
 Source18:       kmp-postun.sh
+Source19:       modprobe.nvidia
+Source20:       modprobe.nvidia.install.non_uvm
+Source21:       modprobe.nvidia.install
 Patch1:         kernel-4.10.patch
 NoSource:       0
 NoSource:       1
@@ -251,6 +254,27 @@ done
 mkdir -p %{buildroot}/etc/dracut.conf.d
 cat > %{buildroot}/etc/dracut.conf.d/50-nvidia.conf << EOF
 omit_dracutmodules+="plymouth"
+add_drivers+="nvidia nvidia-drm nvidia-modeset nvidia-uvm"
 EOF
+%endif
+%if 0%{?suse_version} > 1100
+mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d
+%if 0%{?suse_version} < 1120
+modfile=%{buildroot}%{_sysconfdir}/modprobe.d/51-nvidia.conf
+%else
+modfile=%{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia.conf
+%endif
+%ifarch x86_64
+modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install
+%else
+modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install.non_uvm
+%endif
+install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia $modfile
+# on sle11 "options nvidia" line is already in /etc/modprobe.d/50-nvidia.conf owned by xorg-x11-server package
+%if 0%{?suse_version} < 1120
+sed -i 's/^options nvidia.*//g' $modfile
+%endif
+echo -n "install nvidia " >> $modfile 
+tail -n +3 $modscript | awk '{ printf "%s ", $0 }' >> $modfile
 %endif
 %changelog

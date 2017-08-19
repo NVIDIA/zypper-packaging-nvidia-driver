@@ -7,6 +7,14 @@
 /etc/dracut.conf.d/50-nvidia.conf
 %endif
 /etc/modprobe.d/nvidia-%1.conf
+%if 0%{?suse_version} > 1100
+%dir %{_sysconfdir}/modprobe.d
+%if 0%{?suse_version} < 1120
+%config %{_sysconfdir}/modprobe.d/51-nvidia.conf
+%else
+%config %{_sysconfdir}/modprobe.d/50-nvidia.conf
+%endif
+%endif
 %dir /usr/lib/nvidia
 /usr/lib/nvidia/alternate-install-present-%1
 %ghost %attr(644,root,root) /usr/lib/nvidia/alternate-install-present
