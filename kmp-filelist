@@ -4,15 +4,15 @@
 %dir /usr/src/kernel-modules
 %if 0%{?suse_version} >= 1330
 %dir /etc/dracut.conf.d
-/etc/dracut.conf.d/50-nvidia.conf
+/etc/dracut.conf.d/50-nvidia-%1.conf
 %endif
 /etc/modprobe.d/nvidia-%1.conf
 %if 0%{?suse_version} > 1100
 %dir %{_sysconfdir}/modprobe.d
 %if 0%{?suse_version} < 1120
-%config %{_sysconfdir}/modprobe.d/51-nvidia.conf
+%config %{_sysconfdir}/modprobe.d/51-nvidia-%1.conf
 %else
-%config %{_sysconfdir}/modprobe.d/50-nvidia.conf
+%config %{_sysconfdir}/modprobe.d/50-nvidia-%1.conf
 %endif
 %endif
 %dir /usr/lib/nvidia
