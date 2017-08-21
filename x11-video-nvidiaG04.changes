@@ -5,7 +5,6 @@ Thu Aug 17 13:18:08 UTC 2017 - sndirsch@suse.com
   * make sure kernel module gets generated into initrd during 
     kmp installation
 - preamble:
-  * add conflicts to drm-kmp > 3.7_3.1 on Leap 42.3/sle12-sp3
   * no longer obsolete plymouth on Tumbleweed/sle15
 - nvidia-gfxG04.spec
   * add missing creation of weak-updates to trigger scripts
