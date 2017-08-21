@@ -252,7 +252,7 @@ for flavor in %flavors_to_build; do
   %if 0%{?suse_version} >= 1330
   mkdir -p %{buildroot}/etc/dracut.conf.d
   cat > %{buildroot}/etc/dracut.conf.d/50-nvidia-$flavor.conf << EOF
-#omit_dracutmodules+="plymouth"
+omit_dracutmodules+="plymouth"
 add_drivers+="nvidia nvidia-drm nvidia-modeset nvidia-uvm"
 EOF
   %endif

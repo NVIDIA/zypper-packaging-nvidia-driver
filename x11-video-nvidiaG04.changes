@@ -12,6 +12,7 @@ Thu Aug 17 13:18:08 UTC 2017 - sndirsch@suse.com
   * use trigger scripts also for Leap 42.3/sle12-sp3, but trigger
     in addition to %post on uninstall of drm-kmp (boo#1053934)
 - /etc/dracut.conf.d/50-nvidia.conf (TW/sle15)
+  * exclude "plymouth" module from building initrd (boo#1047225)
   * include all nvidia kernel modules
 - no longer run mkinitrd in %post/%postun of x11-video-nvidiaG04
 - moved modprobe.d file to KMP
