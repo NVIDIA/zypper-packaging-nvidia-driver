@@ -6,6 +6,8 @@ Thu Aug 17 13:06:18 UTC 2017 - sndirsch@suse.com
     kmp installation 
 - preamble:
   * no longer obsolete plymouth on Tumbleweed/sle15
+  * readded provides to drm-kmp on Leap 42.3/sle12-sp3, since 
+    otherwise NVIDIA KMP isn't autoselected :-(
 - nvidia-gfxG04.spec
   * add missing creation of weak-updates to trigger scripts
   * use trigger scripts also for Leap 42.3/sle12-sp3, but trigger
