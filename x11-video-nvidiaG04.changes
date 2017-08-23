@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Wed Aug 23 13:16:21 UTC 2017 - sndirsch@suse.com
+
+- update to latest long lived branch version 384.69
+  * Fixed an intermittent hang when using Vulkan to present directly to
+    display with the VK_KHR_display extension.  SteamVR was particularly
+    affected by that hang.
+
+  * Added support for the following GPU:
+    + Quadro P4000 with Max-Q Design
+
+-------------------------------------------------------------------
 Thu Aug 17 13:18:08 UTC 2017 - sndirsch@suse.com
 
 - kmp-post.sh/kmp-post-old.sh
