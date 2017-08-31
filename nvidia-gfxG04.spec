@@ -45,6 +45,7 @@ Source11:       kmp-post-old.sh
 Source12:       my-find-supplements
 Source13:       kmp-preun.sh
 Source14:       kmp-preun-old.sh
+Source15:       kmp-pre.sh
 Source16:       alternate-install-present
 Source17:       kmp-postun-old.sh
 Source18:       kmp-postun.sh
@@ -68,12 +69,14 @@ ExclusiveArch:  %ix86 x86_64
 %define kmp_filelist kmp-filelist
 %define kmp_post kmp-post.sh
 %define kmp_preun kmp-preun.sh
+%define kmp_pre kmp-pre.sh
 %define kmp_postun kmp-postun.sh
 %else
 %define kmp_template -s
 %define kmp_filelist kmp-filelist-old
 %define kmp_post kmp-post-old.sh
 %define kmp_preun kmp-preun-old.sh
+%define kmp_pre kmp-pre.sh
 %define kmp_postun kmp-postun-old.sh
 %endif
 %if 0%{!?kmp_template_name:1}
@@ -86,8 +89,10 @@ ExclusiveArch:  %ix86 x86_64
 # Tumbleweed uses %triggerin instead of %post script in order to generate
 # and install kernel module
 %if 0%{?suse_version} >= 1330 && 0%{?is_opensuse}
-%(sed -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%(sed -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
+# if %pre scriptlet sample missing in template
+%(grep -q "^%pre -n" %_builddir/nvidia-kmp-template || (echo "%pre -n %%{-n*}-kmp-%1" >> %_builddir/nvidia-kmp-template; cat %_sourcedir/%kmp_pre >> %_builddir/nvidia-kmp-template))
 %(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-default-devel" >> %_builddir/nvidia-kmp-template)
 %(cat %_sourcedir/%kmp_preun               >> %_builddir/nvidia-kmp-template)
 %(cat %_sourcedir/%kmp_post                >> %_builddir/nvidia-kmp-template)
@@ -113,11 +118,13 @@ ExclusiveArch:  %ix86 x86_64
 %(echo "%%{?regenerate_initrd_posttrans}"  >> %_builddir/nvidia-kmp-template)
 %endif
 %else
-%(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%(sed -e '/^%%post\>/ r %_sourcedir/%kmp_post' -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
+%(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
+# if %pre scriptlet sample missing in template
+%(grep -q "^%pre -n" %_builddir/nvidia-kmp-template || (echo "%pre -n %%{-n*}-kmp-%1" >> %_builddir/nvidia-kmp-template; cat %_sourcedir/%kmp_pre >> %_builddir/nvidia-kmp-template))
 # Leap 42.3/sle12-sp3 needs this to recompile module after having
 # uninstalled drm-kmp package (%triggerpostun)
 %if 0%{?suse_version} < 1320 && 0%{?sle_version} >= 120300
-%(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
 %(echo "%triggerpostun -n %%{-n*}-kmp-%1 -- drm-kmp-default" >> %_builddir/nvidia-kmp-template)
 %(cat %_sourcedir/%kmp_preun               >> %_builddir/nvidia-kmp-template)
 %(cat %_sourcedir/%kmp_post                >> %_builddir/nvidia-kmp-template)
