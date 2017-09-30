@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Sat Sep 30 12:11:22 UTC 2017 - sndirsch@suse.com
+
+- update to latest long lived branch version 384.90
+  * Fixed a regression that caused display flickering at lower PowerMizer
+    performance levels on some GPUs.
+  * Fixed a regression that prevented console restoration after a VT switch
+    on some GPUs.
+  * Fixed a bug that could cause a system hang when resuming from suspend
+    with some GPUs.
+  * Fixed a bug that caused slow or stuttering frame rates in applications
+    that use GLX_EXT_swap_control_tear while G-SYNC is active.
+  * Added support for the following GPU:
+    * Quadro P5200
+  * Fixed a bug in the NVIDIA VDPAU driver that caused
+    VdpVideoSurfaceGetBitsYCbCr() of H.265/HEVC content to have interlaced
+    artifacts.
+  * Fixed a bug that caused the X driver to not correctly report the
+    "BlendOrder" MetaMode token when querying the MetaMode through, e.g.,
+    `nvidia-settings --query CurrentMetaMode`.
+  * Fixed a bug that prevented nvidia-installer from displaying a
+    targeted error message when optional kernel modules fail to load.
+
+-------------------------------------------------------------------
 Thu Aug 31 10:09:28 UTC 2017 - sndirsch@suse.com
 
 - readded kmp-pre.sh
