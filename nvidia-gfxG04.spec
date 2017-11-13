@@ -61,6 +61,9 @@ BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
+%if 0%{?suse_version} >= 1330
+BuildRequires:  libelf-devel
+%endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %ix86 x86_64
 # patch the kmp template

@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Nov 13 04:22:52 UTC 2017 - sndirsch@suse.com
+
+- added libelf-devel to BuildRequires for Tumbleweed 
+
+-------------------------------------------------------------------
 Sat Sep 30 12:11:22 UTC 2017 - sndirsch@suse.com
 
 - update to latest long lived branch version 384.90
