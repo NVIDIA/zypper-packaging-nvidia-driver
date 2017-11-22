@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Wed Nov 22 11:04:52 UTC 2017 - sndirsch@suse.com
+
+- update to latest long lived branch version 384.98
+  * Added support for the following GPUs:
+    + P104-101
+    + P106-090
+    + Tesla V100-SXM2-16GB
+    + Tesla V100-PCIE-16GB
+  * Fixed a bug that could cause some eDP G-SYNC displays to flicker at low
+     refresh rates.
+  * Fixed a bug that could cause OpenGL applications to crash after a
+    prolonged DPMS sleep state on a monitor driven with PRIME Sync.
+  * Fixed a bug that artificially limited the maximum pixel clock to 300 MHz
+    when using certain more capable DisplayPort to HDMI adapters.
+  * Fixed a bug that prevented the NVIDIA kernel modules from building for
+    non-SMP Linux kernels.
+  * Updated the output of `nvidia-smi nvlink --status` to include reporting
+    NVLink speed.
+  * Fixed a bug that caused incorrect PCI topology reporting in nvidia-smi
+    on Intel Skylake systems.
+
+-------------------------------------------------------------------
 Mon Nov 13 04:22:52 UTC 2017 - sndirsch@suse.com
 
 - added libelf-devel to BuildRequires for Tumbleweed 
