@@ -19,6 +19,9 @@ Wed Nov 22 11:06:35 UTC 2017 - sndirsch@suse.com
     NVLink speed.
   * Fixed a bug that caused incorrect PCI topology reporting in nvidia-smi
     on Intel Skylake systems.
+- kernel-4.14-kernel_head-changes.patch
+  * apply this for now on kernel 4.14 or newer, since kernel_head(...)
+    changed
 
 -------------------------------------------------------------------
 Sat Sep 30 12:16:00 UTC 2017 - sndirsch@suse.com
