@@ -227,7 +227,7 @@ cd NVIDIA-Linux-x86*-%{version}
 #	--opengl-prefix=%{buildroot}%{_prefix} \
 #	--utility-prefix=%{buildroot}%{_prefix}
 # only to be used by GLVND
-rm -f libGL.so.1.0.0 32/libGL.so.1.0.0
+rm -f libGL.so.1.* 32/libGL.so.1.*
 rm -f libGLX.so.0 32/libGLX.so.0
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_prefix}/X11R6/lib
