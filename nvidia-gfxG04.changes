@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jan  2 15:11:44 UTC 2018 - sndirsch@suse.com
+
+- kernel-4.14.9-buildfix.patch 
+  * Fix build with kernel 4.14.9
+- BuildRequires: libelf-devel no longer needed
+
+-------------------------------------------------------------------
 Wed Nov 22 11:04:52 UTC 2017 - sndirsch@suse.com
 
 - update to latest long lived branch version 384.98

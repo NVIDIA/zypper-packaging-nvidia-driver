@@ -53,6 +53,7 @@ Source19:       modprobe.nvidia
 Source20:       modprobe.nvidia.install.non_uvm
 Source21:       modprobe.nvidia.install
 Patch0:         delete_read_kernel.patch
+Patch1:         kernel-4.14.9-buildfix.patch
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -61,9 +62,6 @@ BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
-%if 0%{?suse_version} >= 1330
-BuildRequires:  libelf-devel
-%endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %ix86 x86_64
 # patch the kmp template
@@ -188,6 +186,7 @@ echo "kver = %kver"
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
 %patch0 -p1
+%patch1 -p1
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
