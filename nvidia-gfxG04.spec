@@ -186,7 +186,9 @@ echo "kver = %kver"
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
 %patch0 -p1
+%ifarch x86_64
 %patch1 -p1
+%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
