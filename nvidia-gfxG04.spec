@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        384.98
+Version:        384.111
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -52,8 +52,6 @@ Source18:       kmp-postun.sh
 Source19:       modprobe.nvidia
 Source20:       modprobe.nvidia.install.non_uvm
 Source21:       modprobe.nvidia.install
-Patch0:         delete_read_kernel.patch
-Patch1:         kernel-4.14.9-buildfix.patch
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -185,10 +183,6 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
-%patch0 -p1
-%ifarch x86_64
-%patch1 -p1
-%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}

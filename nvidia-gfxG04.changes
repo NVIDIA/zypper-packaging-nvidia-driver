@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Mon Jan  8 14:40:45 UTC 2018 - sndirsch@suse.com
+
+- update to latest long lived branch version 384.111
+  * Added support for the following GPUs:
+    + GeForce MX130
+    + GeForce MX110
+    + GeForce GTX 1050 Ti with Max-Q Design
+    + Quadro P500
+  * Fixed a regression that prevented displays connected via some types of
+    passive adapters (e.g. DMS-59 to VGA or DVI) from working correctly.
+    The regression was introduced with driver version 384.98.
+  * Fixed a bug that caused Quadro M2200 GPUs to enter the lowest available
+    PowerMizer performance level when under load.
+- supersedes patches delete_read_kernel.patch, kernel-4.14.9-buildfix.patch
+
+-------------------------------------------------------------------
 Tue Jan  2 15:11:44 UTC 2018 - sndirsch@suse.com
 
 - kernel-4.14.9-buildfix.patch 
