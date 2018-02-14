@@ -4,9 +4,14 @@ Wed Feb 14 14:12:24 UTC 2018 - sndirsch@suse.com
 - /etc/dracut.conf.d/50-nvidia-$flavor.conf
   * generate chmod, mknod, cat, echo, chown and nvidia kernel
     modules nvidia, nvidia-drm, nvidia-modeset, nvidia-uvm into
-    initrd (bsc#1080742)
+    initrd (boo#1080742)
 - /usr/lib/tmpfiles.d
-  * add additional line for nvidia-modeset device (bsc#1080742)
+  * add additional line for nvidia-modeset device (boo#1080742)
+- /etc/modprobe.d/5*-nvidia-default.conf
+  * use group id 485 on TW now
+  * changed owner/permissions of /dev/nvidia-modeset to root:video
+    and 660; seems to be sufficient and even needed for gdm on TW
+    now (boo#1080742)
 
 -------------------------------------------------------------------
 Fri Feb  9 14:14:16 UTC 2018 - sndirsch@suse.com
