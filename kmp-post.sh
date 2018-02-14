@@ -29,9 +29,11 @@ mkdir -p /run/udev/static_node-tags/uaccess
 mkdir -p /usr/lib/tmpfiles.d
 ln -snf /dev/nvidiactl /run/udev/static_node-tags/uaccess/nvidiactl 
 ln -snf /dev/nvidia-uvm /run/udev/static_node-tags/uaccess/nvidia-uvm
+ln -snf /dev/nvidia-modeset /run/udev/static_node-tags/uaccess/nvidia-modeset
 cat >  /usr/lib/tmpfiles.d/nvidia-logind-acl-trick.conf << EOF
 L /run/udev/static_node-tags/uaccess/nvidiactl - - - - /dev/nvidiactl
 L /run/udev/static_node-tags/uaccess/nvidia-uvm - - - - /dev/nvidia-uvm
+L /run/udev/static_node-tags/uaccess/nvidia-modeset - - - - /dev/nvidia-modeset
 EOF
 devid=-1
 for dev in $(ls -d /sys/bus/pci/devices/*); do 
