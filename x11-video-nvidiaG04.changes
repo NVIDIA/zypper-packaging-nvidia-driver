@@ -12,6 +12,10 @@ Wed Feb 14 14:18:30 UTC 2018 - sndirsch@suse.com
   * changed owner/permissions of /dev/nvidia-modeset to root:video
     and 660; seems to be sufficient and even needed for gdm on TW
     now (boo#1080742)
+- kmp-post.sh
+  * groups are now dymamic; set group ID accordingly in
+    /etc/modprobe.d/50-nvidia-default.conf during installation
+    (boo#1080742)
 
 -------------------------------------------------------------------
 Fri Feb  9 14:17:00 UTC 2018 - sndirsch@suse.com
