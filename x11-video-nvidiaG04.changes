@@ -8,7 +8,6 @@ Wed Feb 14 14:18:30 UTC 2018 - sndirsch@suse.com
 - /usr/lib/tmpfiles.d/nvidia-logind-acl-trick.conf
   * add additional line for nvidia-modeset device (bsc#1080742)
 - /etc/modprobe.d/5*-nvidia-default.conf
-  * use group id 485 on TW now
   * changed owner/permissions of /dev/nvidia-modeset to root:video
     and 660; seems to be sufficient and even needed for gdm on TW
     now (boo#1080742)

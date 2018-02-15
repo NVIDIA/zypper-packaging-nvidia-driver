@@ -271,8 +271,6 @@ EOF
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install.non_uvm
   %endif
   install -m 644 $RPM_SOURCE_DIR/modprobe.nvidia $modfile
-  # video group id changed to 485 in TW
-  sed -i 's/33/485/g' $modfile
   # on sle11 "options nvidia" line is already in 
   # /etc/modprobe.d/50-nvidia.conf owned by xorg-x11-server package
   %if 0%{?suse_version} < 1120
