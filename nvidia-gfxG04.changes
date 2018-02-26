@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Mon Feb 26 16:22:07 UTC 2018 - sndirsch@suse.com
+
+- rebuilded kernel modules in %trigger of TW packages should go to
+  the tree against which the kernel module gets builded, not the
+  hardcoded one during build of the package; introduced
+  kmp-trigger.sh/kmp-trigger-old.sh script snippets for this based
+  on kmp-post.sh/kmp-post-old.sh (boo#1082704)
+
+-------------------------------------------------------------------
 Wed Feb 14 14:12:24 UTC 2018 - sndirsch@suse.com
 
 - /etc/dracut.conf.d/50-nvidia-$flavor.conf

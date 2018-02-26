@@ -52,6 +52,8 @@ Source18:       kmp-postun.sh
 Source19:       modprobe.nvidia
 Source20:       modprobe.nvidia.install.non_uvm
 Source21:       modprobe.nvidia.install
+Source22:       kmp-trigger.sh
+Source23:       kmp-trigger-old.sh
 NoSource:       0
 NoSource:       1
 NoSource:       6
@@ -70,6 +72,7 @@ ExclusiveArch:  %ix86 x86_64
 %define kmp_preun kmp-preun.sh
 %define kmp_pre kmp-pre.sh
 %define kmp_postun kmp-postun.sh
+%define kmp_trigger kmp-trigger.sh
 %else
 %define kmp_template -s
 %define kmp_filelist kmp-filelist-old
@@ -77,6 +80,7 @@ ExclusiveArch:  %ix86 x86_64
 %define kmp_preun kmp-preun-old.sh
 %define kmp_pre kmp-pre.sh
 %define kmp_postun kmp-postun-old.sh
+%define kmp_trigger kmp-trigger-old.sh
 %endif
 %if 0%{!?kmp_template_name:1}
 %if 0%{?suse_version} > 1010
@@ -94,7 +98,7 @@ ExclusiveArch:  %ix86 x86_64
 %(grep -q "^%pre -n" %_builddir/nvidia-kmp-template || (echo "%pre -n %%{-n*}-kmp-%1" >> %_builddir/nvidia-kmp-template; cat %_sourcedir/%kmp_pre >> %_builddir/nvidia-kmp-template))
 %(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-default-devel" >> %_builddir/nvidia-kmp-template)
 %(cat %_sourcedir/%kmp_preun               >> %_builddir/nvidia-kmp-template)
-%(cat %_sourcedir/%kmp_post                >> %_builddir/nvidia-kmp-template)
+%(cat %_sourcedir/%kmp_trigger             >> %_builddir/nvidia-kmp-template)
 %(echo 'nvr=%%{-n*}-kmp-%1-%_this_kmp_version-%%{-r*}' >> %_builddir/nvidia-kmp-template)
 %(echo 'wm2=/usr/lib/module-init-tools/weak-modules2' >> %_builddir/nvidia-kmp-template)
 %(echo 'if [ -x $wm2 ]; then' >> %_builddir/nvidia-kmp-template)
@@ -106,7 +110,7 @@ ExclusiveArch:  %ix86 x86_64
 %ifarch %ix86
 %(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-pae-devel" >> %_builddir/nvidia-kmp-template)
 %(cat %_sourcedir/%kmp_preun               >> %_builddir/nvidia-kmp-template)
-%(cat %_sourcedir/%kmp_post                >> %_builddir/nvidia-kmp-template)
+%(cat %_sourcedir/%kmp_trigger             >> %_builddir/nvidia-kmp-template)
 %(echo 'nvr=%%{-n*}-kmp-%1-%_this_kmp_version-%%{-r*}' >> %_builddir/nvidia-kmp-template)
 %(echo 'wm2=/usr/lib/module-init-tools/weak-modules2' >> %_builddir/nvidia-kmp-template)
 %(echo 'if [ -x $wm2 ]; then' >> %_builddir/nvidia-kmp-template)
