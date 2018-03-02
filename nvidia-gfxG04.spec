@@ -58,6 +58,7 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
+Patch0:         n_sle15.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
@@ -177,6 +178,9 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
+%if 0%{?suse_version} >= 1330
+%patch0 -p0
+%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
