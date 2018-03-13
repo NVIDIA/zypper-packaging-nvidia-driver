@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Tue Mar 13 14:01:09 UTC 2018 - sndirsch@suse.com
+
+- update to latest long lived branch version 390.42
+  * Fixed a regression, introduced in 390.12, that caused occasional
+    flicker when using the X driver's composition pipeline, for
+    example when using screen transformations like rotation, or the
+    "ForceCompositionPipeline" or "ForceFullCompositionPipeline"
+    options."
+
+-------------------------------------------------------------------
 Fri Mar  2 15:03:54 UTC 2018 - sndirsch@suse.com
 
 - n_sle15.patch:
