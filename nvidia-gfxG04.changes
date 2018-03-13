@@ -7,6 +7,7 @@ Tue Mar 13 13:59:52 UTC 2018 - sndirsch@suse.com
     example when using screen transformations like rotation, or the
     "ForceCompositionPipeline" or "ForceFullCompositionPipeline"
     options."
+- apply n_sle15.patch only on sle15; not on Leap 15.0
 
 -------------------------------------------------------------------
 Fri Mar  2 15:03:34 UTC 2018 - sndirsch@suse.com
