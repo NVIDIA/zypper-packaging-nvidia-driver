@@ -178,7 +178,7 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
-%if 0%{?suse_version} >= 1330 && !0%{?is_opensuse}
+%if 0%{?suse_version} >= 1330
 %patch0 -p0
 %endif
 popd
