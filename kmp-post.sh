@@ -69,6 +69,8 @@ if grep -q NO_KMS_IN_INITRD=\"no\" /etc/sysconfig/kernel; then
 fi
 
 # groups are now dynamic
-VIDEOGID=`getent group video | cut -d: -f3`
-sed -i "s/33/$VIDEOGID/" /etc/modprobe.d/50-nvidia-default.conf
+if [ -f /etc/modprobe.d/50-nvidia-default.conf ]; then
+  VIDEOGID=`getent group video | cut -d: -f3`
+  sed -i "s/33/$VIDEOGID/" /etc/modprobe.d/50-nvidia-default.conf
+fi
 

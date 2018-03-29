@@ -4,6 +4,8 @@ Thu Mar 29 13:41:25 UTC 2018 - sndirsch@suse.com
 - supplements macro name changed again with rpm 4.14.1, i.e. sle15/
   Leap15/TW (boo#1087460)
   * %__ksyms_supplements --> %__kmp_supplements
+- /etc/modprobe.d/50-nvidia-default.conf does not exist on sle11
+  during build
 
 -------------------------------------------------------------------
 Thu Mar 22 11:06:19 UTC 2018 - sndirsch@suse.com

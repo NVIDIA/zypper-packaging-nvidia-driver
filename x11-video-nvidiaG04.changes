@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Mar 29 14:20:00 UTC 2018 - sndirsch@suse.com
+
+- /etc/modprobe.d/50-nvidia-default.conf does not exist on sle11
+  during build
+
+-------------------------------------------------------------------
 Thu Mar 29 13:43:42 UTC 2018 - sndirsch@suse.com
 
 - supplements macro name changed again with rpm 4.14.1, i.e. sle15/ 
