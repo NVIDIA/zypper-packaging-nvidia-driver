@@ -149,6 +149,8 @@ ExclusiveArch:  %ix86 x86_64
 %else
 %define pci_id_file %_sourcedir/pci_ids-%version.new
 %endif
+# rpm 4.14.1 changed again (boo#1087460)
+%define __kmp_supplements %_sourcedir/my-find-supplements %pci_id_file
 # rpm 4.9+ using the internal dependency generators
 %define __ksyms_supplements %_sourcedir/my-find-supplements %pci_id_file %name
 # older rpm

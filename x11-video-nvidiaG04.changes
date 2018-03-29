@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Mar 29 13:43:42 UTC 2018 - sndirsch@suse.com
+
+- supplements macro name changed again with rpm 4.14.1, i.e. sle15/ 
+  Leap15/TW (boo#1087460)
+  * %__ksyms_supplements --> %__kmp_supplements
+
+-------------------------------------------------------------------
 Thu Mar 22 11:06:54 UTC 2018 - sndirsch@suse.com
 
 - apply n_sle15.patch now also on Leap 15.0          
