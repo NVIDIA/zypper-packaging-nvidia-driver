@@ -58,6 +58,7 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
+Patch0:         missing-exports-for-swiotlb.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
@@ -179,6 +180,10 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
+%if %{kver} >= 416000
+echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
+%patch0 -p1
+%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
