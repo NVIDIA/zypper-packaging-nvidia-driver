@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Apr 11 09:37:48 UTC 2018 - sndirsch@suse.com
+
+- replaced 'missing-exports-for-swiotlb.patch' with
+  NVIDIA's patch 'check-for-swiotlb_map_sg_attrs.patch' (boo#1088651)
+
+-------------------------------------------------------------------
 Mon Apr  9 13:40:37 UTC 2018 - sndirsch@suse.com
 
 - missing-exports-for-swiotlb.patch
