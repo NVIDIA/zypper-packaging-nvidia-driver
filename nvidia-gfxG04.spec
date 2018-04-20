@@ -180,8 +180,9 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
-echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
-%patch0 -p1
+echo "=====> SKIPPING 4.16 patch"
+#echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
+#%patch0 -p1
 find . -name "*.orig" -delete
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
