@@ -290,12 +290,12 @@ ln -sf libnvidia-wfb.so.%{version} %{buildroot}%{xmodulesdir}/libwfb.so
 %endif
 install nvidia_drv.so %{buildroot}%{xmodulesdir}/drivers
 %if 0%{?suse_version} < 1315
-install libglx.so.%{version} \
+install libglxserver_nvidia.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/
-ln -sf libglx.so.%{version} %{buildroot}%{xmodulesdir}/extensions/libglx.so
+ln -sf libglxserver_nvidia.so.%{version} %{buildroot}%{xmodulesdir}/extensions/libglxserver_nvidia.so
 %else
 mkdir -p %{buildroot}%{xmodulesdir}/extensions/nvidia
-install libglx.so.%{version} \
+install libglxserver_nvidia.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/nvidia/nvidia-libglx.so
 %endif
 %ifarch x86_64
