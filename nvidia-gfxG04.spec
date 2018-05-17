@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        390.48
+Version:        390.59
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -180,8 +180,7 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
-echo "=====> SKIPPING 4.16 patch"
-#echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
+echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
 #%patch0 -p1
 find . -name "*.orig" -delete
 popd

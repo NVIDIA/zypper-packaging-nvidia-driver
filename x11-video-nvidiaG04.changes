@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Thu May 17 12:52:17 UTC 2018 - sndirsch@suse.com
+
+- update to latest long lived branch version 390.59
+  * Added support for the following GPUs:
+    + GeForce GTX 1050 with Max-Q Design
+    + Quadro P3200
+    + Quadro P4200
+  * Added support for X.Org xserver ABI 24 (xorg-server 1.20).
+  * Improved nvidia-bug-report.sh to check for kern.log which 
+     is the default kernel log-file location for many Debian-based 
+     Linux distributions.
+  * Fixed a bug which could cause X servers that export a Video 
+    Driver ABI earlier than 0.8 to crash when running X11 
+    applications which call XRenderAddTraps().
+
+-------------------------------------------------------------------
 Wed Apr 11 09:37:48 UTC 2018 - sndirsch@suse.com
 
 - replaced 'missing-exports-for-swiotlb.patch' with

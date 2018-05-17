@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG04
-Version:        390.48
+Version:        390.59
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
