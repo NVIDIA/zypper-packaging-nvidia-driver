@@ -216,7 +216,7 @@ sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' so
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
 for flavor in %flavors_to_build; do
-    src=/lib/modules/$(make -sC %{kernel_source $flavor} kernelrelease)/source
+    src=/lib/modules/$(make -siC %{kernel_source $flavor} kernelrelease)/source
     %if 0%{?suse_version} <= 1020
     export SYSSRC=$src
     %endif
@@ -234,7 +234,7 @@ export BRP_PESIGN_FILES=""
 export INSTALL_MOD_PATH=%{buildroot}
 export INSTALL_MOD_DIR=updates
 for flavor in %flavors_to_build; do
-    export SYSSRC=/lib/modules/$(make -sC %{kernel_source $flavor} kernelrelease)/source
+    export SYSSRC=/lib/modules/$(make -siC %{kernel_source $flavor} kernelrelease)/source
     make -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}
     #install -m 644 $PWD/obj/$flavor/%{version}/{nv-linux.o,nv-kernel.o} \
     #  %{buildroot}/lib/modules/*-$flavor/updates

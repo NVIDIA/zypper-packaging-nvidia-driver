@@ -13,6 +13,8 @@ Thu May 17 12:52:17 UTC 2018 - sndirsch@suse.com
   * Fixed a bug which could cause X servers that export a Video 
     Driver ABI earlier than 0.8 to crash when running X11 
     applications which call XRenderAddTraps().
+- workaround build failure of kernelrelease target on sle12-sp4
+  (boo#1093333)
 
 -------------------------------------------------------------------
 Wed Apr 11 09:37:48 UTC 2018 - sndirsch@suse.com
