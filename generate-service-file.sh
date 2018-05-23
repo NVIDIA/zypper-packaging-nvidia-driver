@@ -6,7 +6,7 @@ for arch in x86 x86_64; do
   file=NVIDIA-Linux-${arch}-${driver_version}.run
   if [ ! -s ${file} ]; then
     echo -n "Dowloading ${file} ... "
-    curl -s -o $file ftp://download.nvidia.com/XFree86/Linux-${arch}/${driver_version}/$file
+    curl -s -o $file https://download.nvidia.com/XFree86/Linux-${arch}/${driver_version}/$file
     echo "done"
   fi
 done
