@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jun  6 14:51:06 UTC 2018 - sndirsch@suse.com
+
+- update to latest long lived branch version 390.67
+  * Fixed a bug that could cause kernel panics when using Quadro SDI
+    Capture hardware.
+  * Fixed an intermittent crash when launching Vulkan applications.
+  * Fixed an intermittent crash when launching applications through Wine.
+  * Fixed a bug that caused the driver, in some low bandwidth DisplayPort
+    configurations, to not implicitly enable display dithering.  This
+    resulted in visible banding.
+
+-------------------------------------------------------------------
 Wed May 23 12:25:47 UTC 2018 - sndirsch@suse.com
 
 - generate-service-file.sh: use https instead of ftp ... 
