@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Mon Jul 23 13:46:34 UTC 2018 - sndirsch@suse.com
+
+- update to latest long lived branch version 390.77
+  * Improved compatibility with recent Linux kernels.
+  * Fixed an intermittent hang of Vulkan applications running fullscreen
+    when flipping is allowed.
+  * Removed informational messages that were printed by nvidia-modeset.ko
+    whenever a GPU device was allocated or freed.
+  * Fixed a bug that caused kwin OpenGL compositing to crash when
+    launching certain OpenGL applications.
+
+-------------------------------------------------------------------
 Wed Jun  6 14:51:06 UTC 2018 - sndirsch@suse.com
 
 - update to latest long lived branch version 390.67
