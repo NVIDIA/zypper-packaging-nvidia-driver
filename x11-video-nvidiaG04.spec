@@ -256,6 +256,7 @@ install libOpenCL* %{buildroot}%{_libdir}
 install libnvcuvid* %{buildroot}%{_libdir}
 install libnvidia-ml* %{buildroot}%{_libdir}
 install libvdpau_nvidia.so* %{buildroot}%{_libdir}/vdpau
+install libnvoptix.so.%{version} %{buildroot}%{_libdir}
 # nvidia-modprobe must be setuid root to function correctly
 install -m 4755 nvidia-modprobe %{buildroot}%{_bindir}
 # Bug #596481
@@ -638,6 +639,7 @@ fi
 %exclude %{_libdir}/libnvidia-fbc.so*
 %exclude %{_libdir}/libnvidia-egl-wayland.so*
 %exclude %{_libdir}/libnvidia-gtk*
+%exclude %{_libdir}/libnvoptix.so*
 %dir %{_libdir}/vdpau
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
@@ -786,6 +788,7 @@ fi
 %{_libdir}/libnvidia-tls.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
+%{_libdir}/libnvoptix.so*
 %dir %{_libdir}/tls
 %{_libdir}/tls/libnvidia-tls.so*
 %{xmodulesdir}/extensions
