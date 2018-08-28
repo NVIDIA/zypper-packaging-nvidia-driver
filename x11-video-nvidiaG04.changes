@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Tue Aug 28 13:40:30 UTC 2018 - sndirsch@suse.com
+
+- update to latest long lived branch version 390.87
+  * Fixed a resource leak introduced in the 390 series of drivers 
+    that could lead to reduced performance after starting and 
+    stopping several OpenGL and/or Vulkan applications.
+
+-------------------------------------------------------------------
 Mon Jul 23 13:47:34 UTC 2018 - sndirsch@suse.com
 
 - update to latest long lived branch version 390.77
