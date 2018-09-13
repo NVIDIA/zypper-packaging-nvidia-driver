@@ -249,7 +249,7 @@ install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
 install nvidia-persistenced %{buildroot}%{_bindir}
-install tls/libnvidia-tls.so.* %{buildroot}%{_libdir}/tls
+install libnvidia-tls.so.* %{buildroot}%{_libdir}/tls
 install libnvidia* %{buildroot}%{_libdir}
 install libcuda* %{buildroot}%{_libdir}
 install libOpenCL* %{buildroot}%{_libdir}
@@ -300,7 +300,7 @@ install libglxserver_nvidia.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/nvidia/nvidia-libglx.so
 %endif
 %ifarch x86_64
-install 32/tls/libnvidia-tls.so.* %{buildroot}%{_prefix}/lib/tls
+install 32/libnvidia-tls.so.* %{buildroot}%{_prefix}/lib/tls
 install 32/libnvidia* %{buildroot}%{_prefix}/lib
 install 32/libcuda* %{buildroot}%{_prefix}/lib
 install 32/libOpenCL* %{buildroot}%{_prefix}/lib
