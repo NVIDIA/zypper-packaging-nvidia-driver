@@ -51,6 +51,7 @@ Source7:        pci_ids-%{version}
 Source8:        rpmlintrc
 Source9:        libvdpau-0.4.tar.gz
 Source10:       vdpauinfo-0.0.6.tar.gz
+Source11:       pci_ids-%{version}.legacy
 NoSource:       0
 NoSource:       1
 NoSource:       4
@@ -357,7 +358,11 @@ mkdir -p %{buildroot}%{_datadir}/sax/sysp/maps/update/ \
 > %{buildroot}%{_datadir}/sax/api/data/cdb/Cards.10.%{name}
 > %{buildroot}%{_localstatedir}/lib/hardware/ids/10.%{name}
 %if 0%{?suse_version} > 1320 || (0%{?suse_version} == 1315 && 0%{?is_opensuse})
+%if 0%{?suse_version} > 1500
+(cat %_sourcedir/pci_ids-%{version}.legacy; \
+%else
 (cat %_sourcedir/pci_ids-%{version}; \
+%endif
 %else
 (cat %_sourcedir/pci_ids-%{version}.new; \
 %endif

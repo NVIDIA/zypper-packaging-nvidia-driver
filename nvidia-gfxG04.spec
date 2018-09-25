@@ -33,6 +33,7 @@ URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
+Source2:        pci_ids-%{version}.legacy
 Source3:        preamble
 Source4:        pci_ids-%{version}
 Source5:        pci_ids-%{version}.new
@@ -145,7 +146,11 @@ ExclusiveArch:  %ix86 x86_64
 
 # supplements no longer depend on the driver
 %if 0%{?suse_version} > 1320 || (0%{?suse_version} == 1315 && 0%{?is_opensuse})
+%if 0%{?suse_version} > 1500
+%define pci_id_file %_sourcedir/pci_ids-%version.legacy
+%else
 %define pci_id_file %_sourcedir/pci_ids-%version
+%endif
 %else
 %define pci_id_file %_sourcedir/pci_ids-%version.new
 %endif
