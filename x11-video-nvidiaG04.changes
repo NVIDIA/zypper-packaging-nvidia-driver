@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Sun Sep 23 15:21:35 UTC 2018 - sndirsch@suse.com
+
+- no longer alter, i.e. strip NVIDIA's libraries 
+
+-------------------------------------------------------------------
 Tue Aug 28 13:40:30 UTC 2018 - sndirsch@suse.com
 
 - update to latest long lived branch version 390.87

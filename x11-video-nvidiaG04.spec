@@ -199,6 +199,8 @@ popd
 # nothing
 
 %install
+# no longer alter, i.e. strip NVIDIA's libraries
+export NO_BRP_STRIP_DEBUG=true
 %if 0%{?suse_version} < 1130
 pushd libvdpau-*
   %configure
