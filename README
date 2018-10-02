@@ -1,0 +1,16 @@
+Build instructions for openSUSE Factory
+---------------------------------------
+
+# Download installer (required for building packages)
+osc service dr
+
+# Create a directory to copy packages to
+mkdir packages
+
+# Build kernel module RPM
+# 64bit
+osc build -k ./packages openSUSE_Factory x86_64 nvidia-gfxG05.spec
+
+# Build Driver RPM
+# 64bit
+osc build -k ./packages openSUSE_Factory x86_64 x11-video-nvidiaG05.spec

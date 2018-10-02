@@ -1,0 +1,22 @@
+%defattr (-,root,root)
+%dir /lib/modules/%2-%1
+%dir /lib/modules/%2-%1/updates
+%dir /usr/src/kernel-modules
+%dir /etc/dracut.conf.d
+/etc/dracut.conf.d/50-nvidia-%1.conf
+/etc/modprobe.d/nvidia-%1.conf
+%if 0%{?suse_version} > 1100
+%dir %{_sysconfdir}/modprobe.d
+%if 0%{?suse_version} < 1120
+%config %{_sysconfdir}/modprobe.d/51-nvidia-%1.conf
+%else
+%config %{_sysconfdir}/modprobe.d/50-nvidia-%1.conf
+%endif
+%endif
+%dir /usr/lib/nvidia
+/usr/lib/nvidia/alternate-install-present-%1
+%ghost %attr(644,root,root) /usr/lib/nvidia/alternate-install-present
+%ghost /lib/modules/%2-%1/updates/nvidia*.ko
+#/lib/modules/%2-%1/updates/nv-kernel.o
+#/lib/modules/%2-%1/updates/nv-linux.o
+/usr/src/kernel-modules/nvidia-%{-v*}-%1
