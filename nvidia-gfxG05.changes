@@ -1,4 +1,17 @@
 -------------------------------------------------------------------
+Fri Oct 12 09:50:56 UTC 2018 - sndirsch@suse.com
+
+- let nvidia-glG05 recommend the following packages:
+  * Mesa-libGL1
+  * Mesa-libEGL1
+  * Mesa-libGLESv1_CM1
+  * Mesa-libGLESv2-2
+  This is needed for Optimus systems once NVIDIA's GL libs get disabled
+  (our default); these packages won't get installed when adding NVIDIA's
+  repository before the installation, which e.g. happens on SLED
+  (bsc#1111471)
+
+-------------------------------------------------------------------
 Tue Sep 25 13:46:19 UTC 2018 - sndirsch@suse.com
 
 - created package 
