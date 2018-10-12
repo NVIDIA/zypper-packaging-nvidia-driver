@@ -118,6 +118,8 @@ Requires:       nvidia-gfxG05-kmp
 %if 0%{?suse_version} >= 1315
 Requires(post):   update-alternatives
 Requires(postun): update-alternatives
+# on Optimus we want to switch back to X.Org's libglx.so (bsc#1111471)
+Requires(post):   xorg-x11-server
 %endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG05:/{_prefix}/X11R6/%{_lib}/libGL.so.1

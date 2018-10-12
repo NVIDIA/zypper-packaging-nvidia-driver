@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Oct 12 13:35:04 UTC 2018 - sndirsch@suse.com
+
+- let nvidia-glG05 %post-require xorg-x11-server, since on       
+  Optimus we want to switch back to X.Org's libglx.so (bsc#1111471)
+
+-------------------------------------------------------------------
 Fri Oct 12 11:02:29 UTC 2018 - sndirsch@suse.com
 
 - Update to UDA release 410.66
