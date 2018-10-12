@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG05
-Version:        410.57
+Version:        410.66
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 400 series and newer
