@@ -123,6 +123,13 @@ Requires(postun): update-alternatives
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG04:/{_prefix}/X11R6/%{_lib}/libGL.so.1
 Conflicts:      nvidia-glG03
+# needed for Optimus systems once NVIDIA's libs get disabled (our default);
+# these packages won't get installed when adding NVIDIA's repository before
+# the installation, which e.g. happens on SLED (bsc#1111471)
+Recommends:     Mesa-libGL1
+Recommends:     Mesa-libEGL1
+Recommends:     Mesa-libGLESv1_CM1
+Recommends:     Mesa-libGLESv2-2
 AutoReq: no
 
 %description -n nvidia-glG04
