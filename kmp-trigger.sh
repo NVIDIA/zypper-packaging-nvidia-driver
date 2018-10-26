@@ -1,3 +1,8 @@
+# get rid of broken weak-updates symlinks created in some %post apparently;
+# either by kmp itself or by kernel package update
+for i in $(find /lib/modules/*/weak-updates -type l); do
+  test -e $(readlink -f $i) || rm $i
+done
 %ifarch %ix86
 arch=i386
 %endif
