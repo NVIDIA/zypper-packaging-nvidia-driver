@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Fri Oct 26 12:51:52 UTC 2018 - sndirsch@suse.com
+
+- trigger script
+  * get rid of broken weak-updates symlinks created in some %post
+    apparently; either by kmp itself or by kernel package update
+
+-------------------------------------------------------------------
 Wed Oct 24 14:36:31 UTC 2018 - Hans-Peter Jansen <hpj@urpla.net>
 
 - add bison and flex build requirements
