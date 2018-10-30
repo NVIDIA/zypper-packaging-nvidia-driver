@@ -1,4 +1,20 @@
 -------------------------------------------------------------------
+Tue Oct 30 14:51:29 UTC 2018 - sndirsch@suse.com
+
+- Update to UDA release 410.73
+  * Added support for the following GPUs:
+    + Quadro RTX 6000
+    + Quadro RTX 5000
+  * Added a USB-C display connector type identifier, such that a
+    display connected using Turing's USB-C connector will be 
+    named, e.g., "USB-C-0" rather than "DP-5". Scripts and 
+    configuration files that use the DP identifier for this 
+    connector will be affected.
+  * Fixed a bug that caused vkGetPhysicalDeviceDisplayPropertiesKHR()
+    to occasionally return incorrect values for physicalResolution.
+  * Added the synchronization state for PRIME Displays to nvidia-settings.
+
+-------------------------------------------------------------------
 Fri Oct 26 10:14:56 UTC 2018 - sndirsch@suse.com
 
 - trigger script
