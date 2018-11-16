@@ -1,4 +1,21 @@
 -------------------------------------------------------------------
+Fri Nov 16 10:54:12 UTC 2018 - sndirsch@suse.com
+
+- Update to UDA release 410.78
+  * Added support for Quadro RTX 4000
+  * Fixed a bug that could cause the X server to hang on systems 
+    booted in legacy VGA mode when using a DisplayPort Multi-Stream
+    link.
+  * Fixed a bug that caused mode switches to fail when an SDI 
+    output board was connected.
+  * Fixed a bug that could cause rendering corruption in Vulkan 
+    programs.
+  * Added a new hook script, "pre-unload", to the nvidia-installer 
+    hook script system. This script, if present, will be executed 
+    before nvidia-installer attempts to unload existing NVIDIA 
+    kernel modules.
+
+-------------------------------------------------------------------
 Tue Oct 30 14:53:48 UTC 2018 - sndirsch@suse.com
 
 - Update to UDA release 410.73
