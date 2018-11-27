@@ -290,7 +290,7 @@ ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 # Optical flow library
-ln -s libnvidia-of.so.1  %{buildroot}%{_libdir}/libnvidia-of.so
+ln -s libnvidia-opticalflow.so.1  %{buildroot}%{_libdir}/libnvidia-opticalflow.so
 # EGL/GLES 64bit new since 340.xx
 install libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -748,7 +748,7 @@ fi
 %{_libdir}/libcuda.so*
 %{_libdir}/libOpenCL.so*
 %{_libdir}/libnvidia-ml.so*
-%{_libdir}/libnvidia-of.so*
+%{_libdir}/libnvidia-opticalflow.so*
 %{_libdir}/libnvidia-opencl.so*
 %{_libdir}/libnvidia-fatbinaryloader.so*
 %{_libdir}/libnvidia-ptxjitcompiler.so*
@@ -760,7 +760,7 @@ fi
 %{_prefix}/lib/libcuda.so*
 %{_prefix}/lib/libOpenCL.so*
 %{_prefix}/lib/libnvidia-ml.so*
-%{_prefix}/lib/libnvidia-of.so*
+%{_prefix}/lib/libnvidia-opticalflow.so*
 %{_prefix}/lib/libnvidia-opencl.so*
 %{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %{_prefix}/lib/libnvidia-ptxjitcompiler.so*
