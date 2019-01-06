@@ -1,4 +1,25 @@
 -------------------------------------------------------------------
+Sun Jan  6 19:26:42 UTC 2019 - sndirsch@suse.com
+
+- Update to UDA release 410.93
+  * Added support for the following GPUs: Quadro RTX 8000 
+  * Fixed a bug that could prevent display detection from working
+    on displays connected to some notebook docking stations.
+  * Fixed a bug which could cause VK_KHR_external_semaphore_fd
+    operations to fail.
+  * Fixed a build failure, "implicit declaration of function
+    'vm_insert_pfn'", when building the NVIDIA DRM kernel module
+    for Linux kernel 4.20 release candidates.
+  * Fixed a build failure, "unknown type name 'ipmi_user_t'", when
+    building the NVIDIA kernel module for Linux kernel 4.20 release
+    candidates.
+  * Fixed a bug that caused kwin OpenGL compositing to crash when
+    launching certain OpenGL applications.
+  * Added a new kernel module parameter, 
+    NVreg_RestrictProfilingToAdminUsers, to allow restricting the
+    use of GPU performance counters to system administrators only. 
+
+-------------------------------------------------------------------
 Fri Nov 16 10:51:45 UTC 2018 - sndirsch@suse.com
 
 - Update to UDA release 410.78

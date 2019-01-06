@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG05
-Version:        410.78
+Version:        410.93
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
