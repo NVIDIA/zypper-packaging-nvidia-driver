@@ -536,11 +536,29 @@ exit 0
 # make sure nvidia becomes the default (in case the link group is/was still in manual mode)
 %_sbindir/update-alternatives \
       --set libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
-# On Optimus systems disable NVIDIA driver/libs completely by default (bnc#902667)
+# Optimus systems 
 if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | grep -q 8086; then
-  %_sbindir/update-alternatives \
-      --set libglx.so %{_libdir}/xorg/modules/extensions/xorg/xorg-libglx.so
-  sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG05.conf
+  # Support is available since sle15-sp1/Leap 15.1
+  if [ -x /usr/sbin/prime-select ]; then
+    # Use current setting or enable it by default if not configured yet (boo#1121246)
+    result=$(/usr/sbin/prime-select query|cut -d ":" -f2|sed 's/ //g')
+    case "$result" in
+      intel|nvidia)
+        /usr/sbin/prime-select "$result"
+        ;;
+      *)
+        /usr/sbin/prime-select nvidia
+        ;;
+    esac
+  else
+    # Disable it before sle15-sp1/Leap 15.1 (bnc#902667)
+    %_sbindir/update-alternatives \
+        --set libglx.so %{_libdir}/xorg/modules/extensions/xorg/xorg-libglx.so
+%if 0%{?suse_version} < 1330
+    # use libglvnd since sle15/on TW
+    sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG05.conf
+%endif
+  fi
 fi
 %endif
 /sbin/ldconfig
