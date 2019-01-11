@@ -403,6 +403,10 @@ popd
 %if 0%{?suse_version} < 1120
 rm %{buildroot}/%{_libdir}/libnvidia-gtk3.so.%{version}
 %endif
+# Get rid of gtk2 deps on Tumbleweeed
+%if 0%{?suse_version} >= 1550
+rm %{buildroot}/%{_libdir}/libnvidia-gtk2.so.%{version}
+%endif
 # Vulkan driver config (boo#1051988)
 mkdir -p %{buildroot}/etc/vulkan/icd.d/
 %if 0%{?suse_version} >= 1330
