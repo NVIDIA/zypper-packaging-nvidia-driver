@@ -593,10 +593,12 @@ if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | gr
     result=$(/usr/sbin/prime-select query|cut -d ":" -f2|sed 's/ //g')
     case "$result" in
       intel|nvidia)
-        /usr/sbin/prime-select "$result"
+        # creating nvidia configuration may easily fail (see prime-select code)
+        /usr/sbin/prime-select "$result" || /usr/sbin/prime-select intel
         ;;
       *)
-        /usr/sbin/prime-select nvidia
+        # creating nvidia configuration may easily fail (see prime-select code)
+        /usr/sbin/prime-select nvidia || /usr/sbin/prime-select intel
         ;;
     esac
   else

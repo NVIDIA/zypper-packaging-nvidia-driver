@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Fri Jan 11 16:56:58 UTC 2019 - sndirsch@suse.com
+
+- if "prime-select nvidia" fails - which may happen easily - run
+  "prime-select intel" afterwards; better safe than sorry ...
+
+-------------------------------------------------------------------
 Fri Jan 11 15:07:49 UTC 2019 - sndirsch@suse.com
 
 - moved nvidia-xconfig/libnvidia-cfg to nvidia-glG04, since it's 
