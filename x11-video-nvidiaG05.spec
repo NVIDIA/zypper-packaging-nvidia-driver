@@ -706,7 +706,7 @@ fi
 %exclude %{_libdir}/vdpau/libvdpau_trace.so.1*
 %endif
 %exclude %{_bindir}/nvidia-xconfig
-%exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.1*
+%exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.*
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
@@ -805,7 +805,7 @@ fi
 %{_prefix}/lib/tls/libnvidia-tls.so*
 %endif
 %{_bindir}/nvidia-xconfig
-%{_prefix}/%{_lib}/libnvidia-cfg.so.1*
+%{_prefix}/%{_lib}/libnvidia-cfg.so.*
 
 %if 0%{?suse_version} < 1130
 
