@@ -757,6 +757,7 @@ fi
 %exclude %{_libdir}/vdpau/libvdpau_trace.so.1*
 %endif
 %exclude %{_bindir}/nvidia-xconfig
+%exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.*
 
 %files -n nvidia-computeG04
 %defattr(-,root,root)
@@ -858,6 +859,7 @@ fi
 %{_prefix}/lib/tls/libnvidia-tls.so*
 %endif
 %{_bindir}/nvidia-xconfig
+%{_prefix}/%{_lib}/libnvidia-cfg.so.*
 
 %if 0%{?diagnostic}
 %files -n nvidia-diagnosticG04
