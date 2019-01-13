@@ -102,7 +102,11 @@ Provides:       x11-video-nvidiaG05:/usr/lib/libcuda.so
 Conflicts:      nvidia-computeG02
 Conflicts:      nvidia-computeG03
 Conflicts:      nvidia-computeG04
+%if 0%{?suse_version} >= 1500
+Requires(pre):  update-alternatives
+%else
 Conflicts:      libOpenCL1
+%endif
 
 %description -n nvidia-computeG05
 NVIDIA driver for computing with GPGPUs using CUDA or OpenCL.
@@ -435,6 +439,14 @@ rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG05.conf \
    mkdir -p %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
    install -m 644 10_nvidia.json %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
 %endif
+%if 0%{?suse_version} >= 1500
+install -d %{buildroot}/%{_sysconfdir}/alternatives \
+           %{buildroot}/%{_libdir}/nvidia
+mv %{buildroot}/%{_libdir}/libOpenCL.so.1* %{buildroot}/%{_libdir}/nvidia
+# dummy target for update-alternatives
+ln -s %{_sysconfdir}/alternatives/libOpenCL.so.1 %{buildroot}/%{_libdir}/libOpenCL.so.1
+ln -s %{_libdir}/nvidia/libOpenCL.so.1 %{buildroot}/%{_sysconfdir}/alternatives/libOpenCL.so.1
+%endif
 
 %post
 /sbin/ldconfig
@@ -529,9 +541,36 @@ if [ "$1" -eq 0 ]; then
 fi
 exit 0
 
+%if 0%{?suse_version} >= 1500
+
+%post -n nvidia-computeG05
+# apparently needed when updating from a pre update-alternatives package ...
+rm -f %{_libdir}/libOpenCL.so.1.*
+%{_sbindir}/update-alternatives --force --install \
+   %{_libdir}/libOpenCL.so.1 libOpenCL.so.1 %{_libdir}/nvidia/libOpenCL.so.1 100
+/sbin/ldconfig
+
+%preun -n nvidia-computeG05
+if [ "$1" = 0 ] ; then
+   %{_sbindir}/update-alternatives --remove libOpenCL.so.1  %{_libdir}/nvidia/libOpenCL.so.1
+fi
+
+%else
+
 %post -n nvidia-computeG05 -p /sbin/ldconfig
 
+%endif
+
 %postun -n nvidia-computeG05 -p /sbin/ldconfig
+
+%if 0%{?suse_version} >= 1500
+%posttrans -n nvidia-computeG05
+if [ "$1" = 0 ] ; then
+  if ! [ -f %{_libdir}/libOpenCl.so.1 ] ; then
+      "%{_sbindir}/update-alternatives" --auto libOpenCL.so.1
+  fi
+fi
+%endif
 
 %post -n nvidia-glG05
 %if 0%{?suse_version} >= 1315
@@ -721,7 +760,14 @@ fi
 %config %{_sysconfdir}/OpenCL/vendors/nvidia.icd
 %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
 %{_libdir}/libcuda.so*
+%if 0%{?suse_version} >= 1500
+%dir %{_libdir}/nvidia
+%{_libdir}/nvidia/libOpenCL.so*
+%ghost %{_libdir}/libOpenCL.so.1
+%ghost %{_sysconfdir}/alternatives/libOpenCL.so.1
+%else
 %{_libdir}/libOpenCL.so*
+%endif
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opencl.so*
 %{_libdir}/libnvidia-fatbinaryloader.so*
