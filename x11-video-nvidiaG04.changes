@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Sun Jan 13 21:30:06 UTC 2019 - sndirsch@suse.com
+
+- sle15/Leap15 and newer: switch to usage of update-alternatives
+  for libOpenCL.so.1, so nvidia-computeG04 package no longer 
+  conflicts with libOpenCL1 package (boo#1108304)
+
+-------------------------------------------------------------------
 Fri Jan 11 19:35:44 UTC 2019 - sndirsch@suse.com
 
 - Remove dependency on gtk2 for Tumbleweed and next major version
