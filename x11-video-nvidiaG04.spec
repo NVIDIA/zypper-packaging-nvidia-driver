@@ -103,7 +103,7 @@ Requires:       nvidia-gfxG04-kmp
 Provides:       x11-video-nvidiaG04:/usr/lib/libcuda.so
 Conflicts:      nvidia-computeG02
 Conflicts:      nvidia-computeG03
-%if 0%{?suse_version} >= 1500
+%if 0%{?sle_version} >= 150100
 Requires(pre):  update-alternatives
 %else
 Conflicts:      libOpenCL1
@@ -447,7 +447,7 @@ rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG04.conf \
    mkdir -p %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
    install -m 644 10_nvidia.json %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
 %endif
-%if 0%{?suse_version} >= 1500
+%if 0%{?sle_version} >= 150100
 install -d %{buildroot}/%{_sysconfdir}/alternatives \
            %{buildroot}/%{_libdir}/nvidia
 mv %{buildroot}/%{_libdir}/libOpenCL.so.1* %{buildroot}/%{_libdir}/nvidia
@@ -549,7 +549,7 @@ if [ "$1" -eq 0 ]; then
 fi
 exit 0
 
-%if 0%{?suse_version} >= 1500
+%if 0%{?sle_version} >= 150100
 
 %post -n nvidia-computeG04
 # apparently needed when updating from a pre update-alternatives package ...
@@ -571,7 +571,7 @@ fi
 
 %postun -n nvidia-computeG04 -p /sbin/ldconfig
 
-%if 0%{?suse_version} >= 1500
+%if 0%{?sle_version} >= 150100
 %posttrans -n nvidia-computeG04
 if [ "$1" = 0 ] ; then
   if ! [ -f %{_libdir}/libOpenCl.so.1 ] ; then
@@ -768,7 +768,7 @@ fi
 %config %{_sysconfdir}/OpenCL/vendors/nvidia.icd
 %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
 %{_libdir}/libcuda.so*
-%if 0%{?suse_version} >= 1500
+%if 0%{?sle_version} >= 150100
 %dir %{_libdir}/nvidia
 %{_libdir}/nvidia/libOpenCL.so*
 %ghost %{_libdir}/libOpenCL.so.1
