@@ -190,7 +190,8 @@ pushd NVIDIA-Linux-x86*-%{version}*/
 echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
 #%patch0 -p1
 find . -name "*.orig" -delete
-%if %kver >= 419000
+# sle15-sp1/Leap 15.1 ships kernel 4.12, but includes DRM backport from Kernel 4.19
+%if (%kver >= 419000 || 0%{?sle_version} >= 150100)
 sed -i 's|drm_mode_connector_attach_encoder|drm_connector_attach_encoder|' kernel/nvidia-drm/nvidia-drm-encoder.c
 sed -i 's|drm_mode_connector_update_edid_property|drm_connector_update_edid_property|' kernel/nvidia-drm/nvidia-drm-connector.c
 %endif
