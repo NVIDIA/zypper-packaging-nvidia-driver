@@ -60,6 +60,7 @@ NoSource:       1
 NoSource:       6
 NoSource:       7
 Patch0:         check-for-swiotlb_map_sg_attrs.patch
+Patch1:         u_ipmi_user.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
@@ -194,6 +195,10 @@ find . -name "*.orig" -delete
 %if (%kver >= 419000 || 0%{?sle_version} >= 150100)
 sed -i 's|drm_mode_connector_attach_encoder|drm_connector_attach_encoder|' kernel/nvidia-drm/nvidia-drm-encoder.c
 sed -i 's|drm_mode_connector_update_edid_property|drm_connector_update_edid_property|' kernel/nvidia-drm/nvidia-drm-connector.c
+%endif
+echo kver: %kver
+%if %kver >= 420000
+%patch1 -p1
 %endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled

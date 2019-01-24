@@ -1,0 +1,33 @@
+diff -p -u -r NVIDIA-Linux-x86_64-390.87/kernel.orig/nvidia/os-interface.c NVIDIA-Linux-x86_64-390.87/kernel/nvidia/os-interface.c
+--- NVIDIA-Linux-x86_64-390.87/kernel.orig/nvidia/os-interface.c	2019-01-24 21:48:07.023731535 +0100
++++ NVIDIA-Linux-x86_64-390.87/kernel/nvidia/os-interface.c	2019-01-24 21:51:11.671240252 +0100
+@@ -1697,7 +1697,7 @@ void NV_API_CALL os_free_pages_phys
+ 
+ struct nv_ipmi_softc
+ {
+-    ipmi_user_t         p_user;     // ptr to ipmi_msghandler user structure
++    struct ipmi_user    *p_user;     // ptr to ipmi_msghandler user structure
+     spinlock_t          msg_lock;
+     struct list_head    msgs;
+     NvU32               seqNum;     //request sequence number
+@@ -1706,7 +1706,7 @@ struct nv_ipmi_softc
+ static inline int
+ nv_ipmi_set_my_address
+ (
+-    ipmi_user_t     user,
++    struct ipmi_user *user,
+     unsigned char   address
+ )
+ {
+diff -p -u -r NVIDIA-Linux-x86_64-390.87/kernel.orig/nvidia-drm/nvidia-drm-gem-nvkms-memory.c NVIDIA-Linux-x86_64-390.87/kernel/nvidia-drm/nvidia-drm-gem-nvkms-memory.c
+--- NVIDIA-Linux-x86_64-390.87/kernel.orig/nvidia-drm/nvidia-drm-gem-nvkms-memory.c	2019-01-24 21:48:07.343737616 +0100
++++ NVIDIA-Linux-x86_64-390.87/kernel/nvidia-drm/nvidia-drm-gem-nvkms-memory.c	2019-01-24 21:49:05.268838310 +0100
+@@ -237,7 +237,7 @@ static int __nv_drm_vma_fault(struct vm_
+ 
+     page_offset = vmf->pgoff - drm_vma_node_start(&gem->vma_node);
+ 
+-    ret = vm_insert_pfn(vma, address, pfn + page_offset);
++    ret = vmf_insert_pfn(vma, address, pfn + page_offset);
+ 
+     switch (ret) {
+         case 0:
