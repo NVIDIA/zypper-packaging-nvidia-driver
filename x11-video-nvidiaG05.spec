@@ -584,9 +584,9 @@ if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | gr
   # Support is available since sle15-sp1/Leap 15.1
   if [ -x /usr/sbin/prime-select ]; then
     # Use current setting or enable it by default if not configured yet (boo#1121246)
-    result=$(/usr/sbin/prime-select query|cut -d ":" -f2|sed 's/ //g')
+    result=$(/usr/sbin/prime-select get-current|cut -d ":" -f2|sed 's/ //g')
     case "$result" in
-      intel|nvidia)
+      intel|intel2|nvidia)
         # creating nvidia configuration may easily fail (see prime-select code)
         /usr/sbin/prime-select "$result" || /usr/sbin/prime-select intel
         ;;
