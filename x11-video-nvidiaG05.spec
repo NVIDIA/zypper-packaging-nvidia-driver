@@ -616,6 +616,11 @@ if [ "$1" = 0 ] ; then
     if [ ! -f %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so ]; then
 	"%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
     fi
+  # Support is available since sle15-sp1/Leap 15.1
+  if [ -x /usr/sbin/prime-select ]; then
+        #cleanup
+	/usr/sbin/prime-select unset
+  fi
 fi
 %endif
 
