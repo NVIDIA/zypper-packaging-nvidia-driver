@@ -338,7 +338,7 @@ mkdir -p %{buildroot}%{_datadir}/sax/sysp/maps/update/ \
 > %{buildroot}%{_datadir}/sax/sysp/maps/update/Identity.map.10.%{name}
 > %{buildroot}%{_datadir}/sax/api/data/cdb/Cards.10.%{name}
 > %{buildroot}%{_localstatedir}/lib/hardware/ids/10.%{name}
-%if 0%{?suse_version} > 1320 || (0%{?suse_version} == 1315 && 0%{?is_opensuse})
+%if 0%{?suse_version} > 1500
 (cat %_sourcedir/pci_ids-%{version}; \
 %else
 (cat %_sourcedir/pci_ids-%{version}.new; \

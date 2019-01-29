@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Tue Jan 29 15:32:40 UTC 2019 - sndirsch@suse.com
+
+- use full pci id list only for TW (later: sle16/Leap 16) 
+
+-------------------------------------------------------------------
 Sat Jan 26 15:35:20 UTC 2019 - sndirsch@suse.com
 
 - cleanup: run "prime-select unset" in %postun of nvidia-glG05

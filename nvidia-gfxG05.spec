@@ -142,7 +142,7 @@ ExclusiveArch:  %ix86 x86_64
 %kernel_module_package %kmp_template %_builddir/nvidia-kmp-template -p %_sourcedir/preamble -f %_sourcedir/%kmp_filelist -x %x_flavors
 
 # supplements no longer depend on the driver
-%if 0%{?suse_version} > 1320 || (0%{?suse_version} == 1315 && 0%{?is_opensuse})
+%if 0%{?suse_version} > 1500
 %define pci_id_file %_sourcedir/pci_ids-%version
 %else
 %define pci_id_file %_sourcedir/pci_ids-%version.new
