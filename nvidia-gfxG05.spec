@@ -28,7 +28,7 @@ Name:           nvidia-gfxG05
 Version:        410.93
 Release:        0
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
+Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
 URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -156,16 +156,16 @@ ExclusiveArch:  %ix86 x86_64
 
 %description
 This package provides the closed-source NVIDIA graphics driver kernel
-module for GeForce 400 series and newer GPUs.
+module for GeForce 600 series and newer GPUs.
 
 %package KMP
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
+Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
 Group:          System/Kernel
 
 %description KMP
 This package provides the closed-source NVIDIA graphics driver kernel
-module for GeForce 400 series and newer GPUs.
+module for GeForce 600 series and newer GPUs.
 
 %prep
 echo "kver = %kver"

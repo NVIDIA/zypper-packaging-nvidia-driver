@@ -37,7 +37,7 @@ Name:           x11-video-nvidiaG05
 Version:        410.93
 Release:        0
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver for GeForce 400 series and newer
+Summary:        NVIDIA graphics driver for GeForce 600 series and newer
 URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Libraries
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -87,7 +87,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 This package provides the closed-source NVIDIA graphics driver
-for GeForce 400 series and newer GPUs.
+for GeForce 600 series and newer GPUs.
 
 %package -n nvidia-computeG05
 Summary:        NVIDIA driver for computing with GPGPU
