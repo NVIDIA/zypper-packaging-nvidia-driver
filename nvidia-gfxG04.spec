@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        390.87
+Version:        390.116
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -59,8 +59,6 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
-Patch0:         check-for-swiotlb_map_sg_attrs.patch
-Patch1:         u_ipmi_user.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
@@ -188,18 +186,6 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
-echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
-#%patch0 -p1
-find . -name "*.orig" -delete
-# sle15-sp1/Leap 15.1 ships kernel 4.12, but includes DRM backport from Kernel 4.19
-%if (%kver >= 419000 || 0%{?sle_version} >= 150100)
-sed -i 's|drm_mode_connector_attach_encoder|drm_connector_attach_encoder|' kernel/nvidia-drm/nvidia-drm-encoder.c
-sed -i 's|drm_mode_connector_update_edid_property|drm_connector_update_edid_property|' kernel/nvidia-drm/nvidia-drm-connector.c
-%endif
-echo kver: %kver
-%if %kver >= 420000
-%patch1 -p1
-%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
