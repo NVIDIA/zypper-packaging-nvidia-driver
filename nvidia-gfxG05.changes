@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Feb 21 14:18:24 UTC 2019 - sndirsch@suse.com
+
+- Update to UDA release 418.43
+  * bugfixes
+  * support for new GPUs
+  * Added initial support for G-SYNC Compatible monitors.
+  * Added support for stereo presentation in Vulkan.
+  * NVIDIA Video Codec SDK 9.0
+  * Added NVIDIA optical flow support.
+  * Added support for VK_EXT_transform_feedback.
+
+-------------------------------------------------------------------
 Tue Jan 29 16:24:13 UTC 2019 - sndirsch@suse.com
 
 - adjusted summary/description to supported GPU families

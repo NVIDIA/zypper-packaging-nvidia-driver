@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG05
-Version:        410.93
+Version:        418.43
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 600 series and newer
@@ -228,9 +228,7 @@ rm -f libGL.so.1.0.0 32/libGL.so.1.0.0
 rm -f libGLX.so.0 32/libGLX.so.0
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_prefix}/X11R6/lib
-install -d %{buildroot}%{_prefix}/lib/tls
 install -d %{buildroot}%{_prefix}/X11R6/%{_lib}
-install -d %{buildroot}%{_libdir}/tls
 install -d %{buildroot}%{_prefix}/lib/vdpau
 install -d %{buildroot}%{_libdir}/vdpau
 install -d %{buildroot}%{xmodulesdir}/drivers
@@ -246,7 +244,6 @@ install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
 install nvidia-persistenced %{buildroot}%{_bindir}
 install nvidia-modprobe %{buildroot}%{_bindir}
-install tls/libnvidia-tls.so.* %{buildroot}%{_libdir}/tls
 install libnvidia* %{buildroot}%{_libdir}
 install libcuda* %{buildroot}%{_libdir}
 install libOpenCL* %{buildroot}%{_libdir}
@@ -289,7 +286,6 @@ install libglxserver_nvidia.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/nvidia/nvidia-libglx.so
 %endif
 %ifarch x86_64
-install 32/tls/libnvidia-tls.so.* %{buildroot}%{_prefix}/lib/tls
 install 32/libnvidia* %{buildroot}%{_prefix}/lib
 install 32/libcuda* %{buildroot}%{_prefix}/lib
 install 32/libOpenCL* %{buildroot}%{_prefix}/lib
@@ -679,7 +675,6 @@ fi
 %dir %{_libdir}/vdpau
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
-%exclude %{_libdir}/libnvidia-tls.so*
 %exclude %{_libdir}/libcuda.so*
 %exclude %{_libdir}/libOpenCL.so*
 %exclude %{_libdir}/libnvidia-ml.so*
@@ -719,7 +714,6 @@ fi
 %dir %{_prefix}/lib/vdpau
 %{_prefix}/lib/lib*
 %{_prefix}/lib/vdpau/*
-%exclude %{_prefix}/lib/libnvidia-tls.so*
 %exclude %{_prefix}/lib/libcuda.so*
 %exclude %{_prefix}/lib/libOpenCL.so*
 %exclude %{_prefix}/lib/libnvidia-ml.so*
@@ -829,11 +823,8 @@ fi
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
 %{_libdir}/libnvidia-egl-wayland.so*
-%{_libdir}/libnvidia-tls.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
-%dir %{_libdir}/tls
-%{_libdir}/tls/libnvidia-tls.so*
 %{xmodulesdir}/extensions
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
@@ -857,9 +848,6 @@ fi
 %{_prefix}/lib/libnvidia-ifr.so*
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
-%{_prefix}/lib/libnvidia-tls.so*
-%dir %{_prefix}/lib/tls
-%{_prefix}/lib/tls/libnvidia-tls.so*
 %endif
 %{_bindir}/nvidia-xconfig
 %{_prefix}/%{_lib}/libnvidia-cfg.so.*
