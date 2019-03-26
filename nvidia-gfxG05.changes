@@ -1,4 +1,24 @@
 -------------------------------------------------------------------
+Tue Mar 26 12:47:48 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to UDA release 418.56
+  * Updated nvidia-settings to disable line wrapping when outputting to a
+    non-terminal in command-line mode. From GitHub pull request:
+    https://github.com/NVIDIA/nvidia-settings/pull/37
+  * Updated the nvidia-settings control panel to more accurately reflect the
+    current availability of G-SYNC or G-SYNC compatible display settings.
+  * Added support for the following GPUs:
+    + GeForce GTX 1660
+    + GeForce MX230
+    + GeForce MX250
+  * Fixed a bug which could sometimes cause Vulkan applications to lock up the
+    GPU when freeing large chunks of memory on systems with PRIME enabled.
+  * Updated the driver to restrict use of the GPU performance counters to
+    system administrators by default. The previous more permissive behavior
+    can be restored by setting NVreg_RestrictProfilingToAdminUsers=0 when
+    loading nvidia.ko.
+
+-------------------------------------------------------------------
 Thu Feb 21 14:18:24 UTC 2019 - sndirsch@suse.com
 
 - Update to UDA release 418.43
