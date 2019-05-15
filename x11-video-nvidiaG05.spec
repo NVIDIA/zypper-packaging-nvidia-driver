@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG05
-Version:        418.56
+Version:        430.14
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 600 series and newer
@@ -311,6 +311,9 @@ cp -a html %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 LICENSE %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
+# Power Management via systemd
+install -m 644 *.service %{buildroot}%{_datadir}/doc/packages/%{name}
+install -m 755 nvidia nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
 %suse_update_desktop_file -i nvidia-settings System SystemSetup
