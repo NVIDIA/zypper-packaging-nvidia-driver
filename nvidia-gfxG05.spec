@@ -176,7 +176,7 @@ pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
 echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
 #%patch0 -p1
-%if 0%{?sle_version} >= 120300
+%if 0%{?sle_version} >= 120400
 %if 0%{?suse_version} < 1550
 %patch1 -p0
 %endif
