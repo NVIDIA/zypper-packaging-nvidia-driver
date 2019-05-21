@@ -59,6 +59,7 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
+Patch0:         u_390.116-kernel-5.1.diff
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
@@ -186,6 +187,7 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
+%patch0 -p1
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
