@@ -1,7 +1,7 @@
 -------------------------------------------------------------------
 Tue May 21 14:28:24 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
-- u_390.116-kernel-5.1.diff
+- u_390.116-kernel-5.1.diff/u_390.116-kernel-5.1-i586.diff
   * fixes build on Kernel 5.1 (http://rglinuxtech.com/?p=2530); 
     patch based on a fix, which was originally developed for 418.43 
 

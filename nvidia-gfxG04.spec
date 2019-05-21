@@ -60,6 +60,7 @@ NoSource:       1
 NoSource:       6
 NoSource:       7
 Patch0:         u_390.116-kernel-5.1.diff
+Patch1:         u_390.116-kernel-5.1-i586.diff
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
@@ -187,7 +188,12 @@ echo "kver = %kver"
 %endif
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
+%ifarch x86_64
 %patch0 -p1
+%endif
+%ifarch %ix86
+%patch1 -p1
+%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
