@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Wed Jun 12 14:39:21 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to UDA release 430.26
+  * Added support for the following GPUs:
+    + Quadro P520
+    + Quadro RTX 3000
+    + Quadro T1000
+    + Quadro T2000
+ * Fixed a bug, introduced in 415.13, that caused audio over
+   DisplayPort to not work in some configurations.
+
+-------------------------------------------------------------------
 Wed May 15 13:37:31 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - n_kernel_write.patch
