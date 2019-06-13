@@ -138,7 +138,7 @@ ExclusiveArch:  %ix86 x86_64
 %endif
 %define x_flavors kdump um debug xen xenpae
 %if 0%{!?nvbuild:1}
-%define kver %(for dir in /usr/src/linux-obj/*/*/; do make -s -C "$dir" kernelversion; break; done |perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%03d\\n",$1,$2,$3')
+%define kver %(for dir in /usr/src/linux-obj/*/*/; do make %{?jobs:-j%jobs} -s -C "$dir" kernelversion; break; done |perl -ne '/(\\d+)\\.(\\d+)\\.(\\d+)?/&&printf "%%d%%02d%%03d\\n",$1,$2,$3')
 %if %kver >= 206027
 %if %kver < 206031
 %define x_flavors kdump um debug
@@ -227,15 +227,15 @@ sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' so
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
 for flavor in %flavors_to_build; do
-    src=/lib/modules/$(make -siC %{kernel_source $flavor} kernelrelease)/source
+    src=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     %if 0%{?suse_version} <= 1020
     export SYSSRC=$src
     %endif
     rm -rf obj/$flavor
     cp -r source obj/$flavor
-    make -C /usr/src/linux-obj/%_target_cpu/$flavor modules M=$PWD/obj/$flavor/%{version} SYSSRC="$src" SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
+    make %{?jobs:-j%jobs} -C /usr/src/linux-obj/%_target_cpu/$flavor modules M=$PWD/obj/$flavor/%{version} SYSSRC="$src" SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
     pushd $PWD/obj/$flavor/%{version}
-    make -f Makefile nv-linux.o SYSSRC="$src" SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
+    make %{?jobs:-j%jobs} -f Makefile nv-linux.o SYSSRC="$src" SYSOUT=/usr/src/linux-obj/%_target_cpu/$flavor
     popd
 done
 
@@ -245,8 +245,8 @@ export BRP_PESIGN_FILES=""
 export INSTALL_MOD_PATH=%{buildroot}
 export INSTALL_MOD_DIR=updates
 for flavor in %flavors_to_build; do
-    export SYSSRC=/lib/modules/$(make -siC %{kernel_source $flavor} kernelrelease)/source
-    make -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}
+    export SYSSRC=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
+    make %{?jobs:-j%jobs} -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}
     #install -m 644 $PWD/obj/$flavor/%{version}/{nv-linux.o,nv-kernel.o} \
     #  %{buildroot}/lib/modules/*-$flavor/updates
     mkdir -p %{buildroot}/usr/src/kernel-modules/nvidia-%{version}-${flavor}
