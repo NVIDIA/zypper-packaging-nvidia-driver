@@ -458,6 +458,8 @@ ln -s %{_libdir}/nvidia/libOpenCL.so.1 %{buildroot}/%{_sysconfdir}/alternatives/
 
 %post
 /sbin/ldconfig
+# xorg.conf no longer been used since sle12
+%if 0%{?suse_version} < 1120
 if [ -f etc/X11/xorg.conf ]; then
   test -f etc/X11/xorg.conf.nvidia-post || \
     cp etc/X11/xorg.conf etc/X11/xorg.conf.nvidia-post
@@ -472,6 +474,7 @@ test -x usr/bin/switch2nvidia && usr/bin/switch2nvidia
 if grep -q fbdev etc/X11/xorg.conf; then
   test -x usr/bin/nvidia-xconfig && usr/bin/nvidia-xconfig -s
 fi
+%endif
 # Bug #345125
 test -f %{xlibdir}/modules/drivers/nvidia_drv.so && \
   touch %{xlibdir}/modules/drivers/nvidia_drv.so
@@ -512,7 +515,10 @@ exit 0
 %postun
 /sbin/ldconfig
 if [ "$1" -eq 0 ]; then
+# switch2nv/switch2nv no longer available/needed since sle12
+%if 0%{?suse_version} < 1120
   test -x usr/bin/switch2nv && usr/bin/switch2nv
+%endif
   if ls var/lib/hardware/ids/* &> /dev/null; then
     >  var/lib/hardware/hd.ids
     for i in var/lib/hardware/ids/*; do
@@ -521,6 +527,8 @@ if [ "$1" -eq 0 ]; then
   else
     rm -f var/lib/hardware/hd.ids
   fi
+# xorg.conf no longer been used since sle12
+%if 0%{?suse_version} < 1120
   test -f etc/X11/xorg.conf && \
     cp etc/X11/xorg.conf etc/X11/xorg.conf.nvidia-postun
   if [ -r etc/X11/xorg.conf.nvidia-post ]; then
@@ -530,6 +538,7 @@ if [ "$1" -eq 0 ]; then
     sax2 -a -r
 %endif
   fi
+%endif
   if test -x /opt/gnome/bin/gnome-xgl-switch; then
     /opt/gnome/bin/gnome-xgl-switch --disable-xgl
   elif test -x /usr/bin/xgl-switch; then
