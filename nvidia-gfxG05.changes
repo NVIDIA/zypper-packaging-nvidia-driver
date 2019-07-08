@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Mon Jul  8 14:04:20 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- kmp-post.sh/kmp-trigger.sh
+  * exit with error code 1 from %post/%trigger, if kernel module
+    build/install fails (boo#1131028)
+
+-------------------------------------------------------------------
 Tue Jul  2 08:06:00 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - no longer touch xorg.conf on suse >= sle12
