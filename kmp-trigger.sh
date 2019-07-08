@@ -11,16 +11,17 @@ arch=x86_64
 %endif
 flavor=%1
 kver=$(make -sC /usr/src/linux-obj/$arch/$flavor kernelrelease)
+RES=0
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \
      M=/usr/src/kernel-modules/nvidia-%{-v*}-$flavor \
      SYSSRC=/lib/modules/$kver/source \
-     SYSOUT=/usr/src/linux-obj/$arch/$flavor
+     SYSOUT=/usr/src/linux-obj/$arch/$flavor || RES=1
 pushd /usr/src/kernel-modules/nvidia-%{-v*}-$flavor 
 make -f Makefile \
      nv-linux.o \
      SYSSRC=/lib/modules/$kver/source \
-     SYSOUT=/usr/src/linux-obj/$arch/$flavor
+     SYSOUT=/usr/src/linux-obj/$arch/$flavor || RES=1
 popd
 install -m 755 -d /lib/modules/$kver/updates
 install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
@@ -79,3 +80,4 @@ if [ -f /etc/modprobe.d/50-nvidia-default.conf ]; then
   sed -i "s/33/$VIDEOGID/" /etc/modprobe.d/50-nvidia-default.conf
 fi
 
+exit $RES
