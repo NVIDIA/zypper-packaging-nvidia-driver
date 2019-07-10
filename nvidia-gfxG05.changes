@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Wed Jul 10 13:35:45 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to UDA release 430.34
+  * Added support for GeForce RTX 2060/2070 SUPER,
+    Quadro RTX 4000/5000 with Max-Q Design
+
+-------------------------------------------------------------------
 Mon Jul  8 14:04:20 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - kmp-post.sh/kmp-trigger.sh
