@@ -75,4 +75,5 @@ if [ -f /etc/modprobe.d/50-nvidia-default.conf ]; then
   sed -i "s/33/$VIDEOGID/" /etc/modprobe.d/50-nvidia-default.conf
 fi
 
-exit $RES
+#needed to move this to specfile after running weak-modules2 (boo#1145316)
+#exit $RES
