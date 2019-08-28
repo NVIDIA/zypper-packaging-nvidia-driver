@@ -300,7 +300,6 @@ install 32/libOpenCL* %{buildroot}%{_prefix}/lib
 install 32/libnvcuvid* %{buildroot}%{_prefix}/lib
 install 32/libvdpau_nvidia.so* %{buildroot}%{_prefix}/lib/vdpau
 install 32/libGL* %{buildroot}%{_prefix}/X11R6/lib
-install 32/libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/lib
 install 32/libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv2* %{buildroot}%{_prefix}/X11R6/lib
@@ -421,11 +420,7 @@ rm %{buildroot}/%{_libdir}/libnvidia-gtk2.so.%{version}
 %endif
 # Vulkan driver config (boo#1051988)
 mkdir -p %{buildroot}/etc/vulkan/icd.d/
-%if 0%{?suse_version} >= 1330
-sed 's/__NV_VK_ICD__/libGLX_nvidia.so.0/' nvidia_icd.json.template > %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
-%else
-sed 's/__NV_VK_ICD__/libGL.so.1/' nvidia_icd.json.template > %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
-%endif
+install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
 # EGL driver config
 mkdir -p %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 install -m 644 10_nvidia_wayland.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
