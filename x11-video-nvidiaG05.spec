@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG05
-Version:        430.40
+Version:        435.21
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 600 series and newer
@@ -223,9 +223,8 @@ cd NVIDIA-Linux-x86*-%{version}
 #	--x-prefix=%{buildroot}%{_prefix}/X11R6 \
 #	--opengl-prefix=%{buildroot}%{_prefix} \
 #	--utility-prefix=%{buildroot}%{_prefix}
-# only to be used by GLVND
-rm -f libGL.so.1.0.0 32/libGL.so.1.0.0
-rm -f libGLX.so.0 32/libGLX.so.0
+# only to be used by non-GLVND OpenGL libs
+rm -f libEGL.so.%{version} 32/libEGL.so.%{version}
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_prefix}/X11R6/lib
 install -d %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -265,7 +264,7 @@ ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 # EGL/GLES 64bit new since 340.xx
-install libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/%{_lib}
+install libEGL.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libGLESv2* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -292,7 +291,7 @@ install 32/libOpenCL* %{buildroot}%{_prefix}/lib
 install 32/libnvcuvid* %{buildroot}%{_prefix}/lib
 install 32/libvdpau_nvidia.so* %{buildroot}%{_prefix}/lib/vdpau
 install 32/libGL* %{buildroot}%{_prefix}/X11R6/lib
-install 32/libEGL.so.%{version} %{buildroot}%{_prefix}/X11R6/lib
+install 32/libEGL.so.* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv1_CM* %{buildroot}%{_prefix}/X11R6/lib
 install 32/libGLESv2* %{buildroot}%{_prefix}/X11R6/lib
@@ -412,19 +411,19 @@ rm %{buildroot}/%{_libdir}/libnvidia-gtk2.so.%{version}
 %endif
 # Vulkan driver config (boo#1051988)
 mkdir -p %{buildroot}/etc/vulkan/icd.d/
-%if 0%{?suse_version} >= 1330
-sed 's/__NV_VK_ICD__/libGLX_nvidia.so.0/' nvidia_icd.json.template > %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
-%else
-sed 's/__NV_VK_ICD__/libGL.so.1/' nvidia_icd.json.template > %{buildroot}/etc/vulkan/icd.d/nvidia_icd.json
-%endif
+install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
 # EGL driver config
 mkdir -p %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 install -m 644 10_nvidia_wayland.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
-# use libglvnd on TW/sle15
+# Optimus layer config
+mkdir -p %{buildroot}/etc/vulkan/implicit_layer.d/
+install -m 644 nvidia_layers.json %{buildroot}/etc/vulkan/implicit_layer.d/
+# libglvnd is preinstalled on sle15/TW
 %if 0%{?suse_version} >= 1330
 rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG05.conf \
    %{buildroot}/usr/X11R6/lib*/libEGL.so.* \
    %{buildroot}/usr/X11R6/lib*/libGL.so* \
+   %{buildroot}/usr/X11R6/lib*/libGLX.so* \
    %{buildroot}/usr/X11R6/lib*/libGLESv1_CM.so.* \
    %{buildroot}/usr/X11R6/lib*/libGLESv2.so.* \
    %{buildroot}/usr/X11R6/lib*/libGLdispatch.so.* \
@@ -435,9 +434,9 @@ rm %{buildroot}/etc/ld.so.conf.d/nvidia-gfxG05.conf \
 %endif
    rmdir %{buildroot}/usr/X11R6/lib* \
          %{buildroot}/usr/X11R6
+%endif
    mkdir -p %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
    install -m 644 10_nvidia.json %{buildroot}/%{_datadir}/glvnd/egl_vendor.d
-%endif
 %if (0%{?sle_version} >= 150100 || 0%{?suse_version} >= 1550)
 install -d %{buildroot}/%{_sysconfdir}/alternatives \
            %{buildroot}/%{_libdir}/nvidia
@@ -608,7 +607,7 @@ if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | gr
     %_sbindir/update-alternatives \
         --set libglx.so %{_libdir}/xorg/modules/extensions/xorg/xorg-libglx.so
 %if 0%{?suse_version} < 1330
-    # use libglvnd since sle15/on TW
+    # use libglvnd since sle15 (the right way)
     sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG05.conf
 %endif
   fi
@@ -665,6 +664,7 @@ fi
 %if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/%{_lib}/lib*
 %exclude %{_prefix}/X11R6/%{_lib}/libGL.so*
+%exclude %{_prefix}/X11R6/%{_lib}/libGLX.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libGLdispatch.so*
 %exclude %{_prefix}/X11R6/%{_lib}/libEGL.so*
@@ -704,6 +704,7 @@ fi
 %if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/lib/lib*
 %exclude %{_prefix}/X11R6/lib/libGL.so*
+%exclude %{_prefix}/X11R6/lib/libGLX.so*
 %exclude %{_prefix}/X11R6/lib/libGLX_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libGLdispatch.so*
 %exclude %{_prefix}/X11R6/lib/libEGL.so*
@@ -800,15 +801,15 @@ fi
 %defattr(-,root,root)
 %dir /etc/vulkan
 %dir /etc/vulkan/icd.d
+%dir /etc/vulkan/implicit_layer.d
 %dir %{_datadir}/egl
 %dir %{_datadir}/egl/egl_external_platform.d
 %config /etc/vulkan/icd.d/nvidia_icd.json
+%config /etc/vulkan/implicit_layer.d/nvidia_layers.json
 %config %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
-%if 0%{?suse_version} >= 1330
 %dir %{_datadir}/glvnd
 %dir %{_datadir}/glvnd/egl_vendor.d
 %config %{_datadir}/glvnd/egl_vendor.d/10_nvidia.json
-%endif
 %if 0%{?suse_version} > 1140
 %if 0%{?suse_version} < 1330
 %config %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG05.conf
@@ -816,6 +817,7 @@ fi
 %endif
 %if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/%{_lib}/libGL.so*
+%{_prefix}/X11R6/%{_lib}/libGLX.so*
 %{_prefix}/X11R6/%{_lib}/libGLX_nvidia.so*
 %{_prefix}/X11R6/%{_lib}/libGLdispatch.so*
 %{_prefix}/X11R6/%{_lib}/libEGL.so*
@@ -841,6 +843,7 @@ fi
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
 %{_prefix}/X11R6/lib/libGL.so*
+%{_prefix}/X11R6/lib/libGLX.so*
 %{_prefix}/X11R6/lib/libGLX_nvidia.so*
 %{_prefix}/X11R6/lib/libGLdispatch.so*
 %{_prefix}/X11R6/lib/libEGL.so*
