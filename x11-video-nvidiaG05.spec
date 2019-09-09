@@ -119,12 +119,6 @@ Requires:       nvidia-gfxG05-kmp = %{version}
 %else
 Requires:       nvidia-gfxG05-kmp
 %endif
-%if 0%{?suse_version} >= 1315
-Requires(post):   update-alternatives
-Requires(postun): update-alternatives
-# on Optimus we want to switch back to X.Org's libglx.so (bsc#1111471)
-Requires(post):   xorg-x11-server
-%endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG05:/{_prefix}/X11R6/%{_lib}/libGL.so.1
 Conflicts:      nvidia-glG03
@@ -275,14 +269,12 @@ install libnvidia-wfb.so.%{version} \
 ln -sf libnvidia-wfb.so.%{version} %{buildroot}%{xmodulesdir}/libwfb.so
 %endif
 install nvidia_drv.so %{buildroot}%{xmodulesdir}/drivers
-%if 0%{?suse_version} < 1315
 install libglxserver_nvidia.so.%{version} \
   %{buildroot}%{xmodulesdir}/extensions/
+%if 0%{?suse_version} < 1315
 ln -sf libglxserver_nvidia.so.%{version} %{buildroot}%{xmodulesdir}/extensions/libglx.so
 %else
-mkdir -p %{buildroot}%{xmodulesdir}/extensions/nvidia
-install libglxserver_nvidia.so.%{version} \
-  %{buildroot}%{xmodulesdir}/extensions/nvidia/nvidia-libglx.so
+ln -sf libglxserver_nvidia.so.%{version} %{buildroot}%{xmodulesdir}/extensions/libglxserver_nvidia.so
 %endif
 %ifarch x86_64
 install 32/libnvidia* %{buildroot}%{_prefix}/lib
@@ -581,11 +573,6 @@ fi
 
 %post -n nvidia-glG05
 %if 0%{?suse_version} >= 1315
-%_sbindir/update-alternatives \
-    --force --install %{_libdir}/xorg/modules/extensions/libglx.so libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so 100
-# make sure nvidia becomes the default (in case the link group is/was still in manual mode)
-%_sbindir/update-alternatives \
-      --set libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
 # Optimus systems 
 if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | grep -q 8086; then
   # Support is available since sle15-sp1/Leap 15.1
@@ -602,11 +589,9 @@ if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | gr
         /usr/sbin/prime-select nvidia || /usr/sbin/prime-select intel
         ;;
     esac
+%if 0%{?suse_version} < 1330
   else
     # Disable it before sle15-sp1/Leap 15.1 (bnc#902667)
-    %_sbindir/update-alternatives \
-        --set libglx.so %{_libdir}/xorg/modules/extensions/xorg/xorg-libglx.so
-%if 0%{?suse_version} < 1330
     # use libglvnd since sle15 (the right way)
     sed -i 's/\(^\/.*\)/#\1/g' %{_sysconfdir}/ld.so.conf.d/nvidia-gfxG05.conf
 %endif
@@ -619,10 +604,6 @@ fi
 /sbin/ldconfig
 %if 0%{?suse_version} >= 1315
 if [ "$1" = 0 ] ; then
-    # Avoid accidental removal of G<n+1> alternative (bnc#802624)
-    if [ ! -f %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so ]; then
-	"%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
-    fi
   # Support is available since sle15-sp1/Leap 15.1
   if [ -x /usr/sbin/prime-select ]; then
         #cleanup
