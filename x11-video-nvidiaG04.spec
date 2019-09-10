@@ -15,6 +15,8 @@
 # Please submit bugfixes or comments via http://bugs.opensuse.org/
 #
 
+%global __requires_exclude .*libvulkan\\.so.*
+
 %if 0%{?suse_version} > 1010 || "%_repository" == "SLE_10_XORG7"
 %define xlibdir %{_libdir}/xorg
 %else
@@ -84,6 +86,9 @@ Conflicts:      x11-video-nvidiaG02
 Conflicts:      x11-video-nvidiaG03
 Conflicts:      fglrx_driver
 Requires:       libvdpau1
+%if 0%{?suse_version} >= 1500
+Requires:       libvulkan1
+%endif
 ExclusiveArch:  %ix86 x86_64
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
