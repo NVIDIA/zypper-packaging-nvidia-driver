@@ -119,6 +119,11 @@ Requires:       nvidia-gfxG05-kmp = %{version}
 %else
 Requires:       nvidia-gfxG05-kmp
 %endif
+%if 0%{?suse_version} >= 1315
+Requires(post):   update-alternatives
+# Transition back to X.Org's libglx.so (boo#1149858)
+Requires(post):   xorg-x11-server
+%endif
 # to provide a hint about split to zypper dup:
 Provides:       x11-video-nvidiaG05:/{_prefix}/X11R6/%{_lib}/libGL.so.1
 Conflicts:      nvidia-glG03
@@ -573,6 +578,11 @@ fi
 
 %post -n nvidia-glG05
 %if 0%{?suse_version} >= 1315
+# Transition to alternatives-free GLX version (boo#1149858)
+if [ -f %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so ]; then
+  "%_sbindir/update-alternatives" --remove libglx.so %{_libdir}/xorg/modules/extensions/nvidia/nvidia-libglx.so
+  "%_sbindir/update-alternatives" --auto libglx.so
+fi 
 # Optimus systems 
 if lspci -n | grep -e '^..:..\.. 0300: ' | cut -d " "  -f3 | cut -d ":" -f1 | grep -q 8086; then
   # Support is available since sle15-sp1/Leap 15.1
