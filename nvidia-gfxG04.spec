@@ -97,6 +97,9 @@ ExclusiveArch:  %ix86 x86_64
 %if 0%{?suse_version} >= 1330 && 0%{?is_opensuse}
 %(sed -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
+# moved from %kmp_post snippet to this place (boo#1145316)
+%(sed -i '/^%%posttrans/i \
+exit $RES' %_builddir/nvidia-kmp-template)
 # if %pre scriptlet sample missing in template
 %(grep -q "^%pre -n" %_builddir/nvidia-kmp-template || (echo "%pre -n %%{-n*}-kmp-%1" >> %_builddir/nvidia-kmp-template; cat %_sourcedir/%kmp_pre >> %_builddir/nvidia-kmp-template))
 %(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-default-devel" >> %_builddir/nvidia-kmp-template)
