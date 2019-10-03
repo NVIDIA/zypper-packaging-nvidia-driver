@@ -259,16 +259,6 @@ for flavor in %flavors_to_build; do
   # make it with flavor name or rpmlint complains about not making it conflict
   cp %{SOURCE16} %{buildroot}/usr/lib/nvidia/alternate-install-present-${flavor}
   touch %{buildroot}/usr/lib/nvidia/alternate-install-present
-  mkdir -p %{buildroot}/etc/dracut.conf.d
-  cat  > %{buildroot}/etc/dracut.conf.d/50-nvidia-$flavor.conf << EOF
-install_items+=" /usr/bin/chmod /usr/bin/mknod /usr/bin/cat /usr/bin/echo /usr/bin/chown "
-add_drivers+="nvidia nvidia-drm nvidia-modeset nvidia-uvm"
-EOF
-  %if 0%{?suse_version} >= 1330
-  cat >> %{buildroot}/etc/dracut.conf.d/50-nvidia-$flavor.conf << EOF
-omit_dracutmodules+="plymouth"
-EOF
-  %endif
   %if 0%{?suse_version} > 1100
   mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d
   %if 0%{?suse_version} < 1120
