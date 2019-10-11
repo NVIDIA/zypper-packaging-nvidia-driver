@@ -1,4 +1,44 @@
 -------------------------------------------------------------------
+Fri Oct 11 10:39:05 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to OEM Beta release 440.17
+  * Added support for the GLX_NV_multigpu_context and GL_NV_gpu_multicast
+    extensions.  For more details, see the "Configuring SLI and Multi-GPU
+    FrameRendering" chapter of the README, and the extension specifications:
+      https://www.khronos.org/registry/OpenGL/extensions/NV/GLX_NV_multigpu_context.txt
+      https://www.khronos.org/registry/OpenGL/extensions/NV/NV_gpu_multicast.txt
+  * Fixed a regression introduced in 435.19.02 that would cause some
+    applications which use the VK_KHR_DISPLAY extension to result in a 
+    segmentation fault.
+  * Enabled HardDPMS by default. See the README entry on the X configuration
+    option "HardDPMS" for more information.
+  * Fixed a bug which caused corruption in the following DXVK titles:
+    + Saints Row IV
+    + Saints Row: The Third
+  * Added VP9 decode support to the NVIDIA VDPAU driver. See the
+    VDPAU Support appendix in the README for supported VP9 decoder
+    profiles.
+  * Fixed a bug that could cause heapUsage values reported by
+    VK_EXT_memory_budget to not immediately update after vkFreeMemory was
+    called.
+  * Changed GPU clock management strategy to more quickly ramp down clocks
+    after a drop in GPU utilization.
+  * Added X configuration option, "SidebandSocketPath", which
+    controls the directory in which the X driver will create a
+    pathname UNIX domain socket used to communicate with the NVIDIA
+    OpenGL, Vulkan and VDPAU driver components.
+  * The X driver will now create a fallback pathname UNIX domain
+    socket in the directory specified by the "SidebandSocketPath"
+    option, or /var/run by default, which will be used by other
+    NVIDIA driver components if they are unable to connect to the
+    default abstract socket.  This fixes a bug where graphics
+    applications run within a network namespace (which prevents the
+    use of abstract sockets) were unable to take advantage of some
+    driver features, such as G-Sync.
+- adds libnvidia-alllocator.so
+- adds support for GeForce RTX 2060
+
+-------------------------------------------------------------------
 Thu Oct  3 11:32:52 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - get rid of /etc/dracut.conf.d/50-nvidia-default.conf in order
