@@ -1,4 +1,26 @@
 -------------------------------------------------------------------
+Tue Oct 15 20:58:54 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public Beta RC 440.26
+  * Updated the confirmation dialog box that is displayed when quitting
+    the nvidia-settings control panel to report when there are pending
+    configuration changes which will be lost if they are not applied or
+    saved before quitting.
+  * Enabled parallel GLSL shader linking by default; i.e., allow
+    GL_ARB_parallel_shader_compile to work without first calling
+    glMaxShaderCompilerThreadsARB().
+  * Added support for HDMI 2.1 variable refresh rate (VRR) G-SYNC Compatible
+    monitors on supported GPUs.  For more details, see "Configuring Multiple
+    Display Devices on One X Screen" in the README.
+  * Fixed a bug that prevented Vulkan applications running on systems
+    configured for SLI. Vulkan applications can now run while SLI is
+    enabled; however, they will only be able to use a single GPU.
+  * Simplified the nvidia-sleep.sh sample script to no longer depend on
+    unreliable detection of the current VT through X server logs.
+  * Added EGL support for PRIME render offload. Please see the PRIME Render
+    Offload chapter in the README for configuration details.
+
+-------------------------------------------------------------------
 Fri Oct 11 10:34:29 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to OEM Beta release 440.17
