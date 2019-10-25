@@ -1,0 +1,81 @@
+--- a/kernel/conftest.sh	
++++ a/kernel/conftest.sh	
+@@ -54,7 +54,7 @@ append_conftest() {
+     done
+ }
+ 
+-translate_and_compile_header_files() {
++translate_and_preprocess_header_files() {
+     # Inputs:
+     #   $1: list of relative file paths
+     #
+@@ -64,43 +64,33 @@ translate_and_compile_header_files() {
+     # NV_LINUX_FENCE_H_PRESENT, and that is either defined or undefined, in the
+     # output (which goes to stdout, just like the rest of this file).
+ 
++    # -MG or -MD can interfere with the use of -M and -M -MG for testing file
++    # existence; filter out any occurrences from CFLAGS. CFLAGS is intentionally
++    # wrapped with whitespace in the input to sed(1) so the regex can match zero
++    # or more occurrences of "-MD" or "-MG", surrounded by whitespace to avoid
++    # accidental matches with tokens that happen to contain either of those
++    # strings, without special handling of the beginning or the end of the line.
++    TEST_CFLAGS=`echo "-E -M $CFLAGS " | sed -e 's/\( -M[DG]\)* / /g'`
++
+     for file in $@; do
+         local file_define=NV_`echo $file | tr '/.' '_' | tr '-' '_' | tr 'a-z' 'A-Z'`_PRESENT
+ 
+         CODE="#include <$file>"
+ 
+-        echo "$CODE" > conftest_headers$$.c
+-        $CC $CFLAGS -c conftest_headers$$.c > conftest_headers$$.log 2>&1
+-
+-        if [ -f conftest_headers$$.o ]; then
+-            rm -f conftest_headers$$.o
++        if echo "$CODE" | $CC $TEST_CFLAGS - > /dev/null 2>&1; then
+             echo "#define $file_define"
+         else
+-           #
+-           # Some header files, e.g. drm/drm_auth.h, are not self sufficient
+-           # and rely on their includer to also include their dependent
+-           # header files else compilation fails, creating a false negative.
+-           #
+-           # e.g., if drm/drm_auth.h is not present in the target kernel
+-           # then compilation would fail with the following message.
+-           #     'drm/drm_auth.h: No such file or directory'
+-           # But if it is present then compilation would fail with
+-           # messages like below.
+-           #     'unknown type name ‘wait_queue_head_t’'
+-           #     'unknown type name ‘spinlock_t’'
+-           #
+-           # Correct this false negative if '$file: No such file or directory'
+-           # is present in the compilation logs.
+-           #
+-           if grep -q -e "$file: No such file or directory" conftest_headers$$.log > /dev/null 2>&1; then
++            # If preprocessing failed, it could have been because the header
++            # file under test is not present, or because it is present but
++            # depends upon the inclusion of other header files. Attempting
++            # preprocessing again with -MG will ignore a missing header file
++            # but will still fail if the header file is present.
++            if echo "$CODE" | $CC $TEST_CFLAGS -MG - > /dev/null 2>&1; then
+                 echo "#undef $file_define"
+-           else
++            else
+                 echo "#define $file_define"
+-           fi
++            fi
+         fi
+-
+-        rm -f conftest_headers$$.c
+-        rm -f conftest_headers$$.log
+     done
+ }
+ 
+@@ -151,7 +141,7 @@ test_headers() {
+     FILES="$FILES linux/atomic.h"
+     FILES="$FILES asm/barrier.h"
+ 
+-    translate_and_compile_header_files $FILES
++    translate_and_preprocess_header_files $FILES
+ }
+ 
+ build_cflags() {
