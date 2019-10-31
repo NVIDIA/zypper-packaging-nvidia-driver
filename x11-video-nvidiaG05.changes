@@ -1,4 +1,16 @@
 -------------------------------------------------------------------
+Thu Oct 31 11:01:12 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 440.31
+  * Added support for the following GPUs:
+    + Tesla V100S-PCIE-32GB
+    + GeForce GTX 1660 SUPER
+ * Fixed a regression in the 440.26 driver that could prevent the NVIDIA
+   kernel modules from building correctly on systems localized to a
+   language other than English.
+- supersedes U_Use_preprocessor-based_test_for_header_file_detection.patch
+
+-------------------------------------------------------------------
 Fri Oct 25 13:57:38 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - U_Use_preprocessor-based_test_for_header_file_detection.patch
