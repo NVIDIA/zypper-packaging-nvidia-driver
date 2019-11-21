@@ -284,7 +284,6 @@ install -m 4755 nvidia-modprobe %{buildroot}%{_bindir}
 # Bug #596481
 ln -s vdpau/libvdpau_nvidia.so.1 %{buildroot}%{_libdir}/libvdpau_nvidia.so
 # the GL lib from Mesa is in /usr/%{_lib} so we install in /usr/X11R6/%{_lib}
-rm libGL.la
 install libGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
 # still a lot of applications make a dlopen to the .so file
 ln -snf libGL.so.1 %{buildroot}%{_prefix}/X11R6/%{_lib}/libGL.so
@@ -756,7 +755,6 @@ fi
 %endif
 %endif
 %if 0%{?suse_version} < 1330
-%exclude %{_prefix}/X11R6/lib/libGL.la
 %exclude %{_prefix}/X11R6/lib/libGL.so*
 %exclude %{_prefix}/X11R6/lib/libGLX_nvidia.so*
 %exclude %{_prefix}/X11R6/lib/libGLdispatch.so*
@@ -904,7 +902,6 @@ fi
 %{_datadir}/glvnd/egl_vendor.d/10_nvidia.json
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
-%{_prefix}/X11R6/lib/libGL.la
 %{_prefix}/X11R6/lib/libGL.so*
 %{_prefix}/X11R6/lib/libGLX_nvidia.so*
 %{_prefix}/X11R6/lib/libGLX_indirect.so*
