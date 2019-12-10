@@ -44,6 +44,7 @@ URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Libraries
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
+Source12:       http://download.nvidia.com/XFree86/Linux-aarch64/%{version}/NVIDIA-Linux-aarch64-%{version}.run
 Source2:        pci_ids-%{version}.new
 Source3:        nvidia-settings.desktop
 Source4:        generate-service-file.sh
@@ -205,7 +206,7 @@ This package provides the library for tracing VDPAU function calls.
  sh %{SOURCE1} -x
 %endif
 %ifarch aarch64
- sh %{SOURCE0} -x
+ sh %{SOURCE12} -x
 %endif
 %if 0%{?suse_version} < 1130
 tar xvf %{SOURCE9}

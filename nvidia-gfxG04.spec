@@ -33,6 +33,7 @@ URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
+Source24:       http://download.nvidia.com/XFree86/Linux-aarch64/%{version}/NVIDIA-Linux-aarch64-%{version}.run
 Source2:        pci_ids-%{version}.legacy
 Source3:        preamble
 Source4:        pci_ids-%{version}
@@ -193,7 +194,7 @@ echo "kver = %kver"
  sh %{SOURCE1} -x
 %endif
 %ifarch aarch64
- sh %{SOURCE0} -x
+ sh %{SOURCE24} -x
 %endif
 %ifarch %ix86 x86_64
 pushd NVIDIA-Linux-x86*-%{version}*/
