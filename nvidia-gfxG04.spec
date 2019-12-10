@@ -192,7 +192,15 @@ echo "kver = %kver"
 %ifarch x86_64
  sh %{SOURCE1} -x
 %endif
+%ifarch aarch64
+ sh %{SOURCE0} -x
+%endif
+%ifarch %ix86 x86_64
 pushd NVIDIA-Linux-x86*-%{version}*/
+%endif
+%ifarch aarch64
+pushd NVIDIA-Linux-aarch64*-%{version}*/
+%endif
 # apply patches here ...
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled

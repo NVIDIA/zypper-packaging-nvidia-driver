@@ -204,6 +204,9 @@ This package provides the library for tracing VDPAU function calls.
 %ifarch x86_64
  sh %{SOURCE1} -x
 %endif
+%ifarch aarch64
+ sh %{SOURCE0} -x
+%endif
 %if 0%{?suse_version} < 1130
 tar xvf %{SOURCE9}
 tar xvf %{SOURCE10}
@@ -230,7 +233,12 @@ pushd libvdpau-*
   rm %{buildroot}%{_libdir}/vdpau/libvdpau_trace.la
 popd
 %endif
+%ifarch %ix86 x86_64
 cd NVIDIA-Linux-x86*-%{version}
+%endif
+%ifarch aarch64
+cd NVIDIA-Linux-aarch64*-%{version}
+%endif
 # would be nice if it worked ...
 #./nvidia-installer \
 #	--accept-license \
