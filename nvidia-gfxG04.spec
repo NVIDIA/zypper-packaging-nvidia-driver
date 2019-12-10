@@ -66,7 +66,7 @@ BuildRequires:  kernel-syms
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-ExclusiveArch:  %ix86 x86_64
+ExclusiveArch:  %ix86 x86_64 aarch64
 # patch the kmp template
 %if 0%{?suse_version} > 1100
 %define kmp_template -t

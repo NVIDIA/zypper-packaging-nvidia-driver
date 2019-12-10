@@ -89,7 +89,7 @@ Requires:       libvdpau1
 %if 0%{?suse_version} >= 1500
 Requires:       libvulkan1
 %endif
-ExclusiveArch:  %ix86 x86_64
+ExclusiveArch:  %ix86 x86_64 aarch64
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
