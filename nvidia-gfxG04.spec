@@ -231,7 +231,9 @@ pushd source/%{version}
  chmod 755 %_sourcedir/my-find-supplements*
 popd
 mkdir obj
+%ifnarch aarch64
 sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' source/*/conftest.sh
+%endif
 
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'

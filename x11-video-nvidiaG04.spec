@@ -279,7 +279,9 @@ install nvidia-smi %{buildroot}%{_bindir}
 install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
+%ifnarch aarch64
 install nvidia-persistenced %{buildroot}%{_bindir}
+%endif
 install libnvidia-tls.so.* %{buildroot}%{_libdir}/tls
 install libnvidia* %{buildroot}%{_libdir}
 install libcuda* %{buildroot}%{_libdir}
