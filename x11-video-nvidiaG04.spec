@@ -905,8 +905,10 @@ fi
 %{_prefix}/%{_lib}/libGLESv2_nvidia.so*
 %endif
 %{_libdir}/libnvidia-glcore.so*
+%ifnarch aarch64
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
+%endif
 %{_libdir}/libnvidia-egl-wayland.so*
 %{_libdir}/libnvidia-gtk*
 %{_libdir}/libnvidia-tls.so*
@@ -938,7 +940,9 @@ fi
 %{_prefix}/lib/libGLESv2_nvidia.so*
 %endif
 %{_prefix}/lib/libnvidia-glcore.so*
+%ifnarch aarch64
 %{_prefix}/lib/libnvidia-ifr.so*
+%endif
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
 %{_prefix}/lib/libnvidia-tls.so*
