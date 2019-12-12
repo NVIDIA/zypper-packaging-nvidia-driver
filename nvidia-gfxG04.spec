@@ -206,7 +206,11 @@ pushd NVIDIA-Linux-aarch64*-%{version}*/
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
+%ifarch aarch64
+cp -R NVIDIA-Linux-aarch64*-%{version}*/kernel/* source/%{version} || :
+%else
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
+%endif
 pushd source/%{version}
  # mark support as external
  echo "nvidia.ko external" > Module.supported
