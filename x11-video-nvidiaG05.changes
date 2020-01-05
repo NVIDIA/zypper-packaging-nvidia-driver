@@ -1,4 +1,15 @@
 -------------------------------------------------------------------
+Sun Jan  5 12:19:46 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 440.44
+  * Added support for GeForce GTX 1650 SUPER
+  * Added support for the __GL_SYNC_DISPLAY_DEVICE environment
+    variable for Vulkan applications.
+  * Fixed a bug that caused applications running directly on a display
+    (such as VR HMDs) to tear when a G-SYNC or G-SYNC Compatible monitor
+    is plugged in the system.
+
+-------------------------------------------------------------------
 Fri Nov 22 13:10:45 UTC 2019 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 440.36
