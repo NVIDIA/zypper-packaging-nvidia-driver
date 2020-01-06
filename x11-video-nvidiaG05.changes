@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Mon Jan  6 12:49:15 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- added "azure" kernel flavor 
+
+-------------------------------------------------------------------
 Sun Jan  5 12:19:46 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 440.44
