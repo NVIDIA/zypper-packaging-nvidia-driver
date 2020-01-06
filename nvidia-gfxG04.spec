@@ -64,6 +64,9 @@ BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
+%if 0%{?sle_version} >= 120000 && !0%{?is_opensuse} 
+BuildRequires:  kernel-syms-azure
+%endif
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
