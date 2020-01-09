@@ -9,6 +9,9 @@ arch=i386
 %ifarch x86_64
 arch=x86_64
 %endif
+%ifarch aarch64
+arch=aarch64
+%endif
 flavor=%1
 kver=$(make -sC /usr/src/linux-obj/$arch/$flavor kernelrelease)
 RES=0

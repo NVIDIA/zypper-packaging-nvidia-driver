@@ -284,7 +284,7 @@ for flavor in %flavors_to_build; do
   %else
   modfile=%{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia-$flavor.conf
   %endif
-  %ifarch x86_64
+  %ifarch x86_64 aarch64
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install
   %else
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install.non_uvm
