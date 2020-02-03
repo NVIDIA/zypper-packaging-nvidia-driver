@@ -60,6 +60,7 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
+Patch0:         kernel-5.5.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
@@ -206,6 +207,9 @@ pushd NVIDIA-Linux-x86*-%{version}*/
 pushd NVIDIA-Linux-aarch64*-%{version}*/
 %endif
 # apply patches here ...
+%if %kver >= 505000
+%patch0 -p1
+%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
