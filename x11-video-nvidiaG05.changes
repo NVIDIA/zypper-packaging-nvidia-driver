@@ -21,6 +21,7 @@ Fri Feb  7 14:50:54 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
     runtime-suspended.
   * Fixed a bug that caused DXVK titles to endlessly loop during shader
     compilation if no OpSource instruction was present.
+- supersedes kernel-5.5.patch
 
 -------------------------------------------------------------------
 Mon Jan  6 12:49:15 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
