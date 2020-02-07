@@ -1,4 +1,28 @@
 -------------------------------------------------------------------
+Fri Feb  7 14:50:54 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 440.59
+  * Disabled frame rate limiting for configurations without active
+    displays when HardDPMS is enabled.
+  * Restricted the maximum number of GPU Screens to one GPU Screen per
+    GPU device, to prevent X from crashing when more than one GPU Screen
+    is configured for a single GPU device.
+  * Fixed a bug that could cause the X server to crash while exiting
+    DPMS with HardDPMS enabled.
+  * Added support for the following GPUs:
+    + Tesla PG500-216
+    + Tesla PG503-216
+  * Added a default filename when saving the Display Configuration file
+    in nvidia-settings if an existing configuration file is not detected.
+  * Added support for audio over DisplayPort Multi-Stream. This support
+    requires Linux kernel version 5.5 or newer.
+  * Updated the NVIDIA driver to allow NVIDIA High Definition Audio (HDA)
+    controllers to respond to display hotplug events while the HDA is
+    runtime-suspended.
+  * Fixed a bug that caused DXVK titles to endlessly loop during shader
+    compilation if no OpSource instruction was present.
+
+-------------------------------------------------------------------
 Mon Jan  6 12:49:15 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - added "azure" kernel flavor 
