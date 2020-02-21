@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        390.132
+Version:        390.129
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -60,13 +60,14 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
-Patch0:         kernel-5.5.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
+%ifarch x86_64
 %if 0%{?sle_version} >= 120400 && !0%{?is_opensuse} 
 BuildRequires:  kernel-syms-azure
+%endif
 %endif
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
@@ -207,9 +208,6 @@ pushd NVIDIA-Linux-x86*-%{version}*/
 pushd NVIDIA-Linux-aarch64*-%{version}*/
 %endif
 # apply patches here ...
-%if %kver >= 505000
-%patch0 -p1
-%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
