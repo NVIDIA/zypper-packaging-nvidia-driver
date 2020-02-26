@@ -761,7 +761,6 @@ fi
 %exclude %{_libdir}/libOpenCL.so*
 %exclude %{_libdir}/libnvidia-ml.so*
 %exclude %{_libdir}/libnvidia-opencl.so*
-%exclude %{_libdir}/libnvidia-fatbinaryloader.so*
 %exclude %{_libdir}/libnvidia-glsi.so*
 %exclude %{_libdir}/libnvidia-eglcore.so*
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
@@ -801,7 +800,6 @@ fi
 %exclude %{_prefix}/lib/libOpenCL.so*
 %exclude %{_prefix}/lib/libnvidia-ml.so*
 %exclude %{_prefix}/lib/libnvidia-opencl.so*
-%exclude %{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %exclude %{_prefix}/lib/libnvidia-ptxjitcompiler.so*
 %endif
 %if 0%{?suse_version} > 1010 || "%_repository" == "SLE_10_XORG7"
@@ -853,7 +851,6 @@ fi
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opticalflow.so*
 %{_libdir}/libnvidia-opencl.so*
-%{_libdir}/libnvidia-fatbinaryloader.so*
 %{_libdir}/libnvidia-ptxjitcompiler.so*
 %{_bindir}/nvidia-smi
 %{_bindir}/nvidia-cuda-mps-control
@@ -865,7 +862,6 @@ fi
 %{_prefix}/lib/libnvidia-ml.so*
 %{_prefix}/lib/libnvidia-opticalflow.so*
 %{_prefix}/lib/libnvidia-opencl.so*
-%{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %{_prefix}/lib/libnvidia-ptxjitcompiler.so*
 %endif
 
