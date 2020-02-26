@@ -1,4 +1,14 @@
 -------------------------------------------------------------------
+Wed Feb 26 10:33:11 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 440.64
+  * Added support for the following GPUs:
+    + GeForce MX330
+    + GeForce MX350
+  * Fixed a regression that allowed displays to enter DPMS mode 
+    even when DPMS is disabled in the X server settings.
+
+-------------------------------------------------------------------
 Fri Feb  7 14:50:54 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 440.59
