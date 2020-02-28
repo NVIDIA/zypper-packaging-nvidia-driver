@@ -279,9 +279,7 @@ install nvidia-smi %{buildroot}%{_bindir}
 install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
-%ifnarch aarch64
 install nvidia-persistenced %{buildroot}%{_bindir}
-%endif
 install libnvidia-tls.so.* %{buildroot}%{_libdir}/tls
 install libnvidia* %{buildroot}%{_libdir}
 install libcuda* %{buildroot}%{_libdir}
@@ -364,10 +362,8 @@ ln -snf libnvcuvid.so.1 %{buildroot}%{_prefix}/lib/libnvcuvid.so
 install -d %{buildroot}%{_datadir}/doc/packages/%{name}
 cp -a html %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 LICENSE %{buildroot}%{_datadir}/doc/packages/%{name}
-%ifnarch aarch64
 install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
-%endif
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
 %suse_update_desktop_file -i nvidia-settings System SystemSetup
