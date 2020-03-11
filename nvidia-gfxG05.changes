@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 11 11:36:35 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- instead of removing /usr/lib/tmpfiles.d/nvidia-logind-acl-trick.conf
+  in %postun of KMP add it as %ghost to the KMP (boo#1165987)
+
+-------------------------------------------------------------------
 Wed Feb 26 10:31:53 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 440.64
