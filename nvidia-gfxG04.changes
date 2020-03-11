@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Mar 11 11:48:07 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- instead of removing /usr/lib/tmpfiles.d/nvidia-logind-acl-trick.conf
+  in %postun of KMP add it as %ghost to the KMP (boo#1165987)
+
+-------------------------------------------------------------------
 Mon Feb  3 10:40:22 UTC 2020 - Hans-Peter Jansen <hpj@urpla.net>
 
 - add (temporary) patch kernel-5.5.patch to fix build with kernel 5.5

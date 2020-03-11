@@ -15,6 +15,7 @@
 /usr/lib/nvidia/alternate-install-present-%1
 %ghost %attr(644,root,root) /usr/lib/nvidia/alternate-install-present
 %ghost /lib/modules/%2-%1/updates/nvidia*.ko
+%ghost /usr/lib/tmpfiles.d/nvidia-logind-acl-trick.conf
 #/lib/modules/%2-%1/updates/nv-kernel.o
 #/lib/modules/%2-%1/updates/nv-linux.o
 /usr/src/kernel-modules/nvidia-%{-v*}-%1
