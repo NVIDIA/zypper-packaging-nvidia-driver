@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Mar 12 11:46:05 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- using /usr/lib/tmpfiles.d/nvidia-logind-acl-trick-G0X.conf now,
+  so a driver series update (when user ignores the explicit driver
+  series conflict!) no longer will result in no access to NVIDIA
+  devices (boo#1165987)
+
+-------------------------------------------------------------------
 Mon Feb  3 10:40:22 UTC 2020 - Hans-Peter Jansen <hpj@urpla.net>
 
 - add (temporary) patch kernel-5.5.patch to fix build with kernel 5.5
