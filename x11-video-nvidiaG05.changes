@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Mar 12 11:41:48 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- using /usr/lib/tmpfiles.d/nvidia-logind-acl-trick-G0X.conf now,
+  so a driver series update (when user ignores the explicit driver
+  series conflict!) no longer will result in no access to NVIDIA
+  devices (boo#1165987)
+
+-------------------------------------------------------------------
 Wed Feb 26 10:33:11 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 440.64
