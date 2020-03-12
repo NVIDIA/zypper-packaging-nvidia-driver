@@ -4,4 +4,6 @@ if [ "$1" = 0 ] ; then
     if [ ! -f /usr/lib/nvidia/alternate-install-present-$flavor ];  then
 	%{_sbindir}/update-alternatives --remove alternate-install-present /usr/lib/nvidia/alternate-install-present-$flavor
     fi
+    # cleanup of bnc# 1000625
+    rm -f /usr/lib/tmpfiles.d/nvidia-logind-acl-trick.conf
 fi
