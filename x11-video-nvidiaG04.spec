@@ -200,13 +200,13 @@ This package provides the library for tracing VDPAU function calls.
 %prep
 %setup -T -c %{name}-%{version}
 %ifarch %ix86
- sh %{SOURCE0} -x
+ sh %{SOURCE0} -x --target NVIDIA-Linux-x86-%{version}
 %endif
 %ifarch x86_64
- sh %{SOURCE1} -x
+ sh %{SOURCE1} -x --target NVIDIA-Linux-x86_64-%{version}
 %endif
 %ifarch aarch64
- sh %{SOURCE12} -x
+ sh %{SOURCE12} -x --target NVIDIA-Linux-aarch64-%{version}
 %endif
 %if 0%{?suse_version} < 1130
 tar xvf %{SOURCE9}

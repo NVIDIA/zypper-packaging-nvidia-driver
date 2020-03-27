@@ -193,13 +193,13 @@ module for GeForce 400 series and newer GPUs.
 echo "kver = %kver"
 %setup -T -c %{name}-%{version}
 %ifarch %ix86
- sh %{SOURCE0} -x
+ sh %{SOURCE0} -x --target NVIDIA-Linux-x86-%{version}
 %endif
 %ifarch x86_64
- sh %{SOURCE1} -x
+ sh %{SOURCE1} -x --target NVIDIA-Linux-x86_64-%{version}
 %endif
 %ifarch aarch64
- sh %{SOURCE24} -x
+ sh %{SOURCE24} -x --target NVIDIA-Linux-aarch64-%{version}
 %endif
 %ifarch %ix86 x86_64
 pushd NVIDIA-Linux-x86*-%{version}*/
