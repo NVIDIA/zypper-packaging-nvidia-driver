@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Thu Apr  2 17:51:11 UTC 2020 - Hans-Peter Jansen <hpj@urpla.net>
+
+- Add patch kernel-5.6.patch in order to compile with 5.6
+
+-------------------------------------------------------------------
 Thu Mar 12 11:36:49 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - using /usr/lib/tmpfiles.d/nvidia-logind-acl-trick-G0X.conf now,
