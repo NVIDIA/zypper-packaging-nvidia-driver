@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Sun Apr  5 10:07:19 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 440.82
+  * Added a workaround for Steam Play title DOOM Eternal, which
+    overrides application requested memory locations, to ensure
+    performance-critical resources be placed in video memory.
+  * Allow presenting from queue families which only expose
+    VK_QUEUE_COMPUTE_BIT when using XCB in addition to Xlib
+    surfaces.
+  * Fixed a bug that caused render-offloaded applications to crash
+    on exit.
+- supersedes kernel-5.6.patch
+
+-------------------------------------------------------------------
 Thu Apr  2 17:51:11 UTC 2020 - Hans-Peter Jansen <hpj@urpla.net>
 
 - Add patch kernel-5.6.patch in order to compile with 5.6

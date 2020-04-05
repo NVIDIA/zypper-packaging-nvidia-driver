@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG05
-Version:        440.64
+Version:        440.82
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
@@ -58,7 +58,6 @@ NoSource:       6
 NoSource:       7
 Patch0:         check-for-swiotlb_map_sg_attrs.patch
 Patch1:         n_kernel_write.patch
-Patch2:         kernel-5.6.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 %if 0%{?sle_version} >= 120400 && !0%{?is_opensuse} 
@@ -189,9 +188,6 @@ echo "Applying patch for missing swiotlb exports in Kernel 4.16 (boo#1088651)"
 %if 0%{?suse_version} < 1550
 %patch1 -p0
 %endif
-%endif
-%if %kver >= 506000
-%patch2 -p1
 %endif
 find . -name "*.orig" -delete
 popd
