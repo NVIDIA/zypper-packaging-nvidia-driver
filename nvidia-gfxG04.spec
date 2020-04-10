@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG04
-Version:        390.129
+Version:        390.132
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 400 series and newer
@@ -33,7 +33,6 @@ URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source0:        http://download.nvidia.com/XFree86/Linux-x86/%{version}/NVIDIA-Linux-x86-%{version}.run
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
-Source24:       http://download.nvidia.com/XFree86/Linux-aarch64/%{version}/NVIDIA-Linux-aarch64-%{version}.run
 Source2:        pci_ids-%{version}.legacy
 Source3:        preamble
 Source4:        pci_ids-%{version}
@@ -60,19 +59,19 @@ NoSource:       0
 NoSource:       1
 NoSource:       6
 NoSource:       7
+Patch0:         kernel-5.5.patch
+Patch1:         kernel-5.6.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
-%ifarch x86_64
 %if 0%{?sle_version} >= 120400 && !0%{?is_opensuse} 
 BuildRequires:  kernel-syms-azure
-%endif
 %endif
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-ExclusiveArch:  %ix86 x86_64 aarch64
+ExclusiveArch:  %ix86 x86_64
 # patch the kmp template
 %if 0%{?suse_version} > 1100
 %define kmp_template -t
@@ -103,9 +102,6 @@ ExclusiveArch:  %ix86 x86_64 aarch64
 %if 0%{?suse_version} >= 1330 && 0%{?is_opensuse}
 %(sed -e '/^%%preun\>/ r %_sourcedir/%kmp_preun' -e '/^%%pre\>/ r %_sourcedir/%kmp_pre' -e '/^%%postun\>/ r %_sourcedir/%kmp_postun' -e '/^Provides: multiversion(kernel)/d' %kmp_template_name >%_builddir/nvidia-kmp-template)
 %(cp %_builddir/nvidia-kmp-template %_builddir/nvidia-kmp-template.old)
-# moved from %kmp_post snippet to this place (boo#1145316)
-%(sed -i '/^%%posttrans/i \
-exit $RES' %_builddir/nvidia-kmp-template)
 # if %pre scriptlet sample missing in template
 %(grep -q "^%pre -n" %_builddir/nvidia-kmp-template || (echo "%pre -n %%{-n*}-kmp-%1" >> %_builddir/nvidia-kmp-template; cat %_sourcedir/%kmp_pre >> %_builddir/nvidia-kmp-template))
 %(echo "%triggerin -n %%{-n*}-kmp-%1 -- kernel-default-devel" >> %_builddir/nvidia-kmp-template)
@@ -193,29 +189,23 @@ module for GeForce 400 series and newer GPUs.
 echo "kver = %kver"
 %setup -T -c %{name}-%{version}
 %ifarch %ix86
- sh %{SOURCE0} -x --target NVIDIA-Linux-x86-%{version}
+ sh %{SOURCE0} -x
 %endif
 %ifarch x86_64
- sh %{SOURCE1} -x --target NVIDIA-Linux-x86_64-%{version}
+ sh %{SOURCE1} -x
 %endif
-%ifarch aarch64
- sh %{SOURCE24} -x --target NVIDIA-Linux-aarch64-%{version}
-%endif
-%ifarch %ix86 x86_64
 pushd NVIDIA-Linux-x86*-%{version}*/
-%endif
-%ifarch aarch64
-pushd NVIDIA-Linux-aarch64*-%{version}*/
-%endif
 # apply patches here ...
+%if %kver >= 505000
+%patch0 -p1
+%if %kver >= 506000
+%patch1 -p1
+%endif
+%endif
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
-%ifarch aarch64
-cp -R NVIDIA-Linux-aarch64*-%{version}*/kernel/* source/%{version} || :
-%else
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
-%endif
 pushd source/%{version}
  # mark support as external
  echo "nvidia.ko external" > Module.supported
@@ -240,9 +230,7 @@ pushd source/%{version}
  chmod 755 %_sourcedir/my-find-supplements*
 popd
 mkdir obj
-%ifnarch aarch64
 sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' source/*/conftest.sh
-%endif
 
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
@@ -286,7 +274,7 @@ for flavor in %flavors_to_build; do
   %else
   modfile=%{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia-$flavor.conf
   %endif
-  %ifarch x86_64 aarch64
+  %ifarch x86_64
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install
   %else
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install.non_uvm
