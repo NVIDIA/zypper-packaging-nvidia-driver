@@ -61,6 +61,7 @@ NoSource:       6
 NoSource:       7
 Patch0:         kernel-5.5.patch
 Patch1:         kernel-5.6.patch
+Patch2:         kernel-5.6-ix86.patch
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  kernel-source
@@ -199,7 +200,11 @@ pushd NVIDIA-Linux-x86*-%{version}*/
 %if %kver >= 505000
 %patch0 -p1
 %if %kver >= 506000
+%ifnarch %ix86
 %patch1 -p1
+%else
+%patch2 -p1
+%endif
 %endif
 %endif
 popd
