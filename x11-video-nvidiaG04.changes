@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu May 14 11:06:54 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- get rid of ksym Requires on Leap 15.1/15.2 by redefining 
+  %__kmp_requires
+
+-------------------------------------------------------------------
 Fri Apr 10 15:53:00 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - add patch kernel-5.6.patch to fix build with kernel 5.6 

@@ -173,6 +173,9 @@ exit $RES' %_builddir/nvidia-kmp-template)
 # older rpm
 %define __find_supplements %_sourcedir/my-find-supplements %pci_id_file %name
 
+# get rid of ksyms on Leap 15.1/15.2; for weird reasons they are not generated on TW
+%define __kmp_requires %{nil}
+
 %description
 This package provides the closed-source NVIDIA graphics driver kernel
 module for GeForce 400 series and newer GPUs.
