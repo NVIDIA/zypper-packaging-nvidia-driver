@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  5 10:52:45 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- added _constraints file in order to reserve 4G for buildroot 
+
+-------------------------------------------------------------------
 Fri Jun  5 10:18:21 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - no longer require 3ddiag, which is no longer needed at all ... 
