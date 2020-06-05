@@ -1,4 +1,9 @@
 -------------------------------------------------------------------
+Fri Jun  5 10:19:17 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- no longer require 3ddiag, which is no longer needed at all ... 
+
+-------------------------------------------------------------------
 Thu May 14 11:02:28 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - get rid of ksym Requires on Leap 15.1/15.2 by redefining 

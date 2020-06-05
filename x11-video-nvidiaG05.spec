@@ -67,7 +67,6 @@ BuildRequires:  xorg-x11-devel
 %if 0%{?suse_version} < 1020
 BuildRequires:  xorg-x11-compat70-devel
 %endif
-Requires:       3ddiag
 Requires:       nvidia-computeG05 = %{version}
 Requires:       nvidia-gfxG05-kmp = %{version}
 Provides:       nvidia_driver = %{version}
