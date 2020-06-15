@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jun 15 04:59:33 UTC 2020 - Ismail Dönmez <idonmez@suse.com>
+
+- Add kernel-5.7.patch to fix kernel 5.7 build
+- Remove commented out check-for-swiotlb_map_sg_attrs.patch
+
+-------------------------------------------------------------------
 Fri Jun  5 10:53:23 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - added _constraints file in order to reserve 4G for buildroot 
