@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jun 25 21:28:48 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- kernel-5.8rc1.patch
+  * adds support for kernel 5.8rc1 (https://gitlab.com/snippets/1986228)
+
+-------------------------------------------------------------------
 Thu Jun 25 15:09:07 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 440.100
