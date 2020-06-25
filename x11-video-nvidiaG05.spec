@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG05
-Version:        440.82
+Version:        440.100
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 600 series and newer

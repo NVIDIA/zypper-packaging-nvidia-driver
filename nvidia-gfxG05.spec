@@ -25,7 +25,7 @@
 %global __requires_exclude kernel-uname-r*
 
 Name:           nvidia-gfxG05
-Version:        440.82
+Version:        440.100
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
@@ -56,7 +56,6 @@ Source23:       kmp-trigger-old.sh
 NoSource:       1
 NoSource:       6
 NoSource:       7
-Patch0:         kernel-5.7.patch
 Patch1:         n_kernel_write.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
@@ -186,7 +185,6 @@ sh %{SOURCE1} -x
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
 echo "Applying patch for fixing kernel 5.7 build"
-%patch0 -p1
 %if 0%{?sle_version} >= 120400
 %if 0%{?suse_version} < 1550
 %patch1 -p0
