@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jun 30 11:30:37 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- only rebuild kernel module(s) on kernel update on Tumbleweed; as
+  designed; forgot to adjust specfile, when TW switched from 
+  %suse_version = 1330 to 1550 ...
+
+-------------------------------------------------------------------
 Thu Jun 25 21:27:07 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - kernel-5.8rc1.patch
