@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Jul  6 09:53:21 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- fixed hardware supplements for Leap 15.1, 15.2, sle15-sp1,
+  sle15-sp2 and Tubmleweed
+
+-------------------------------------------------------------------
 Tue Jun 30 11:30:44 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - only rebuild kernel module(s) on kernel update on Tumbleweed; as

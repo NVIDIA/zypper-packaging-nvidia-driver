@@ -151,7 +151,7 @@ exit $RES' %_builddir/nvidia-kmp-template)
 %kernel_module_package %kmp_template %_builddir/nvidia-kmp-template -p %_sourcedir/preamble -f %_sourcedir/%kmp_filelist -x %x_flavors
 
 # supplements no longer depend on the driver
-%if 0%{?suse_version} > 1500
+%if (0%{?sle_version} >= 150100 || 0%{?suse_version} >= 1550)
 %define pci_id_file %_sourcedir/pci_ids-%version
 %else
 %define pci_id_file %_sourcedir/pci_ids-%version.new
