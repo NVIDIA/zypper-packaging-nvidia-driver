@@ -57,7 +57,6 @@ NoSource:       1
 NoSource:       6
 NoSource:       7
 Patch1:         n_kernel_write.patch
-Patch2:         kernel-5.8rc1.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 %if 0%{?sle_version} >= 120400 && !0%{?is_opensuse} 
@@ -185,10 +184,6 @@ echo "kver = %kver"
 sh %{SOURCE1} -x
 pushd NVIDIA-Linux-x86*-%{version}*/
 # apply patches here ...
-%if %kver >= 508000
-echo "Applying patch for fixing kernel 5.8rc1 build"
-%patch2 -p1
-%endif
 %if 0%{?sle_version} >= 120400
 %if 0%{?suse_version} < 1550
 %patch1 -p0
