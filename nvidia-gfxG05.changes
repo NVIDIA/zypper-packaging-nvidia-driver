@@ -1,4 +1,99 @@
 -------------------------------------------------------------------
+Tue Jul  7 21:52:00 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 450.57
+  * Fixed a bug that caused a brief orange flash on some platforms when a
+    display mode is being set.
+  * Added support for Vulkan direct-to-display on DisplayPort displays which
+    are connected via DisplayPort Multi-Stream Transport (DP-MST).
+  * Added a new documentation file, supported-gpus.json, which exposes a
+    machine-readable list of supported GPUs and features.
+  * Added an implementation of glNamedBufferPageCommitmentARB, which was
+    missing from the NVIDIA driver's support for the GL_ARB_sparse_buffer
+    extension.
+  * Fixed a bug that could cause a KDE Plasma session to crash when running
+    under Wayland.
+  * Fixed a bug that could cause some Swap Group configurations to present
+    at half of the display refresh rate.
+  * Added a new Connector-N display connector name alias type, with a unique
+    alias assigned to each physical display connector on a GPU. See the
+    README for more information.
+  * Fixed a bug that prevented X11 EGL displays from being reinitialized.
+  * The 450 driver series is the last that supports NvFBC's
+    NVFBC_CAPTURE_TO_HW_ENCODER capture interface, which has been deprecated
+    since NVIDIA Capture SDK 6.0 released in 2017. Future NVIDIA drivers
+    after the 450 series will return NVFBC_ERR_UNSUPPORTED if that capture
+    interface is requested.
+    The recommended way to encode captured frames with NVENC is by using the
+    NVIDIA Video Codec SDK.
+    See: https://developer.nvidia.com/nvidia-video-codec-sdk
+  * Implemented support for NVIDIA NGX. A new library, libnvidia-ngx.so, has
+    been added to support the new functionality. This new library is needed by
+    applications which link against any of the following SDKs:
+    + NVIDIA DLSS SDK
+    + NVIDIA NGX SDK
+  * Fixed a bug which caused Vulkan applications to leak file descriptors
+    when destroying Vulkan instances.
+  * Added a fallback presentation path for PRIME Render Offload
+    configurations where the DRI3 and/or Present extension are unavailable.
+  * Fixed a bug where vkCreateSampler would fail with no borderColor data,
+    even though it wasn't needed.
+  * Fixed a bug where vkUpdateDescriptorSetWithTemplate would ignore the
+    stride parameter for some VkDescriptorType values.
+  * Fixed a bug causing the Plasma desktop panel to freeze when
+    compositing is disabled (https://bugs.kde.org/show_bug.cgi?id=353983)
+  * Added support for the following GPUs:
+    + A100-PCIE-40GB
+    + A100-PG509-200
+    + A100-SXM4-40GB
+  * Improved Vulkan device enumeration under an X.Org X server environment.
+    See the "Known Issues" in the README for more information.
+  * Fixed a visual glitch of Vulkan applications when they stop flipping
+    due to a window change, such as when alt-tab is used to change
+    window focus.
+  * Fixed a bug where XGetImage requests would return stale data for
+    flipping Vulkan applications. In particular, this fixes screen-scraping
+    tools such as VNC and import.
+  * Removed libnvidia-fatbinaryloader.so from the driver package.  This
+    functionality is now built into other driver libraries.
+  * Extended the dynamic runtime power management support in the NVIDIA
+    driver to shut off power to video memory under certain conditions.
+    See the chapter titled "PCI-Express Runtime D3 (RTD3) Power Management"
+    in the README for more information.
+  * Added HEVC 10/12 bit "decode only" support to the NVIDIA VDPAU driver. 
+    Note that VDPAU's presentation pipeline and OpenGL-VDPAU interop
+    does not support 10- and 12-bit video surfaces yet. See the "VDPAU Support"
+    appendix in the README for supported HEVC decoder profiles.
+  * Added support for Image Sharpening for OpenGL and Vulkan applications
+  * Added new VdpYCbCrFormats VDP_YCBCR_FORMAT_Y_U_V_444_16,
+    VDP_YCBCR_FORMAT_P010 and VDP_YCBCR_FORMAT_P016 for accessing 16-bit
+    surfaces via VdpVideoSurfaceGetBitsYCbCr() and VdpVideoSurfacePutBitsYCbCr()
+    in the NVIDIA VDPAU driver.
+  * Added support to create 16-bit video surfaces in the NVIDIA VDPAU driver.
+  * Modified nvidia-persistenced and libnvidia-ml (NVML) to use libtirpc for
+    communication instead of relying on the deprecated glibc RPC
+    implementation.
+  * Enabled GPU screens by default on X.Org xserver version 1.20.7 and higher.
+  * Fixed a bug where rendering in a separate user namespace (unshare -U)
+    would show black window and produce Xid 13 errors.
+  * Removed support for "IgnoreDisplayDevices" X configuration option.
+  * Added support for PRIME Synchronization when using displays driven by
+    the x86-video-amdgpu driver as PRIME display offload sinks.
+  * Added support for displays connected to NVIDIA GPUs to act as PRIME
+    display offload sinks, also known as "Reverse PRIME". See the chapter
+    titled "Offloading Graphics Display with RandR 1.4" in the README for
+    additional information.
+  * Removed 'libGL.la' libtool archive from the install package.
+  * Fixed a bug that could cause the X server to crash when using large
+    cursor images with PRIME display offloading.
+  * Fixed an interaction problem with 5.4 and newer Linux kernels that caused
+    a performance regression when allocating system memory.
+  * Fixed a bug where a Vulkan application under PRIME render
+    offload would not always be correctly throttled to vsync despite
+    the application's request for VK_PRESENT_MODE_FIFO_KHR. This was
+    particularly prevalent on DXVK titles.
+
+-------------------------------------------------------------------
 Tue Jul  7 09:32:54 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - added device node creation and permission handling for 

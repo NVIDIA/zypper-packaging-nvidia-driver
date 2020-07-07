@@ -34,7 +34,7 @@
 %endif
 
 Name:           x11-video-nvidiaG05
-Version:        440.100
+Version:        450.57
 Release:        0
 License:        SUSE-NonFree
 Summary:        NVIDIA graphics driver for GeForce 600 series and newer
@@ -251,7 +251,6 @@ install libvdpau_nvidia.so* %{buildroot}%{_libdir}/vdpau
 # Bug #596481
 ln -s vdpau/libvdpau_nvidia.so.1 %{buildroot}%{_libdir}/libvdpau_nvidia.so
 # the GL lib from Mesa is in /usr/%{_lib} so we install in /usr/X11R6/%{_lib}
-rm libGL.la
 install libGL* %{buildroot}%{_prefix}/X11R6/%{_lib}
 # still a lot of applications make a dlopen to the .so file
 ln -snf libGL.so.1 %{buildroot}%{_prefix}/X11R6/%{_lib}/libGL.so
@@ -306,6 +305,7 @@ cp -a html %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 LICENSE %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
+install -m 644 supported-gpus.json %{buildroot}%{_datadir}/doc/packages/%{name}
 # Power Management via systemd
 install -m 644 *.service %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 755 nvidia nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
@@ -681,7 +681,6 @@ fi
 %exclude %{_libdir}/libOpenCL.so*
 %exclude %{_libdir}/libnvidia-ml.so*
 %exclude %{_libdir}/libnvidia-opencl.so*
-%exclude %{_libdir}/libnvidia-fatbinaryloader.so*
 %exclude %{_libdir}/libnvidia-glsi.so*
 %exclude %{_libdir}/libnvidia-eglcore.so*
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
@@ -721,7 +720,6 @@ fi
 %exclude %{_prefix}/lib/libOpenCL.so*
 %exclude %{_prefix}/lib/libnvidia-ml.so*
 %exclude %{_prefix}/lib/libnvidia-opencl.so*
-%exclude %{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %exclude %{_prefix}/lib/libnvidia-ptxjitcompiler.so*
 %endif
 %if 0%{?suse_version} > 1010 || "%_repository" == "SLE_10_XORG7"
@@ -772,7 +770,6 @@ fi
 %endif
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opencl.so*
-%{_libdir}/libnvidia-fatbinaryloader.so*
 %{_libdir}/libnvidia-ptxjitcompiler.so*
 %{_bindir}/nvidia-smi
 %{_bindir}/nvidia-cuda-mps-control
@@ -783,7 +780,6 @@ fi
 %{_prefix}/lib/libOpenCL.so*
 %{_prefix}/lib/libnvidia-ml.so*
 %{_prefix}/lib/libnvidia-opencl.so*
-%{_prefix}/lib/libnvidia-fatbinaryloader.so*
 %{_prefix}/lib/libnvidia-ptxjitcompiler.so*
 %endif
 
