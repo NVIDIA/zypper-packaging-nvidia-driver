@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Tue Jul  7 09:35:13 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- added device node creation and permission handling for 
+  /dev/nvidia-uvm-tools needed by various computing software
+  (boo#1173733)
+
+-------------------------------------------------------------------
 Mon Jul  6 09:53:21 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - fixed hardware supplements for Leap 15.1, 15.2, sle15-sp1,

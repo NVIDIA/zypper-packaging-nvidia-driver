@@ -7,6 +7,10 @@ if /sbin/modprobe --ignore-install nvidia; then
       mknod -m 660 /dev/nvidia-uvm c $(cat /proc/devices | while read major device; do if [ "$device" == "nvidia-uvm" ]; then echo $major; break; fi ; done) 0; 
       chown :video /dev/nvidia-uvm;
     fi;
+    if [ ! -c /dev/nvidia-uvm-tools ]; then
+      mknod -m 660 /dev/nvidia-uvm-tools c $(cat /proc/devices | while read major device; do if [ "$device" == "nvidia-uvm" ]; then echo $major; break; fi ; done) 1;
+      chown :video /dev/nvidia-uvm-tools;
+    fi;
   fi;
   if [ ! -c /dev/nvidiactl ]; then
     mknod -m 660 /dev/nvidiactl c 195 255;
