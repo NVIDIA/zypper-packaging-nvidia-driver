@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Tue Jul 14 11:14:08 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- sign kernel modules on Leap 15.2/sle15-sp2 on systems running
+  with secureboot enabled (boo#1173682, boo#1173682)
+
+-------------------------------------------------------------------
 Tue Jul  7 21:58:09 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 450.57

@@ -15,3 +15,7 @@ Provides: nvidia-gfxG05-kmp-%1 = %{-v*}
 Provides: drm-kmp-%1
 Obsoletes: drm-kmp-%1
 %endif
+%if 0%{?sle_version} >= 150200 
+Requires: openssl
+Requires: mokutil
+%endif

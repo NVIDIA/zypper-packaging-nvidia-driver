@@ -23,6 +23,42 @@ install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
 	/lib/modules/%2-$flavor/updates
 depmod %2-$flavor
 
+%if 0%{?sle_version} >= 150200
+# Sign modules on secureboot systems
+if [ -x /usr/bin/mokutil ]; then
+  mokutil --sb-state | grep -q "SecureBoot enabled" 
+  if [ $? -eq 0 ]; then
+    privkey=$(mktemp /tmp/MOK.priv.XXXXXX)
+    pubkeydir=/var/lib/nvidia-pubkeys
+    pubkey=$pubkeydir/MOK-%{-v*}-$flavor.der
+
+    # make sure creation of pubkey doesn't fail later
+    mkdir -p $pubkeydir
+    rm -f $pubkey
+
+    # Create a key pair (private key, public key)
+    openssl req -new -x509 -newkey rsa:2048 \
+                -keyout $privkey \
+                -outform DER -out $pubkey -days 1000 \
+                -subj "/CN=Nvidia private build/" -nodes
+
+    # Install the public key to MOK
+    mokutil --import $pubkey --root-pw
+
+    # Sign the Nvidia modules
+    pushd /lib/modules/
+      signprog=$(ls */build/scripts/sign-file |tail -n 1)
+      for i in */updates/*.ko; do
+        $signprog sha256 $privkey $pubkey $i
+      done
+    popd
+
+    # cleanup: private key no longer needed
+    rm -f $privkey
+  fi
+fi
+%endif
+
 %{_sbindir}/update-alternatives --install /usr/lib/nvidia/alternate-install-present alternate-install-present /usr/lib/nvidia/alternate-install-present-$flavor 11
 
 # Create symlinks for udev so these devices will get user ACLs by logind later (bnc#1000625)
