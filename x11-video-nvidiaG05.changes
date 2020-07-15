@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Jul 15 15:15:27 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- make usage of weak-updates2 as it is being used by the kernel; 
+  this appears to work ... use this for the kernel, against which
+  the kernel modules are built, but also for all the other kernels
+  installed below /lib/modules ...
+
+-------------------------------------------------------------------
 Wed Jul 15 12:04:43 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - kernel module signing for secureboot mode (boo#1173682)

@@ -22,11 +22,19 @@ install -m 755 -d /lib/modules/%2-$flavor/updates
 install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
 	/lib/modules/%2-$flavor/updates
 depmod %2-$flavor
-# since weak-updates appears to be broken
-install -m 755 -d /lib/modules/$kver/updates
-install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
-        /lib/modules/$kver/updates
-depmod $kver
+
+wm2=/usr/lib/module-init-tools/weak-modules2
+if [ -x $wm2 ]; then
+    # Add symlinks of compatible modules to /lib/modules/$kver/weak-updates/
+    $wm2 --add-kernel $kver
+    depmod $kver
+
+    # Try also to cover other kernels installed below /lib/modules
+    for kernel in $(find /lib/modules  -maxdepth 1 -type d | tail -n +2 | cut -d "/" -f 4 | grep -v -e %2-$flavor -e $kver); do
+        $wm2 --add-kernel $kernel
+        depmod $kernel
+    done
+fi
 
 %if 0%{?sle_version} >= 150200
 # Sign modules on secureboot systems
@@ -51,7 +59,7 @@ if [ -x /usr/bin/mokutil ]; then
     mokutil --import $pubkey --root-pw
 
     # Sign the Nvidia modules (weak-updates appears to be broken)
-    for i in /lib/modules/{%2-$flavor,$kver}/updates/nvidia*.ko; do
+    for i in /lib/modules/%2-$flavor/updates/nvidia*.ko; do
       /lib/modules/$kver/build/scripts/sign-file sha256 $privkey $pubkey $i
     done
 
