@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Jul 15 22:57:25 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- figured out that additional usage of weak-updates2 is not needed
+  all; therefore removed it again
+
+-------------------------------------------------------------------
 Wed Jul 15 15:12:26 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - make usage of weak-updates2 as it is being used by the kernel; 

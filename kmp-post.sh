@@ -23,19 +23,6 @@ install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
 	/lib/modules/%2-$flavor/updates
 depmod %2-$flavor
 
-wm2=/usr/lib/module-init-tools/weak-modules2
-if [ -x $wm2 ]; then
-    # Add symlinks of compatible modules to /lib/modules/$kver/weak-updates/
-    $wm2 --add-kernel $kver
-    depmod $kver
-
-    # Try also to cover other kernels installed below /lib/modules
-    for kernel in $(find /lib/modules -maxdepth 1 -mindepth 1 -type d -printf "%P\n" | grep -v -e %2-$flavor -e $kver); do
-        $wm2 --add-kernel $kernel
-        depmod $kernel
-    done
-fi
-
 %if 0%{?sle_version} >= 150200
 # Sign modules on secureboot systems
 if [ -x /usr/bin/mokutil ]; then
