@@ -1,8 +1,21 @@
 -------------------------------------------------------------------
+Wed Jul 15 12:04:43 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- kernel module signing for secureboot mode (boo#1173682)
+  * add ghosts for public MOK keyfile/keydir
+  * install kernel modules also to modules dir below /lib/modules, 
+    with which the modules have been built, since weak-updates
+    apparently is (no longer?) working ... and of course sign
+    the modules there as well ...
+  * include package name in public MOK key filename
+  * remove MOK key during package uninstallation
+  * fixed wrong bug number in RPM changelog 
+
+-------------------------------------------------------------------
 Tue Jul 14 11:14:08 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - sign kernel modules on Leap 15.2/sle15-sp2 on systems running
-  with secureboot enabled (boo#1173682, boo#1173682)
+  with secureboot enabled (boo#1173682, boo#1173158)
 
 -------------------------------------------------------------------
 Tue Jul  7 21:58:09 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>

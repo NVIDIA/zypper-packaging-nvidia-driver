@@ -22,6 +22,11 @@ install -m 755 -d /lib/modules/%2-$flavor/updates
 install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
 	/lib/modules/%2-$flavor/updates
 depmod %2-$flavor
+# since weak-updates appears to be broken
+install -m 755 -d /lib/modules/$kver/updates
+install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
+        /lib/modules/$kver/updates
+depmod $kver
 
 %if 0%{?sle_version} >= 150200
 # Sign modules on secureboot systems
@@ -30,10 +35,10 @@ if [ -x /usr/bin/mokutil ]; then
   if [ $? -eq 0 ]; then
     privkey=$(mktemp /tmp/MOK.priv.XXXXXX)
     pubkeydir=/var/lib/nvidia-pubkeys
-    pubkey=$pubkeydir/MOK-%{-v*}-$flavor.der
+    pubkey=$pubkeydir/MOK-%{name}-%{-v*}-$flavor.der
 
     # make sure creation of pubkey doesn't fail later
-    mkdir -p $pubkeydir
+    test -d pubkeydir || mkdir -p $pubkeydir
     rm -f $pubkey
 
     # Create a key pair (private key, public key)
@@ -45,13 +50,10 @@ if [ -x /usr/bin/mokutil ]; then
     # Install the public key to MOK
     mokutil --import $pubkey --root-pw
 
-    # Sign the Nvidia modules
-    pushd /lib/modules/
-      signprog=$(ls */build/scripts/sign-file |tail -n 1)
-      for i in */updates/*.ko; do
-        $signprog sha256 $privkey $pubkey $i
-      done
-    popd
+    # Sign the Nvidia modules (weak-updates appears to be broken)
+    for i in /lib/modules/{%2-$flavor,$kver}/updates/nvidia*.ko; do
+      /lib/modules/$kver/build/scripts/sign-file sha256 $privkey $pubkey $i
+    done
 
     # cleanup: private key no longer needed
     rm -f $privkey
