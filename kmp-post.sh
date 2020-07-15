@@ -30,7 +30,7 @@ if [ -x $wm2 ]; then
     depmod $kver
 
     # Try also to cover other kernels installed below /lib/modules
-    for kernel in $(find /lib/modules  -maxdepth 1 -type d | tail -n +2 | cut -d "/" -f 4 | grep -v -e %2-$flavor -e $kver); do
+    for kernel in $(find /lib/modules -maxdepth 1 -mindepth 1 -type d -printf "%P\n" | grep -v -e %2-$flavor -e $kver); do
         $wm2 --add-kernel $kernel
         depmod $kernel
     done
