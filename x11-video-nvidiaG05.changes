@@ -1,4 +1,11 @@
 -------------------------------------------------------------------
+Thu Jul 16 19:38:41 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- remove still existing old kernel modules during installation of
+  new modules, since otherwise weak-modules doesn't work 
+  (boo#1174204)
+
+-------------------------------------------------------------------
 Thu Jul 16 12:08:37 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - improved certificat description. So it looks like this now:
