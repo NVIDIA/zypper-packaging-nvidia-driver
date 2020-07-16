@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Thu Jul 16 12:07:37 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- improved certificat description. So it looks like this now:
+  "Local build for nvidia-gfxG05 450.57 on 2020-07-16" 
+
+-------------------------------------------------------------------
 Wed Jul 15 22:57:25 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - figured out that additional usage of weak-updates2 is not needed

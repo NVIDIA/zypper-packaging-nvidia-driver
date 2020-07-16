@@ -40,7 +40,8 @@ if [ -x /usr/bin/mokutil ]; then
     openssl req -new -x509 -newkey rsa:2048 \
                 -keyout $privkey \
                 -outform DER -out $pubkey -days 1000 \
-                -subj "/CN=Nvidia private build/" -nodes
+                -subj "/CN=Local build for %{name} %{-v*} on $(date +"%Y-%m-%d")/" \
+                -nodes
 
     # Install the public key to MOK
     mokutil --import $pubkey --root-pw
