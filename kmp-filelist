@@ -2,6 +2,8 @@
 %dir /lib/modules/%2-%1
 %dir /lib/modules/%2-%1/updates
 %dir /usr/src/kernel-modules
+%dir /etc/dracut.conf.d
+/etc/dracut.conf.d/60-nvidia-%1.conf
 /etc/modprobe.d/nvidia-%1.conf
 %if 0%{?suse_version} > 1100
 %dir %{_sysconfdir}/modprobe.d

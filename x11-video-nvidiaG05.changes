@@ -1,4 +1,13 @@
 -------------------------------------------------------------------
+Tue Jul 21 09:14:43 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- added /etc/dracut.conf.d/60-nvidia-default.conf in order to
+  omit nvidia modules in initrd, which apparently were added
+  automatically on many systems - apart from nvidia-uvm module! -
+  which then made GPU computing/CUDA impossible on all theses
+  systems (boo#1173733)
+
+-------------------------------------------------------------------
 Thu Jul 16 19:38:41 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - remove still existing old kernel modules during installation of
