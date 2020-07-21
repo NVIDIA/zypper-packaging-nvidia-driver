@@ -257,7 +257,7 @@ for flavor in %flavors_to_build; do
   touch %{buildroot}/usr/lib/nvidia/alternate-install-present
   mkdir -p %{buildroot}/etc/dracut.conf.d
   cat  > %{buildroot}/etc/dracut.conf.d/60-nvidia-$flavor.conf << EOF
-omit_drivers+="nvidia nvidia-drm nvidia-modeset nvidia-uvm"
+omit_drivers+=" nvidia nvidia-drm nvidia-modeset nvidia-uvm "
 EOF
   %if 0%{?suse_version} > 1100
   mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d
