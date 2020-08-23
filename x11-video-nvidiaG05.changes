@@ -1,4 +1,23 @@
 -------------------------------------------------------------------
+Sun Aug 23 18:43:36 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- Update to Public UDA Release 450.66
+  * Added support for the following GPUs:
+    + EIZO Quadro MED-XN31LP
+    + EIZO Quadro MED-XN50LP
+    + EIZO Quadro MED-XN51LP
+    + EIZO Quadro MED-XN70
+    + EIZO Quadro MED-XN71
+    + EIZO Quadro MED-XN72
+    + EIZO Quadro MED-XN90
+    + EIZO Quadro MED-XN91
+    + EIZO Quadro MED-XN92
+    + Matrox D-Series D1450
+    + Matrox D-Series D1480
+  * Fixed triple buffering support of Vulkan X11 swapchains when applications
+    are syncing to vblank.
+
+-------------------------------------------------------------------
 Tue Jul 21 09:14:43 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - added /etc/dracut.conf.d/60-nvidia-default.conf in order to
