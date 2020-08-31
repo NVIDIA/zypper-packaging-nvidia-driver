@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Mon Aug 31 10:08:47 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- mmu.patch/kernel-5.9.patch
+  * fixes build against kernel 5.9.rc1 
+
+-------------------------------------------------------------------
 Sun Aug 23 18:40:07 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - Update to Public UDA Release 450.66

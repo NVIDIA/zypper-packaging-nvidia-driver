@@ -57,6 +57,9 @@ NoSource:       1
 NoSource:       6
 NoSource:       7
 Patch1:         n_kernel_write.patch
+Patch2:         mmu.patch
+Patch3:         kernel-5.9.patch
+Patch4:         license.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
 %if 0%{?sle_version} >= 120400 && !0%{?is_opensuse} 
@@ -188,6 +191,11 @@ pushd NVIDIA-Linux-x86*-%{version}*/
 %if 0%{?suse_version} < 1550
 %patch1 -p0
 %endif
+%endif
+%if %kver >= 509000
+%patch2 -p1
+%patch3 -p1
+#%patch4 -p1
 %endif
 find . -name "*.orig" -delete
 popd
