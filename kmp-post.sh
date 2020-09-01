@@ -6,6 +6,17 @@ arch=x86_64
 %endif
 flavor=%1
 kver=$(make -sC /usr/src/linux-obj/$arch/$flavor kernelrelease)
+%if 0%{?suse_version} >= 1550
+# Runtime:
+# nvidia_uvm: module uses symbols from proprietary module nvidia, inheriting taint.
+#
+# Buildtime:
+# When switching from "Dual MIT/GPL" license to "MIT" license for nvidia-uvm module:
+# FATAL: modpost: GPL-incompatible module nvidia-uvm.ko uses GPL-only symbol '__mmu_notifier_register'
+#
+# So let's disable it for now ...
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
+%endif
 RES=0
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \

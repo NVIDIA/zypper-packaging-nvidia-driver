@@ -230,6 +230,17 @@ sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' so
 
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
+%if 0%{?suse_version} >= 1550
+# Runtime:
+# nvidia_uvm: module uses symbols from proprietary module nvidia, inheriting taint.
+#
+# Buildtime:
+# When switching from "Dual MIT/GPL" license to "MIT" license for nvidia-uvm module:
+# FATAL: modpost: GPL-incompatible module nvidia-uvm.ko uses GPL-only symbol '__mmu_notifier_register'
+#
+# So let's disable it for now ...
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
+%endif
 for flavor in %flavors_to_build; do
     src=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     %if 0%{?suse_version} <= 1020
@@ -248,6 +259,17 @@ done
 export BRP_PESIGN_FILES=""
 export INSTALL_MOD_PATH=%{buildroot}
 export INSTALL_MOD_DIR=updates
+%if 0%{?suse_version} >= 1550
+# Runtime:
+# nvidia_uvm: module uses symbols from proprietary module nvidia, inheriting taint.
+#
+# Buildtime:
+# When switching from "Dual MIT/GPL" license to "MIT" license for nvidia-uvm module:
+# FATAL: modpost: GPL-incompatible module nvidia-uvm.ko uses GPL-only symbol '__mmu_notifier_register'
+#
+# So let's disable it for now ...
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
+%endif
 for flavor in %flavors_to_build; do
     export SYSSRC=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     make %{?jobs:-j%jobs} -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}
