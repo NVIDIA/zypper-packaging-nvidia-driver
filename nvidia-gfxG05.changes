@@ -1,4 +1,10 @@
 -------------------------------------------------------------------
+Wed Sep  2 21:32:20 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- readded n_kernel_write.patch and apply it again for 
+  sle12-sp4/sle12-sp5/sle15/sle15-sp1/Leap15/Leap15.1 
+
+-------------------------------------------------------------------
 Wed Sep  2 16:22:05 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - no longer apply and remove n_kernel_write.patch, which is no
