@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Wed Sep  2 16:24:31 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- no longer apply and remove n_kernel_write.patch, which is no 
+  longer needed with 450.66
+- always apply mmu.patch/kernel-5.9.patch on TW, not only with
+  Kernel 5.9(rcX)
+
+-------------------------------------------------------------------
 Tue Sep  1 12:16:47 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - disabled build of nvidia-uvm kernel module on Tumbleweed. Since
