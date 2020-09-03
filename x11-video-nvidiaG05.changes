@@ -1,4 +1,12 @@
 -------------------------------------------------------------------
+Thu Sep  3 03:29:58 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
+
+- removed unneeded mmu.patch since nvidia-uvm kernel module 
+  build needs to be disabled on TW anyway
+- use orginal kernel-5.9.patch again after having removed mmu.patch
+- removed unused and no longer needed kernel-5.8rc1.patch
+
+-------------------------------------------------------------------
 Wed Sep  2 21:35:33 UTC 2020 - Stefan Dirsch <sndirsch@suse.com>
 
 - readded n_kernel_write.patch and apply it again for 
