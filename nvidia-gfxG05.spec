@@ -53,6 +53,7 @@ Source20:       modprobe.nvidia.install.non_uvm
 Source21:       modprobe.nvidia.install
 Source22:       kmp-trigger.sh
 Source23:       kmp-trigger-old.sh
+Source24:       http://download.nvidia.com/XFree86/Linux-aarch64/%{version}/NVIDIA-Linux-aarch64-%{version}.run
 NoSource:       1
 NoSource:       6
 NoSource:       7
@@ -60,13 +61,15 @@ Patch1:         n_kernel_write.patch
 Patch2:         kernel-5.9.patch
 BuildRequires:  kernel-source
 BuildRequires:  kernel-syms
+%ifarch x86_64
 %if 0%{?sle_version} >= 120400 && !0%{?is_opensuse} 
 BuildRequires:  kernel-syms-azure
+%endif
 %endif
 BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-ExclusiveArch:  %ix86 x86_64
+ExclusiveArch:  %ix86 x86_64 aarch64
 # patch the kmp template
 %if 0%{?suse_version} > 1100
 %define kmp_template -t
@@ -182,8 +185,14 @@ module for GeForce 600 series and newer GPUs.
 %prep
 echo "kver = %kver"
 %setup -T -c %{name}-%{version}
-sh %{SOURCE1} -x
+%ifarch x86_64
+sh %{SOURCE1} -x --target NVIDIA-Linux-x86_64-%{version}
 pushd NVIDIA-Linux-x86*-%{version}*/
+%endif
+%ifarch aarch64
+sh %{SOURCE24} -x --target NVIDIA-Linux-aarch64-%{version}
+pushd NVIDIA-Linux-aarch64*-%{version}*/
+%endif
 # apply patches here ...
 %if 0%{?sle_version} >= 120400
 %if 0%{?sle_version} < 150200
@@ -197,7 +206,12 @@ find . -name "*.orig" -delete
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
+%ifarch x86_64
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
+%endif
+%ifarch aarch64
+cp -R NVIDIA-Linux-aarch64*-%{version}*/kernel/* source/%{version} || :
+%endif
 pushd source/%{version}
  # mark support as external
  echo "nvidia.ko external" > Module.supported
@@ -222,7 +236,9 @@ pushd source/%{version}
  chmod 755 %_sourcedir/my-find-supplements*
 popd
 mkdir obj
+%ifnarch aarch64
 sed -i -e 's,-o "$ARCH" = "x86_64",-o "$ARCH" = "x86_64" -o "$ARCH" = "x86",' source/*/conftest.sh
+%endif
 
 %build
 export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
@@ -292,7 +308,7 @@ EOF
   %else
   modfile=%{buildroot}%{_sysconfdir}/modprobe.d/50-nvidia-$flavor.conf
   %endif
-  %ifarch x86_64
+  %ifarch x86_64 aarch64
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install
   %else
   modscript=$RPM_SOURCE_DIR/modprobe.nvidia.install.non_uvm

@@ -50,6 +50,7 @@ Source7:        pci_ids-%{version}
 Source8:        rpmlintrc
 Source9:        libvdpau-0.4.tar.gz
 Source10:       vdpauinfo-0.0.6.tar.gz
+Source11:       http://download.nvidia.com/XFree86/Linux-aarch64/%{version}/NVIDIA-Linux-aarch64-%{version}.run
 NoSource:       1
 NoSource:       4
 NoSource:       5
@@ -81,7 +82,7 @@ Conflicts:      x11-video-nvidiaG03
 Conflicts:      x11-video-nvidiaG04
 Conflicts:      fglrx_driver
 Requires:       libvdpau1
-ExclusiveArch:  %ix86 x86_64
+ExclusiveArch:  %ix86 x86_64 aarch64
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -176,7 +177,12 @@ This package provides the library for tracing VDPAU function calls.
 
 %prep
 %setup -T -c %{name}-%{version}
-sh %{SOURCE1} -x
+%ifarch x86_64
+sh %{SOURCE1} -x --target NVIDIA-Linux-x86_64-%{version}
+%endif
+%ifarch aarch64
+sh %{SOURCE11} -x --target NVIDIA-Linux-aarch64-%{version}
+%endif
 %if 0%{?suse_version} < 1130
 tar xvf %{SOURCE9}
 tar xvf %{SOURCE10}
@@ -203,7 +209,12 @@ pushd libvdpau-*
   rm %{buildroot}%{_libdir}/vdpau/libvdpau_trace.la
 popd
 %endif
+%ifarch x86_64
 cd NVIDIA-Linux-x86*-%{version}
+%endif
+%ifarch aarch64
+cd NVIDIA-Linux-aarch64*-%{version}
+%endif
 # would be nice if it worked ...
 #./nvidia-installer \
 #	--accept-license \
@@ -246,7 +257,9 @@ install libcuda* %{buildroot}%{_libdir}
 install libOpenCL* %{buildroot}%{_libdir}
 install libnvcuvid* %{buildroot}%{_libdir}
 install libnvidia-ml* %{buildroot}%{_libdir}
+%ifnarch aarch64
 install libnvoptix* %{buildroot}%{_libdir}
+%endif
 install libvdpau_nvidia.so* %{buildroot}%{_libdir}/vdpau
 # Bug #596481
 ln -s vdpau/libvdpau_nvidia.so.1 %{buildroot}%{_libdir}/libvdpau_nvidia.so
@@ -820,8 +833,10 @@ fi
 %{_prefix}/%{_lib}/libGLESv2_nvidia.so*
 %endif
 %{_libdir}/libnvidia-glcore.so*
+%ifnarch aarch64
 %{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
+%endif
 %{_libdir}/libnvidia-egl-wayland.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
@@ -846,7 +861,9 @@ fi
 %{_prefix}/lib/libGLESv2_nvidia.so*
 %endif
 %{_prefix}/lib/libnvidia-glcore.so*
+%ifnarch aarch64
 %{_prefix}/lib/libnvidia-ifr.so*
+%endif
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
 %endif
