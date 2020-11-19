@@ -251,7 +251,8 @@ install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
 install nvidia-persistenced %{buildroot}%{_bindir}
-install nvidia-modprobe %{buildroot}%{_bindir}
+# nvidia-modprobe must be setuid root to function correctly
+install -m 4755 nvidia-modprobe %{buildroot}%{_bindir}
 install libnvidia* %{buildroot}%{_libdir}
 install libcuda* %{buildroot}%{_libdir}
 install libOpenCL* %{buildroot}%{_libdir}
