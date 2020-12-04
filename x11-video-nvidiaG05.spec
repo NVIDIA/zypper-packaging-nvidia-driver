@@ -319,7 +319,7 @@ cp -a html %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 LICENSE %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
-install -m 644 supported-gpus.json %{buildroot}%{_datadir}/doc/packages/%{name}
+install -m 644 supported-gpus/* %{buildroot}%{_datadir}/doc/packages/%{name}
 # Power Management via systemd
 install -m 644 *.service %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 755 nvidia nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
