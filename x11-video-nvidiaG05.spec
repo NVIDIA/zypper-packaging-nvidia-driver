@@ -321,8 +321,8 @@ install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 supported-gpus/* %{buildroot}%{_datadir}/doc/packages/%{name}
 # Power Management via systemd
-install -m 644 *.service %{buildroot}%{_datadir}/doc/packages/%{name}
-install -m 755 nvidia nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
+install -m 644 systemd/system/*.service %{buildroot}%{_datadir}/doc/packages/%{name}
+install -m 755 systemd/system-sleep/nvidia systemd/nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
 %suse_update_desktop_file -i nvidia-settings System SystemSetup
