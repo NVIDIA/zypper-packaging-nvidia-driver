@@ -332,7 +332,9 @@ install -m 644 nvidia-settings.png \
 install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
   %{buildroot}%{_datadir}/nvidia
 install -d %{buildroot}/lib/firmware/nvidia/%{version}
+%ifarch x86_64
 install -m 644 firmware/gsp.bin %{buildroot}/lib/firmware/nvidia/%{version}
+%endif
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
 /sbin/ldconfig -n %{buildroot}%{_prefix}/X11R6/%{_lib}
