@@ -331,6 +331,8 @@ install -m 644 nvidia-settings.png \
   %{buildroot}%{_datadir}/pixmaps
 install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
   %{buildroot}%{_datadir}/nvidia
+install -d %{buildroot}/lib/firmware/nvidia/%{version}
+install -m 644 firmware/gsp.bin %{buildroot}/lib/firmware/nvidia/%{version}
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
 /sbin/ldconfig -n %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -647,6 +649,7 @@ fi
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
+/lib/firmware/nvidia/%{version}
 %if 0%{?suse_version} > 1010
 %if 0%{?suse_version} < 1330
 %{_bindir}/X.%{name}
