@@ -253,6 +253,7 @@ export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
 # So let's disable it for now ...
 export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
 %endif
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-peermem
 for flavor in %flavors_to_build; do
     src=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     %if 0%{?suse_version} <= 1020
@@ -282,6 +283,7 @@ export INSTALL_MOD_DIR=updates
 # So let's disable it for now ...
 export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
 %endif
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-peermem
 for flavor in %flavors_to_build; do
     export SYSSRC=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     make %{?jobs:-j%jobs} -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}

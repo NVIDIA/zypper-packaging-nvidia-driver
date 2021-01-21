@@ -20,6 +20,7 @@ kver=$(make -sC /usr/src/linux-obj/$arch/$flavor kernelrelease)
 # So let's disable it for now ...
 export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
 %endif
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-peermem
 RES=0
 make -C /usr/src/linux-obj/$arch/$flavor \
      modules \
