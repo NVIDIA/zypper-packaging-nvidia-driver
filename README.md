@@ -93,6 +93,9 @@ zypper install rpm-build
 
 ## See also
 
+- X11:Drivers:Video
+  * [https://build.opensuse.org/project/show/X11:Drivers:Video](https://build.opensuse.org/project/show/X11:Drivers:Video)
+
 ### Ubuntu driver
 
   * [https://github.com/NVIDIA/ubuntu-packaging-nvidia-driver](https://github.com/NVIDIA/ubuntu-packaging-nvidia-driver)
