@@ -703,6 +703,7 @@ fi
 %exclude %{_libdir}/libnvidia-glsi.so*
 %exclude %{_libdir}/libnvidia-eglcore.so*
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
+%exclude %{_libdir}/libnvidia-nvvm.so*
 %ifarch x86_64
 %if 0%{?suse_version} > 1310
 %if 0%{?suse_version} < 1330
@@ -790,6 +791,7 @@ fi
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opencl.so*
 %{_libdir}/libnvidia-ptxjitcompiler.so*
+%{_libdir}/libnvidia-nvvm.so*
 %{_bindir}/nvidia-smi
 %{_bindir}/nvidia-cuda-mps-control
 %{_bindir}/nvidia-cuda-mps-server
