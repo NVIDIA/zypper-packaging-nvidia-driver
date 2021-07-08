@@ -690,7 +690,6 @@ fi
 %exclude %{_prefix}/%{_lib}/libGLESv2_nvidia.so*
 %endif
 %exclude %{_libdir}/libnvidia-glcore.so*
-%exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
 %exclude %{_libdir}/libnvidia-egl-wayland.so*
 %dir %{_libdir}/vdpau
@@ -730,7 +729,6 @@ fi
 %exclude %{_prefix}/lib/libGLESv2_nvidia.so*
 %endif
 %exclude %{_prefix}/lib/libnvidia-glcore.so*
-%exclude %{_prefix}/lib/libnvidia-ifr.so*
 %exclude %{_prefix}/lib/libnvidia-eglcore.so*
 %exclude %{_prefix}/lib/libnvidia-glsi.so*
 %dir %{_prefix}/lib/vdpau
@@ -842,7 +840,6 @@ fi
 %endif
 %{_libdir}/libnvidia-glcore.so*
 %ifnarch aarch64
-%{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
 %endif
 %{_libdir}/libnvidia-egl-wayland.so*
@@ -869,9 +866,6 @@ fi
 %{_prefix}/lib/libGLESv2_nvidia.so*
 %endif
 %{_prefix}/lib/libnvidia-glcore.so*
-%ifnarch aarch64
-%{_prefix}/lib/libnvidia-ifr.so*
-%endif
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
 %endif
