@@ -243,6 +243,7 @@ install -d %{buildroot}%{xmodulesdir}/drivers
 install -d %{buildroot}%{xmodulesdir}/extensions
 install -d %{buildroot}%{_sysconfdir}/OpenCL/vendors/
 install -d %{buildroot}%{_datadir}/nvidia
+install -d %{buildroot}%{_libdir}/gbm
 install nvidia-settings %{buildroot}%{_bindir}
 install nvidia-bug-report.sh %{buildroot}%{_bindir}
 install nvidia-xconfig %{buildroot}%{_bindir}
@@ -274,6 +275,8 @@ ln -snf libcuda.so.1   %{buildroot}%{_libdir}/libcuda.so
 ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
+# GBM looks for nvidia-drm_gbm.so for the backend. This is provided by libnvidia-allocator.so.
+ln -snf libnvidia-allocator.so.1 %{buildroot}%{_libdir}/gbm/nvidia-drm_gbm.so
 # EGL/GLES 64bit new since 340.xx
 install libEGL.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -429,6 +432,7 @@ install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
 # EGL driver config
 mkdir -p %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 install -m 644 10_nvidia_wayland.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
+install -m 644 15_nvidia_gbm.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 # Optimus layer config
 mkdir -p %{buildroot}/etc/vulkan/implicit_layer.d/
 install -m 644 nvidia_layers.json %{buildroot}/etc/vulkan/implicit_layer.d/
@@ -692,6 +696,7 @@ fi
 %exclude %{_libdir}/libnvidia-glcore.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
 %exclude %{_libdir}/libnvidia-egl-wayland.so*
+%exclude %{_libdir}/libnvidia-egl-gbm.so*
 %dir %{_libdir}/vdpau
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
@@ -703,6 +708,7 @@ fi
 %exclude %{_libdir}/libnvidia-eglcore.so*
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
 %exclude %{_libdir}/libnvidia-nvvm.so*
+%exclude %{_libdir}/libnvidia-vulkan-producer.so*
 %ifarch x86_64
 %if 0%{?suse_version} > 1310
 %if 0%{?suse_version} < 1330
@@ -812,6 +818,9 @@ fi
 %config /etc/vulkan/icd.d/nvidia_icd.json
 %config /etc/vulkan/implicit_layer.d/nvidia_layers.json
 %config %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
+%config %{_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
+%dir %{_libdir}/gbm
+%{_libdir}/gbm/*
 %dir %{_datadir}/glvnd
 %dir %{_datadir}/glvnd/egl_vendor.d
 %config %{_datadir}/glvnd/egl_vendor.d/10_nvidia.json
@@ -843,8 +852,10 @@ fi
 %{_libdir}/libnvidia-fbc.so*
 %endif
 %{_libdir}/libnvidia-egl-wayland.so*
+%{_libdir}/libnvidia-egl-gbm.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
+%{_libdir}/libnvidia-vulkan-producer.so*
 %{xmodulesdir}/extensions
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
