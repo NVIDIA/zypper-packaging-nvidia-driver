@@ -702,6 +702,7 @@ fi
 %exclude %{_libdir}/libnvidia-opencl.so*
 %exclude %{_libdir}/libnvidia-glsi.so*
 %exclude %{_libdir}/libnvidia-eglcore.so*
+%exclude %{_libdir}/libnvidia-vulkan-producer.so*
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
 %exclude %{_libdir}/libnvidia-nvvm.so*
 %ifarch x86_64
@@ -848,6 +849,7 @@ fi
 %{_libdir}/libnvidia-egl-wayland.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
+%{_libdir}/libnvidia-vulkan-producer.so*
 %{xmodulesdir}/extensions
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
