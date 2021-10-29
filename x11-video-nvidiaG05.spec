@@ -323,9 +323,13 @@ install -m 644 LICENSE %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 supported-gpus/* %{buildroot}%{_datadir}/doc/packages/%{name}
+
 # Power Management via systemd
-install -m 644 systemd/system/*.service %{buildroot}%{_datadir}/doc/packages/%{name}
-install -m 755 systemd/system-sleep/nvidia systemd/nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
+mkdir -p %{buildroot}/usr/lib/systemd/{system,system-sleep}
+install -m 755 systemd/nvidia-sleep.sh %{buildroot}%{_bindir}
+install -m 644 systemd/system/*.service %{buildroot}/usr/lib/systemd/system
+install -m 755 systemd/system-sleep/nvidia %{buildroot}/usr/lib/systemd/system-sleep
+
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
 %suse_update_desktop_file -i nvidia-settings System SystemSetup
@@ -776,6 +780,13 @@ fi
 %endif
 %exclude %{_bindir}/nvidia-xconfig
 %exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.*
+%{_bindir}/nvidia-sleep.sh
+/usr/lib/systemd/system/*.service
+%dir /usr/lib/systemd/system-sleep
+/usr/lib/systemd/system-sleep/nvidia
+%dir /lib/firmware/nvidia
+%dir /lib/firmware/nvidia/%{version}
+/lib/firmware/nvidia/%{version}/gsp.bin
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
