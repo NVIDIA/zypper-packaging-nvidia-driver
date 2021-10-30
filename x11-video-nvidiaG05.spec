@@ -33,6 +33,8 @@
 %define xmodulesdir %{xlibdir}/modules/updates
 %endif
 
+%define _dbus_systemd_dir %{_sysconfdir}/dbus-1/system.d
+
 Name:           x11-video-nvidiaG05
 Version:        450.66
 Release:        0
@@ -248,6 +250,7 @@ install nvidia-settings %{buildroot}%{_bindir}
 install nvidia-bug-report.sh %{buildroot}%{_bindir}
 install nvidia-xconfig %{buildroot}%{_bindir}
 install nvidia-smi %{buildroot}%{_bindir}
+install nvidia-powerd %{buildroot}%{_bindir}
 install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
@@ -329,6 +332,8 @@ mkdir -p %{buildroot}/usr/lib/systemd/{system,system-sleep}
 install -m 755 systemd/nvidia-sleep.sh %{buildroot}%{_bindir}
 install -m 644 systemd/system/*.service %{buildroot}/usr/lib/systemd/system
 install -m 755 systemd/system-sleep/nvidia %{buildroot}/usr/lib/systemd/system-sleep
+mkdir -p %{buildroot}%{_dbus_systemd_dir}
+install -m 644 nvidia-dbus.conf %{buildroot}%{_dbus_systemd_dir}/nvidia-dbus.conf
 
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
@@ -782,6 +787,7 @@ fi
 %exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.*
 %{_bindir}/nvidia-sleep.sh
 /usr/lib/systemd/system/*.service
+%config(noreplace) %{_dbus_systemd_dir}/nvidia-dbus.conf
 %dir /usr/lib/systemd/system-sleep
 /usr/lib/systemd/system-sleep/nvidia
 %dir /lib/firmware/nvidia
@@ -808,6 +814,7 @@ fi
 %{_libdir}/libnvidia-ptxjitcompiler.so*
 %{_libdir}/libnvidia-nvvm.so*
 %{_bindir}/nvidia-smi
+%{_bindir}/nvidia-powerd
 %{_bindir}/nvidia-cuda-mps-control
 %{_bindir}/nvidia-cuda-mps-server
 %{_bindir}/nvidia-modprobe
