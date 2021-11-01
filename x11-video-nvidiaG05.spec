@@ -250,7 +250,9 @@ install nvidia-settings %{buildroot}%{_bindir}
 install nvidia-bug-report.sh %{buildroot}%{_bindir}
 install nvidia-xconfig %{buildroot}%{_bindir}
 install nvidia-smi %{buildroot}%{_bindir}
+%ifarch x86_64
 install nvidia-powerd %{buildroot}%{_bindir}
+%endif
 install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
@@ -814,11 +816,11 @@ fi
 %{_libdir}/libnvidia-ptxjitcompiler.so*
 %{_libdir}/libnvidia-nvvm.so*
 %{_bindir}/nvidia-smi
-%{_bindir}/nvidia-powerd
 %{_bindir}/nvidia-cuda-mps-control
 %{_bindir}/nvidia-cuda-mps-server
 %{_bindir}/nvidia-modprobe
 %ifarch x86_64
+%{_bindir}/nvidia-powerd
 %{_prefix}/lib/libcuda.so*
 %{_prefix}/lib/libOpenCL.so*
 %{_prefix}/lib/libnvidia-ml.so*
