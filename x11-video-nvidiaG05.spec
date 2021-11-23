@@ -277,6 +277,7 @@ ln -snf libGL.so.1 %{buildroot}%{_prefix}/X11R6/%{_lib}/libGL.so
 # same for libOpenGL/libcuda/libnvcuvid
 ln -snf libOpenCL.so.1 %{buildroot}%{_libdir}/libOpenCL.so
 ln -snf libcuda.so.1   %{buildroot}%{_libdir}/libcuda.so
+ln -snf libnvidia-nvvm.so.4 %{buildroot}%{_libdir}/libnvidia-nvvm.so
 ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
