@@ -23,21 +23,23 @@
 # only build against GA kernel. So let's get rid of this requirement.
 #
 %global __requires_exclude kernel-uname-r*
+%global __gfx_gnum gfxG05
 
 %if "%{?kernel_mode:%{kernel_mode}}%{!?kernel_mode:0}" == "open"
 %define is_open 1
-%define _flavor open-
+%define __basename nvidia-open-%{__gfx_gnum}
 %define __pkg_summary NVIDIA open kernel module driver for GeForce RTX 2000 series and newer
 %define __pkg_description_line This package provides the open-source NVIDIA kernel module
 %define __pkg_description_next driver for GeForce RTX 2000 series and newer GPUs.
 %else
 %define is_open 0
+%define __basename nvidia-%{__gfx_gnum}
 %define __pkg_summary NVIDIA graphics driver kernel module for GeForce 600 series and newer
 %define __pkg_description_line This package provides the closed-source NVIDIA graphics driver kernel
 %define __pkg_description_next module for GeForce 600 series and newer GPUs.
 %endif
 
-Name:           nvidia-%{?_flavor}gfxG05
+Name:           %{__basename}
 Version:        450.66
 Release:        0
 License:        SUSE-NonFree
@@ -190,6 +192,12 @@ exit $RES' %_builddir/nvidia-kmp-template)
 License:        SUSE-NonFree
 Summary:        %{__pkg_summary}
 Group:          System/Kernel
+%if 0%{?is_open} == 1
+Conflicts:      nvidia-%{__gfx_gnum}
+Provides:       nvidia-%{__gfx_gnum}-kmp-default = %{version}
+%else
+Conflicts:      nvidia-open-%{__gfx_gnum}
+%endif
 
 %description KMP
 %{__pkg_description_line}
