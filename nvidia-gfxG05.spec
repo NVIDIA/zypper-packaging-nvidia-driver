@@ -23,12 +23,20 @@
 # only build against GA kernel. So let's get rid of this requirement.
 #
 %global __requires_exclude kernel-uname-r*
+%if "%{?kernel_mode:%{kernel_mode}}%{!?kernel_mode:0}" == "open"
+%define is_open 1
+%define _flavor open-
+%define __pkg_summary NVIDIA open kernel module driver for GeForce RTX 2000 series and newer
+%else
+%define is_open 0
+%define __pkg_summary NVIDIA graphics driver kernel module for GeForce 600 series and newer
+%endif
 
-Name:           nvidia-gfxG05
+Name:           nvidia-%{?_flavor}gfxG05
 Version:        450.66
 Release:        0
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
+Summary:        %__pkg_summary
 URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -70,6 +78,16 @@ BuildRequires:  module-init-tools
 BuildRequires:  update-alternatives
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 ExclusiveArch:  %ix86 x86_64 aarch64
+
+# Change the package description
+%if 0%{?is_open} == 1
+%define __pkg_description_line This package provides the open-source NVIDIA kernel module
+%define __pkg_description_next driver for GeForce RTX 2000 series and newer GPUs.
+%else
+%define __pkg_description_line This package provides the closed-source NVIDIA graphics driver kernel
+%define __pkg_description_next module for GeForce 600 series and newer GPUs.
+%endif
+
 # patch the kmp template
 %if 0%{?suse_version} > 1100
 %define kmp_template -t
@@ -170,17 +188,17 @@ exit $RES' %_builddir/nvidia-kmp-template)
 %define __kmp_requires %{nil}
 
 %description
-This package provides the closed-source NVIDIA graphics driver kernel
-module for GeForce 600 series and newer GPUs.
+%__pkg_description_line
+%__pkg_description_next
 
 %package KMP
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
+Summary:        %__pkg_summary
 Group:          System/Kernel
 
 %description KMP
-This package provides the closed-source NVIDIA graphics driver kernel
-module for GeForce 600 series and newer GPUs.
+%__pkg_description_line
+%__pkg_description_next
 
 %prep
 echo "kver = %kver"
