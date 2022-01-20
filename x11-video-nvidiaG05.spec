@@ -335,8 +335,10 @@ mkdir -p %{buildroot}/usr/lib/systemd/{system,system-sleep}
 install -m 755 systemd/nvidia-sleep.sh %{buildroot}%{_bindir}
 install -m 644 systemd/system/*.service %{buildroot}/usr/lib/systemd/system
 install -m 755 systemd/system-sleep/nvidia %{buildroot}/usr/lib/systemd/system-sleep
+%ifarch x86_64
 mkdir -p %{buildroot}%{_dbus_systemd_dir}
 install -m 644 nvidia-dbus.conf %{buildroot}%{_dbus_systemd_dir}/nvidia-dbus.conf
+%endif
 
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
@@ -790,7 +792,9 @@ fi
 %exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.*
 %{_bindir}/nvidia-sleep.sh
 /usr/lib/systemd/system/*.service
+%ifarch x86_64
 %config(noreplace) %{_dbus_systemd_dir}/nvidia-dbus.conf
+%endif
 %dir /usr/lib/systemd/system-sleep
 /usr/lib/systemd/system-sleep/nvidia
 %dir /lib/firmware/nvidia
