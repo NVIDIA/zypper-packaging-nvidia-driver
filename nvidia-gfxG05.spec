@@ -29,14 +29,14 @@
 %define is_open 1
 %define __basename nvidia-open-%{__gfx_gnum}
 %define __pkg_summary NVIDIA open kernel module driver for GeForce RTX 2000 series and newer
-%define __pkg_description_line This package provides the open-source NVIDIA kernel module
-%define __pkg_description_next driver for GeForce RTX 2000 series and newer GPUs.
+%define __pkg_description_line open-source NVIDIA kernel module driver
+%define __pkg_description_next RTX 2000
 %else
 %define is_open 0
 %define __basename nvidia-%{__gfx_gnum}
 %define __pkg_summary NVIDIA graphics driver kernel module for GeForce 600 series and newer
-%define __pkg_description_line This package provides the closed-source NVIDIA graphics driver kernel
-%define __pkg_description_next module for GeForce 600 series and newer GPUs.
+%define __pkg_description_line closed-source NVIDIA graphics driver kernel module
+%define __pkg_description_next 600
 %endif
 
 Name:           %{__basename}
@@ -185,8 +185,8 @@ exit $RES' %_builddir/nvidia-kmp-template)
 %define __kmp_requires %{nil}
 
 %description
-%{__pkg_description_line}
-%{__pkg_description_next}
+This package provides the %{__pkg_description_line} NVIDIA graphics driver kernel
+for GeForce %{__pkg_description_next} series and newer GPUs.
 
 %package KMP
 License:        SUSE-NonFree
@@ -200,8 +200,8 @@ Conflicts:      nvidia-open-%{__gfx_gnum}
 %endif
 
 %description KMP
-%{__pkg_description_line}
-%{__pkg_description_next}
+This package provides the %{__pkg_description_line} NVIDIA graphics driver kernel
+for GeForce %{__pkg_description_next} series and newer GPUs.
 
 %prep
 echo "kver = %kver"
