@@ -236,9 +236,8 @@ cp -R NVIDIA-Linux-x86*-%{version}*/kernel-open/* source/%{version} || :
 %ifarch aarch64
 cp -R NVIDIA-Linux-aarch64*-%{version}*/kernel-open/* source/%{version} || :
 %endif
-
 # use legacy variant
-%elsif
+%else
 %ifarch x86_64
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
 %endif
