@@ -194,6 +194,7 @@ Summary:        %{__pkg_summary}
 Group:          System/Kernel
 %if 0%{?is_open} == 1
 Conflicts:      nvidia-%{__gfx_gnum}
+Provides:       nvidia-%{__gfx_gnum}-kmp = %{version}
 Provides:       nvidia-%{__gfx_gnum}-kmp-default = %{version}
 %else
 Conflicts:      nvidia-open-%{__gfx_gnum}

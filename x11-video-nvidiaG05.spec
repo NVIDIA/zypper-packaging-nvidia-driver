@@ -71,7 +71,7 @@ BuildRequires:  xorg-x11-devel
 BuildRequires:  xorg-x11-compat70-devel
 %endif
 Requires:       nvidia-computeG05 = %{version}
-Requires:       nvidia-gfxG05-kmp = %{version}
+Requires:       (nvidia-gfxG05-kmp = %{version} or nvidia-open-gfxG05-kmp = %{version})
 Provides:       nvidia_driver = %{version}
 Provides:       nvidia-xconfig = %{version}
 Provides:       nvidia-settings = %{version}
@@ -95,7 +95,7 @@ for GeForce 600 series and newer GPUs.
 Summary:        NVIDIA driver for computing with GPGPU
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
-Requires:       nvidia-gfxG05-kmp = %{version}
+Requires:       (nvidia-gfxG05-kmp = %{version} or nvidia-open-gfxG05-kmp = %{version})
 %else
 Requires:       nvidia-gfxG05-kmp
 %endif
@@ -117,7 +117,7 @@ NVIDIA driver for computing with GPGPUs using CUDA or OpenCL.
 Summary:        NVIDIA OpenGL libraries for OpenGL acceleration
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
-Requires:       nvidia-gfxG05-kmp = %{version}
+Requires:       (nvidia-gfxG05-kmp = %{version} or nvidia-open-gfxG05-kmp = %{version})
 %else
 Requires:       nvidia-gfxG05-kmp
 %endif

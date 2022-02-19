@@ -8,6 +8,7 @@ Recommends: nvidia-glG05 = %(echo %{-v*} | sed -e 's:_.*::')
 Obsoletes: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp nvidia-uvm-gfxG03-kmp nvidia-gfxG04-kmp
 %if 0%{?is_open} == 1
 Conflicts: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp nvidia-uvm-gfxG03-kmp nvidia-gfxG04-kmp nvidia-gfxG05-kmp
+Provides: nvidia-gfxG05-kmp = %{-v*}
 %else
 Conflicts: nvidia-gfx-kmp nvidia-gfxG01-kmp nvidia-gfxG02-kmp nvidia-gfxG03-kmp nvidia-uvm-gfxG03-kmp nvidia-gfxG04-kmp nvidia-open-gfxG05-kmp
 %endif
