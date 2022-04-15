@@ -34,7 +34,7 @@ make -f Makefile \
      SYSOUT=/usr/src/linux-obj/$arch/$flavor || RES=1
 popd
 # remove still existing old kernel modules (boo#1174204)
-rm /lib/modules/$kver/updates/nvidia*.ko
+rm /lib/modules/*/updates/nvidia*.ko
 install -m 755 -d /lib/modules/$kver/updates
 install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
 	/lib/modules/$kver/updates
