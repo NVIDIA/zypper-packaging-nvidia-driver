@@ -715,6 +715,7 @@ fi
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
 %exclude %{_libdir}/libcuda.so*
+%exclude %{_libdir}/libcudadebugger.so*
 %exclude %{_libdir}/libOpenCL.so*
 %exclude %{_libdir}/libnvidia-ml.so*
 %exclude %{_libdir}/libnvidia-opencl.so*
@@ -808,6 +809,7 @@ fi
 %config %{_sysconfdir}/OpenCL/vendors/nvidia.icd
 %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
 %{_libdir}/libcuda.so*
+%{_libdir}/libcudadebugger.so*
 %if (0%{?sle_version} >= 150100 || 0%{?suse_version} >= 1550)
 %dir %{_libdir}/nvidia
 %{_libdir}/nvidia/libOpenCL.so*
