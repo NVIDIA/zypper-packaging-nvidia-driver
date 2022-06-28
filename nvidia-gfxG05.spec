@@ -23,12 +23,27 @@
 # only build against GA kernel. So let's get rid of this requirement.
 #
 %global __requires_exclude kernel-uname-r*
+%global __gfx_gnum gfxG05
 
-Name:           nvidia-gfxG05
+%if "%{?kernel_mode:%{kernel_mode}}%{!?kernel_mode:0}" == "open"
+%define is_open 1
+%define __basename nvidia-open-%{__gfx_gnum}
+%define __pkg_summary NVIDIA open kernel module driver for GeForce RTX 2000 series and newer
+%define __pkg_description_line open-source NVIDIA kernel module driver
+%define __pkg_description_next RTX 2000
+%else
+%define is_open 0
+%define __basename nvidia-%{__gfx_gnum}
+%define __pkg_summary NVIDIA graphics driver kernel module for GeForce 600 series and newer
+%define __pkg_description_line closed-source NVIDIA graphics driver kernel module
+%define __pkg_description_next 600
+%endif
+
+Name:           %{__basename}
 Version:        450.66
 Release:        0
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
+Summary:        %{__pkg_summary}
 URL:            https://www.nvidia.com/object/unix.html
 Group:          System/Kernel
 Source1:        http://download.nvidia.com/XFree86/Linux-x86_64/%{version}/NVIDIA-Linux-x86_64-%{version}.run
@@ -170,17 +185,24 @@ exit $RES' %_builddir/nvidia-kmp-template)
 %define __kmp_requires %{nil}
 
 %description
-This package provides the closed-source NVIDIA graphics driver kernel
-module for GeForce 600 series and newer GPUs.
+This package provides the %{__pkg_description_line} NVIDIA graphics driver kernel
+for GeForce %{__pkg_description_next} series and newer GPUs.
 
 %package KMP
 License:        SUSE-NonFree
-Summary:        NVIDIA graphics driver kernel module for GeForce 600 series and newer
+Summary:        %{__pkg_summary}
 Group:          System/Kernel
+%if 0%{?is_open} == 1
+Conflicts:      nvidia-%{__gfx_gnum}
+Provides:       nvidia-%{__gfx_gnum}-kmp = %{version}
+Provides:       nvidia-%{__gfx_gnum}-kmp-default = %{version}
+%else
+Conflicts:      nvidia-open-%{__gfx_gnum}
+%endif
 
 %description KMP
-This package provides the closed-source NVIDIA graphics driver kernel
-module for GeForce 600 series and newer GPUs.
+This package provides the %{__pkg_description_line} NVIDIA graphics driver kernel
+for GeForce %{__pkg_description_next} series and newer GPUs.
 
 %prep
 echo "kver = %kver"
@@ -206,12 +228,25 @@ find . -name "*.orig" -delete
 popd
 #rm -rf NVIDIA-Linux-x86*-%{version}-*/usr/src/nv/precompiled
 mkdir -p source/%{version}
+
+# use kernel-open variant
+%if 0%{?is_open} == 1
+%ifarch x86_64
+cp -R NVIDIA-Linux-x86*-%{version}*/kernel-open/* source/%{version} || :
+%endif
+%ifarch aarch64
+cp -R NVIDIA-Linux-aarch64*-%{version}*/kernel-open/* source/%{version} || :
+%endif
+# use legacy variant
+%else
 %ifarch x86_64
 cp -R NVIDIA-Linux-x86*-%{version}*/kernel/* source/%{version} || :
 %endif
 %ifarch aarch64
 cp -R NVIDIA-Linux-aarch64*-%{version}*/kernel/* source/%{version} || :
 %endif
+%endif
+
 pushd source/%{version}
  # mark support as external
  echo "nvidia.ko external" > Module.supported
@@ -253,6 +288,7 @@ export EXTRA_CFLAGS='-DVERSION=\"%{version}\"'
 # So let's disable it for now ...
 export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
 %endif
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-peermem
 for flavor in %flavors_to_build; do
     src=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     %if 0%{?suse_version} <= 1020
@@ -282,6 +318,7 @@ export INSTALL_MOD_DIR=updates
 # So let's disable it for now ...
 export NV_EXCLUDE_KERNEL_MODULES=nvidia-uvm
 %endif
+export NV_EXCLUDE_KERNEL_MODULES=nvidia-peermem
 for flavor in %flavors_to_build; do
     export SYSSRC=/lib/modules/$(make %{?jobs:-j%jobs} -siC %{kernel_source $flavor} kernelrelease)/source
     make %{?jobs:-j%jobs} -C /usr/src/linux-obj/%_target_cpu/$flavor modules_install M=$PWD/obj/$flavor/%{version}
@@ -299,7 +336,7 @@ for flavor in %flavors_to_build; do
   touch %{buildroot}/usr/lib/nvidia/alternate-install-present
   mkdir -p %{buildroot}/etc/dracut.conf.d
   cat  > %{buildroot}/etc/dracut.conf.d/60-nvidia-$flavor.conf << EOF
-omit_drivers+=" nvidia nvidia-drm nvidia-modeset nvidia-uvm "
+omit_drivers+=" nvidia nvidia-drm nvidia-modeset nvidia-uvm nvidia-peermem "
 EOF
   %if 0%{?suse_version} > 1100
   mkdir -p %{buildroot}%{_sysconfdir}/modprobe.d

@@ -33,6 +33,8 @@
 %define xmodulesdir %{xlibdir}/modules/updates
 %endif
 
+%define _dbus_systemd_dir %{_sysconfdir}/dbus-1/system.d
+
 Name:           x11-video-nvidiaG05
 Version:        450.66
 Release:        0
@@ -69,7 +71,7 @@ BuildRequires:  xorg-x11-devel
 BuildRequires:  xorg-x11-compat70-devel
 %endif
 Requires:       nvidia-computeG05 = %{version}
-Requires:       nvidia-gfxG05-kmp = %{version}
+Requires:       (nvidia-gfxG05-kmp = %{version} or nvidia-open-gfxG05-kmp = %{version})
 Provides:       nvidia_driver = %{version}
 Provides:       nvidia-xconfig = %{version}
 Provides:       nvidia-settings = %{version}
@@ -93,7 +95,7 @@ for GeForce 600 series and newer GPUs.
 Summary:        NVIDIA driver for computing with GPGPU
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
-Requires:       nvidia-gfxG05-kmp = %{version}
+Requires:       (nvidia-gfxG05-kmp = %{version} or nvidia-open-gfxG05-kmp = %{version})
 %else
 Requires:       nvidia-gfxG05-kmp
 %endif
@@ -115,7 +117,7 @@ NVIDIA driver for computing with GPGPUs using CUDA or OpenCL.
 Summary:        NVIDIA OpenGL libraries for OpenGL acceleration
 Group:          System/Libraries
 %if 0%{?suse_version} > 1220
-Requires:       nvidia-gfxG05-kmp = %{version}
+Requires:       (nvidia-gfxG05-kmp = %{version} or nvidia-open-gfxG05-kmp = %{version})
 %else
 Requires:       nvidia-gfxG05-kmp
 %endif
@@ -243,10 +245,14 @@ install -d %{buildroot}%{xmodulesdir}/drivers
 install -d %{buildroot}%{xmodulesdir}/extensions
 install -d %{buildroot}%{_sysconfdir}/OpenCL/vendors/
 install -d %{buildroot}%{_datadir}/nvidia
+install -d %{buildroot}%{_libdir}/gbm
 install nvidia-settings %{buildroot}%{_bindir}
 install nvidia-bug-report.sh %{buildroot}%{_bindir}
 install nvidia-xconfig %{buildroot}%{_bindir}
 install nvidia-smi %{buildroot}%{_bindir}
+%ifarch x86_64
+install nvidia-powerd %{buildroot}%{_bindir}
+%endif
 install nvidia-debugdump %{buildroot}%{_bindir}
 install nvidia-cuda-mps-control %{buildroot}%{_bindir}
 install nvidia-cuda-mps-server %{buildroot}%{_bindir}
@@ -271,9 +277,12 @@ ln -snf libGL.so.1 %{buildroot}%{_prefix}/X11R6/%{_lib}/libGL.so
 # same for libOpenGL/libcuda/libnvcuvid
 ln -snf libOpenCL.so.1 %{buildroot}%{_libdir}/libOpenCL.so
 ln -snf libcuda.so.1   %{buildroot}%{_libdir}/libcuda.so
+ln -snf libnvidia-nvvm.so.4 %{buildroot}%{_libdir}/libnvidia-nvvm.so
 ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
+# GBM looks for nvidia-drm_gbm.so for the backend. This is provided by libnvidia-allocator.so.
+ln -snf libnvidia-allocator.so.1 %{buildroot}%{_libdir}/gbm/nvidia-drm_gbm.so
 # EGL/GLES 64bit new since 340.xx
 install libEGL.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -320,9 +329,17 @@ install -m 644 LICENSE %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 nvidia-persistenced-init.tar.bz2 \
   %{buildroot}%{_datadir}/doc/packages/%{name}
 install -m 644 supported-gpus/* %{buildroot}%{_datadir}/doc/packages/%{name}
+
 # Power Management via systemd
-install -m 644 *.service %{buildroot}%{_datadir}/doc/packages/%{name}
-install -m 755 nvidia nvidia-sleep.sh %{buildroot}%{_datadir}/doc/packages/%{name}
+mkdir -p %{buildroot}/usr/lib/systemd/{system,system-sleep}
+install -m 755 systemd/nvidia-sleep.sh %{buildroot}%{_bindir}
+install -m 644 systemd/system/*.service %{buildroot}/usr/lib/systemd/system
+install -m 755 systemd/system-sleep/nvidia %{buildroot}/usr/lib/systemd/system-sleep
+%ifarch x86_64
+mkdir -p %{buildroot}%{_dbus_systemd_dir}
+install -m 644 nvidia-dbus.conf %{buildroot}%{_dbus_systemd_dir}/nvidia-dbus.conf
+%endif
+
 install -d %{buildroot}/%{_mandir}/man1
 install -m 644 *.1.gz %{buildroot}/%{_mandir}/man1
 %suse_update_desktop_file -i nvidia-settings System SystemSetup
@@ -331,6 +348,10 @@ install -m 644 nvidia-settings.png \
   %{buildroot}%{_datadir}/pixmaps
 install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
   %{buildroot}%{_datadir}/nvidia
+install -d %{buildroot}/lib/firmware/nvidia/%{version}
+%ifarch x86_64 aarch64
+install -m 644 firmware/gsp.bin %{buildroot}/lib/firmware/nvidia/%{version}
+%endif
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
 /sbin/ldconfig -n %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -425,6 +446,7 @@ install -m 644 nvidia_icd.json %{buildroot}/etc/vulkan/icd.d/
 # EGL driver config
 mkdir -p %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 install -m 644 10_nvidia_wayland.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
+install -m 644 15_nvidia_gbm.json %{buildroot}/%{_datadir}/egl/egl_external_platform.d
 # Optimus layer config
 mkdir -p %{buildroot}/etc/vulkan/implicit_layer.d/
 install -m 644 nvidia_layers.json %{buildroot}/etc/vulkan/implicit_layer.d/
@@ -647,6 +669,7 @@ fi
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
+/lib/firmware/nvidia/%{version}
 %if 0%{?suse_version} > 1010
 %if 0%{?suse_version} < 1330
 %{_bindir}/X.%{name}
@@ -685,9 +708,9 @@ fi
 %exclude %{_prefix}/%{_lib}/libGLESv2_nvidia.so*
 %endif
 %exclude %{_libdir}/libnvidia-glcore.so*
-%exclude %{_libdir}/libnvidia-ifr.so*
 %exclude %{_libdir}/libnvidia-fbc.so*
 %exclude %{_libdir}/libnvidia-egl-wayland.so*
+%exclude %{_libdir}/libnvidia-egl-gbm.so*
 %dir %{_libdir}/vdpau
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
@@ -698,6 +721,8 @@ fi
 %exclude %{_libdir}/libnvidia-glsi.so*
 %exclude %{_libdir}/libnvidia-eglcore.so*
 %exclude %{_libdir}/libnvidia-ptxjitcompiler.so*
+%exclude %{_libdir}/libnvidia-nvvm.so*
+%exclude %{_libdir}/libnvidia-vulkan-producer.so*
 %ifarch x86_64
 %if 0%{?suse_version} > 1310
 %if 0%{?suse_version} < 1330
@@ -724,7 +749,6 @@ fi
 %exclude %{_prefix}/lib/libGLESv2_nvidia.so*
 %endif
 %exclude %{_prefix}/lib/libnvidia-glcore.so*
-%exclude %{_prefix}/lib/libnvidia-ifr.so*
 %exclude %{_prefix}/lib/libnvidia-eglcore.so*
 %exclude %{_prefix}/lib/libnvidia-glsi.so*
 %dir %{_prefix}/lib/vdpau
@@ -766,6 +790,16 @@ fi
 %endif
 %exclude %{_bindir}/nvidia-xconfig
 %exclude %{_prefix}/%{_lib}/libnvidia-cfg.so.*
+%{_bindir}/nvidia-sleep.sh
+/usr/lib/systemd/system/*.service
+%ifarch x86_64
+%config(noreplace) %{_dbus_systemd_dir}/nvidia-dbus.conf
+%endif
+%dir /usr/lib/systemd/system-sleep
+/usr/lib/systemd/system-sleep/nvidia
+%dir /lib/firmware/nvidia
+%dir /lib/firmware/nvidia/%{version}
+/lib/firmware/nvidia/%{version}/gsp.bin
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
@@ -785,11 +819,13 @@ fi
 %{_libdir}/libnvidia-ml.so*
 %{_libdir}/libnvidia-opencl.so*
 %{_libdir}/libnvidia-ptxjitcompiler.so*
+%{_libdir}/libnvidia-nvvm.so*
 %{_bindir}/nvidia-smi
 %{_bindir}/nvidia-cuda-mps-control
 %{_bindir}/nvidia-cuda-mps-server
 %{_bindir}/nvidia-modprobe
 %ifarch x86_64
+%{_bindir}/nvidia-powerd
 %{_prefix}/lib/libcuda.so*
 %{_prefix}/lib/libOpenCL.so*
 %{_prefix}/lib/libnvidia-ml.so*
@@ -807,6 +843,9 @@ fi
 %config /etc/vulkan/icd.d/nvidia_icd.json
 %config /etc/vulkan/implicit_layer.d/nvidia_layers.json
 %config %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
+%config %{_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
+%dir %{_libdir}/gbm
+%{_libdir}/gbm/*
 %dir %{_datadir}/glvnd
 %dir %{_datadir}/glvnd/egl_vendor.d
 %config %{_datadir}/glvnd/egl_vendor.d/10_nvidia.json
@@ -834,13 +873,12 @@ fi
 %{_prefix}/%{_lib}/libGLESv2_nvidia.so*
 %endif
 %{_libdir}/libnvidia-glcore.so*
-%ifnarch aarch64
-%{_libdir}/libnvidia-ifr.so*
 %{_libdir}/libnvidia-fbc.so*
-%endif
 %{_libdir}/libnvidia-egl-wayland.so*
+%{_libdir}/libnvidia-egl-gbm.so*
 %{_libdir}/libnvidia-glsi.so*
 %{_libdir}/libnvidia-eglcore.so*
+%{_libdir}/libnvidia-vulkan-producer.so*
 %{xmodulesdir}/extensions
 %ifarch x86_64
 %if 0%{?suse_version} < 1330
@@ -862,9 +900,6 @@ fi
 %{_prefix}/lib/libGLESv2_nvidia.so*
 %endif
 %{_prefix}/lib/libnvidia-glcore.so*
-%ifnarch aarch64
-%{_prefix}/lib/libnvidia-ifr.so*
-%endif
 %{_prefix}/lib/libnvidia-eglcore.so*
 %{_prefix}/lib/libnvidia-glsi.so*
 %endif
