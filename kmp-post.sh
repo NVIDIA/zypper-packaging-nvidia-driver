@@ -34,11 +34,11 @@ make -f Makefile \
      SYSOUT=/usr/src/linux-obj/$arch/$flavor || RES=1
 popd
 # remove still existing old kernel modules (boo#1174204)
-rm /lib/modules/*/updates/nvidia*.ko
-install -m 755 -d /lib/modules/$kver/updates
+rm /lib/modules/$kver/updates/nvidia*.ko
+install -m 755 -d /lib/modules/%2-$flavor/updates
 install -m 644 /usr/src/kernel-modules/nvidia-%{-v*}-$flavor/nvidia*.ko \
-	/lib/modules/$kver/updates
-depmod $kver
+	/lib/modules/%2-$flavor/updates
+depmod %2-$flavor
 
 %if 0%{?sle_version} >= 150200
 # Sign modules on secureboot systems
@@ -64,7 +64,7 @@ if [ -x /usr/bin/mokutil ]; then
     mokutil --import $pubkey --root-pw
 
     # Sign the Nvidia modules (weak-updates appears to be broken)
-    for i in /lib/modules/$kver/updates/nvidia*.ko; do
+    for i in /lib/modules/%2-$flavor/updates/nvidia*.ko; do
       /lib/modules/$kver/build/scripts/sign-file sha256 $privkey $pubkey $i
     done
 
