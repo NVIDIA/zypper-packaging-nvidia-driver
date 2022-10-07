@@ -350,7 +350,7 @@ install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
   %{buildroot}%{_datadir}/nvidia
 install -d %{buildroot}/lib/firmware/nvidia/%{version}
 %ifarch x86_64 aarch64
-install -m 644 firmware/gsp.bin %{buildroot}/lib/firmware/nvidia/%{version}
+install -m 644 firmware/gsp*.bin %{buildroot}/lib/firmware/nvidia/%{version}
 %endif
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
@@ -800,7 +800,7 @@ fi
 /usr/lib/systemd/system-sleep/nvidia
 %dir /lib/firmware/nvidia
 %dir /lib/firmware/nvidia/%{version}
-/lib/firmware/nvidia/%{version}/gsp.bin
+/lib/firmware/nvidia/%{version}/gsp*.bin
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
