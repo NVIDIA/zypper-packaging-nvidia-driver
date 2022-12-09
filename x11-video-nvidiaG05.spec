@@ -35,6 +35,8 @@
 
 %define _dbus_systemd_dir %{_sysconfdir}/dbus-1/system.d
 
+%global __requires_exclude_from ^.*pkcs.*$
+
 Name:           x11-video-nvidiaG05
 Version:        450.66
 Release:        0
