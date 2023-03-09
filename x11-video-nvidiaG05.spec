@@ -353,6 +353,7 @@ install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
 install -d %{buildroot}/lib/firmware/nvidia/%{version}
 %ifarch x86_64 aarch64
 install -m 644 firmware/gsp.bin %{buildroot}/lib/firmware/nvidia/%{version}
+install -m 644 nvoptix.bin %{buildroot}%{_datadir}/nvidia
 %endif
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
@@ -803,6 +804,9 @@ fi
 %dir /lib/firmware/nvidia
 %dir /lib/firmware/nvidia/%{version}
 /lib/firmware/nvidia/%{version}/gsp.bin
+%ifnarch ppc64le
+%{_datadir}/nvidia/nvoptix.bin
+%endif
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
