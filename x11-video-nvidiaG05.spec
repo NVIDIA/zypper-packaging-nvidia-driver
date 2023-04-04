@@ -282,7 +282,7 @@ ln -snf libnvcuvid.so.1 %{buildroot}%{_libdir}/libnvcuvid.so
 # NVML library for Tesla compute products (new since 270.xx)
 ln -s libnvidia-ml.so.1  %{buildroot}%{_libdir}/libnvidia-ml.so
 # GBM looks for nvidia-drm_gbm.so for the backend. This is provided by libnvidia-allocator.so.
-ln -snf libnvidia-allocator.so.1 %{buildroot}%{_libdir}/gbm/nvidia-drm_gbm.so
+ln -snf ../libnvidia-allocator.so.1 %{buildroot}%{_libdir}/gbm/nvidia-drm_gbm.so
 # EGL/GLES 64bit new since 340.xx
 install libEGL.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
 install libEGL_nvidia.so.* %{buildroot}%{_prefix}/X11R6/%{_lib}
@@ -350,7 +350,7 @@ install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
   %{buildroot}%{_datadir}/nvidia
 install -d %{buildroot}/lib/firmware/nvidia/%{version}
 %ifarch x86_64 aarch64
-install -m 644 firmware/gsp.bin %{buildroot}/lib/firmware/nvidia/%{version}
+install -m 644 firmware/gsp*.bin %{buildroot}/lib/firmware/nvidia/%{version}
 %endif
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
@@ -715,6 +715,7 @@ fi
 %{_libdir}/lib*
 %{_libdir}/vdpau/*
 %exclude %{_libdir}/libcuda.so*
+%exclude %{_libdir}/libcudadebugger.so*
 %exclude %{_libdir}/libOpenCL.so*
 %exclude %{_libdir}/libnvidia-ml.so*
 %exclude %{_libdir}/libnvidia-opencl.so*
@@ -799,7 +800,7 @@ fi
 /usr/lib/systemd/system-sleep/nvidia
 %dir /lib/firmware/nvidia
 %dir /lib/firmware/nvidia/%{version}
-/lib/firmware/nvidia/%{version}/gsp.bin
+/lib/firmware/nvidia/%{version}/gsp*.bin
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
@@ -808,6 +809,7 @@ fi
 %config %{_sysconfdir}/OpenCL/vendors/nvidia.icd
 %{_mandir}/man1/nvidia-cuda-mps-control.1.gz
 %{_libdir}/libcuda.so*
+%{_libdir}/libcudadebugger.so*
 %if (0%{?sle_version} >= 150100 || 0%{?suse_version} >= 1550)
 %dir %{_libdir}/nvidia
 %{_libdir}/nvidia/libOpenCL.so*

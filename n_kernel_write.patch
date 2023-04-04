@@ -1,34 +1,33 @@
 --- kernel/conftest.sh.orig	2019-05-15 14:40:51.082287653 +0200
-+++ kernel/conftest.sh	2019-05-15 14:54:12.948955304 +0200
-@@ -1567,29 +1567,8 @@
-                 rm -f conftest$$.o
-             else
-                 echo "#define NV_KERNEL_WRITE_PRESENT" | append_conftest "function"
--
--                #
--                # Determine the pos argument type, which was changed by
--                # commit e13ec939e96b1 (fs: fix kernel_write prototype) on
--                # 9/1/2017.
--                #
--                echo "$CONFTEST_PREAMBLE
--                #include <linux/fs.h>
--                ssize_t kernel_write(struct file *file, const void *buf,
--                                     size_t count, loff_t *pos)
--                {
--                    return 0;
--                }" > conftest$$.c;
--
--                $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
--                rm -f conftest$$.c
--
--                if [ -f conftest$$.o ]; then
--                    echo "#define NV_KERNEL_WRITE_HAS_POINTER_POS_ARG" | append_conftest "function"
--                    rm -f conftest$$.o
--                else
--                    echo "#undef NV_KERNEL_WRITE_HAS_POINTER_POS_ARG" | append_conftest "function"
--                fi
-+                # hardcode on sle12-sp4/sle12-sp5/sle15/sle15-sp1/Leap15/Leap15.1
-+                echo "#define NV_KERNEL_WRITE_HAS_POINTER_POS_ARG" | append_conftest "function"
-             fi
++++ kernel/conftest.sh	2022-09-02 12:00:00.948955304 -0700
+@@ -1597,28 +1597,8 @@
          ;;
  
+         kernel_write_has_pointer_pos_arg)
+-            #
+-            # Determine the pos argument type, which was changed by
+-            # commit e13ec939e96b1 (fs: fix kernel_write prototype) on
+-            # 9/1/2017.
+-            #
+-            echo "$CONFTEST_PREAMBLE
+-            #include <linux/fs.h>
+-            ssize_t kernel_write(struct file *file, const void *buf,
+-                                 size_t count, loff_t *pos)
+-            {
+-                return 0;
+-            }" > conftest$$.c;
+-
+-	    $CC $CFLAGS -c conftest$$.c > /dev/null 2>&1
+-            rm -f conftest$$.c
+-
+-	    if [ -f conftest$$.o ]; then
+-                echo "#define NV_KERNEL_WRITE_HAS_POINTER_POS_ARG" | append_conftest "function"
+-                rm -f conftest$$.o
+-            else
+-                echo "#undef NV_KERNEL_WRITE_HAS_POINTER_POS_ARG" | append_conftest "function"
+-            fi
++            # hardcode on sle12-sp4/sle12-sp5/sle15/sle15-sp1/Leap15/Leap15.1
++            echo "#define NV_KERNEL_WRITE_HAS_POINTER_POS_ARG" | append_conftest "function"
+         ;;
+ 
+         kernel_read_has_pointer_pos_arg)
