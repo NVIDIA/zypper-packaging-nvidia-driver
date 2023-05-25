@@ -266,6 +266,10 @@ install libcuda* %{buildroot}%{_libdir}
 install libOpenCL* %{buildroot}%{_libdir}
 install libnvcuvid* %{buildroot}%{_libdir}
 install libnvidia-ml* %{buildroot}%{_libdir}
+%ifarch x86_64 aarch64
+mkdir -p %{buildroot}%{_datadir}/nvidia/rim
+install *.swidtag %{buildroot}%{_datadir}/nvidia/rim/
+%endif
 %ifnarch aarch64
 install libnvoptix* %{buildroot}%{_libdir}
 %endif
@@ -672,6 +676,10 @@ fi
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
+%ifarch x86_64 aarch64
+%dir %{_datadir}/nvidia/rim
+%{_datadir}/nvidia/rim/*.swidtag
+%endif
 /lib/firmware/nvidia/%{version}
 %if 0%{?suse_version} > 1010
 %if 0%{?suse_version} < 1330
