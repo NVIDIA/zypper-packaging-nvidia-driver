@@ -35,6 +35,8 @@
 
 %define _dbus_systemd_dir %{_sysconfdir}/dbus-1/system.d
 
+%global __requires_exclude_from ^.*pkcs.*$
+
 Name:           x11-video-nvidiaG05
 Version:        450.66
 Release:        0
@@ -264,6 +266,10 @@ install libcuda* %{buildroot}%{_libdir}
 install libOpenCL* %{buildroot}%{_libdir}
 install libnvcuvid* %{buildroot}%{_libdir}
 install libnvidia-ml* %{buildroot}%{_libdir}
+%ifarch x86_64 aarch64
+mkdir -p %{buildroot}%{_datadir}/nvidia/rim
+install *.swidtag %{buildroot}%{_datadir}/nvidia/rim/
+%endif
 %ifnarch aarch64
 install libnvoptix* %{buildroot}%{_libdir}
 %endif
@@ -351,6 +357,7 @@ install -m 644 nvidia-application-profiles-%{version}-{rc,key-documentation} \
 install -d %{buildroot}/lib/firmware/nvidia/%{version}
 %ifarch x86_64 aarch64
 install -m 644 firmware/gsp*.bin %{buildroot}/lib/firmware/nvidia/%{version}
+install -m 644 nvoptix.bin %{buildroot}%{_datadir}/nvidia
 %endif
 /sbin/ldconfig -n %{buildroot}%{_libdir}
 /sbin/ldconfig -n %{buildroot}%{_libdir}/vdpau
@@ -669,6 +676,10 @@ fi
 %dir %{_datadir}/nvidia
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-rc
 %{_datadir}/nvidia/nvidia-application-profiles-%{version}-key-documentation
+%ifarch x86_64 aarch64
+%dir %{_datadir}/nvidia/rim
+%{_datadir}/nvidia/rim/*.swidtag
+%endif
 /lib/firmware/nvidia/%{version}
 %if 0%{?suse_version} > 1010
 %if 0%{?suse_version} < 1330
@@ -801,6 +812,9 @@ fi
 %dir /lib/firmware/nvidia
 %dir /lib/firmware/nvidia/%{version}
 /lib/firmware/nvidia/%{version}/gsp*.bin
+%ifnarch ppc64le
+%{_datadir}/nvidia/nvoptix.bin
+%endif
 
 %files -n nvidia-computeG05
 %defattr(-,root,root)
